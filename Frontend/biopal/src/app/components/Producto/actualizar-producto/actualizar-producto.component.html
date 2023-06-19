@@ -1,0 +1,51 @@
+<div class="p-d-flex p-jc-center p-ai-center centrar separar">
+  <p-card>
+    <div class="p-card-title" style="font-size: 16px;">Elija Producto</div>
+    <p-dropdown placeholder="Seleccione producto" (onChange)="cargarDatos()" [options]="productosListar" [(ngModel)]="productoSelect" optionLabel="nombre_producto"></p-dropdown>
+  </p-card>
+</div>
+
+<div class="p-d-flex p-jc-center p-ai-center separar">
+<ng-container *ngIf = "seleccion">
+<div ngCOntai class="centrar">
+  <p-card header="Actualizar Producto">
+      <form (submit)="actualizar()">
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input  pattern="[0-9]+" pInputText id="codigo_barras" [(ngModel)]="codigo_barra" readonly disabled  [ngModelOptions]="{standalone: true} "/>
+                  <label htmlFor="codigo_barras">Código de barras</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input pInputText id="nombre_producto" [(ngModel)]="nombre_producto" [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="nombre_producto">Nombre del producto</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+            <span class="p-float-label">
+                <input pInputText id="precio_unitario" [(ngModel)]="precio_unitario" [ngModelOptions]="{standalone: true}"/>
+                <label htmlFor="precio_unitario">Precio Unitario</label>
+            </span>
+        </div>
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input pInputText id="stock" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="stock">Cantidad</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <div class="div-unidad">
+                  <label for="unidad">Unidad de medida:</label>
+              </div>
+              <p-dropdown [style]="{'width': '100%'}" id="unidad" [options]="unidades" [(ngModel)]="selectedUnidad" optionLabel="unidad" [ngModelOptions]="{standalone: true}"></p-dropdown>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <p-button type="submit" label="Actualizar"></p-button>
+          </div>
+      </form>
+  </p-card>
+</div>
+</ng-container>
+</div>
+

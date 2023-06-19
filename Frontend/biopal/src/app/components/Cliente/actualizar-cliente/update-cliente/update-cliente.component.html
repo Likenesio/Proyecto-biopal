@@ -1,0 +1,59 @@
+
+<div class="p-d-flex p-jc-center p-ai-center centrar separar">
+  <p-card>
+    <div class="p-card-title" style="font-size: 16px;">Elija Cliente</div>
+    <p-dropdown placeholder="Seleccione cliente" (onChange)="cargarDatos()" [options]="clientesListar" [(ngModel)]="clienteSelect" optionLabel="nombre_cliente"></p-dropdown>
+  </p-card>
+</div>
+
+
+<div class="p-d-flex p-jc-center p-ai-center separar">
+<ng-container *ngIf = "seleccion">
+<div ngContainer class="centrar">
+  <p-card header="Actualizar cliente">
+      <form (submit)="actualizar()">
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input  pattern="[0-9]{8}-[0-9kK]{1}" pInputText id="rut" [(ngModel)]="rut" readonly disabled [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="Rut">Rut</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input pInputText id="nombre_cliente" [(ngModel)]="nombre_cliente" [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="nombre_cliente">Nombre del cliente</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input pattern="^\+\d{11}$"  placeholder="+56911111111" pInputText id="contacto" [(ngModel)]="contacto" [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="contacto">Teléfono</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <span class="p-float-label">
+                  <input pInputText id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/>
+                  <label htmlFor="email">Email</label>
+              </span>
+          </div>
+          <div class="card flex justify-content-center separar">
+            <span class="p-float-label">
+                <input pInputText id="direccion" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}"/>
+                <label htmlFor="direccion">Dirección</label>
+            </span>
+        </div>
+          <div class="card flex justify-content-center separar">
+              <div class="div-comuna">
+                  <label for="comuna">Comuna:</label>
+              </div>
+              <p-dropdown [style]="{'width': '100%'}" id="comuna" [options]="comunas" [(ngModel)]="selectedComuna" optionLabel="comuna" [ngModelOptions]="{standalone: true}"></p-dropdown>
+          </div>
+          <div class="card flex justify-content-center separar">
+              <p-button type="submit" label="Actualizar"></p-button>
+          </div>
+      </form>
+  </p-card>
+</div>
+</ng-container>
+</div>
+
