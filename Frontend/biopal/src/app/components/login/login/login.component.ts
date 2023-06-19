@@ -1,43 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../../service/usuario-service/usuario.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+
 import { AuthService } from 'src/app/service/auth-service/auth.service';
-
-interface Rol{
-  rol:string
-}
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  correo: any;
-  contrasenia: any;
+export class LoginComponent {
+  public correo: any;
+  public contrasenia:any;
 
-  constructor(private authService: AuthService, private router:Router,public usuarioService: UsuarioService) {
+  constructor(private router: Router, private authService: AuthService) {}
 
+
+
+  login(): void {
+
+    const credentials = {
+      correo: this.correo,
+      contrasenia: this.contrasenia
+    };
+    console.log(credentials);
+    this.authService.login(credentials);
+    // Verificar si el token se guarda en el almacenamiento local
+    const storedToken = localStorage.getItem('token');
+    console.log('Token almacenado:', storedToken);
+    // Redirigir al componente 'navbar' después de iniciar sesión
+    this.router.navigate(['productos/ingresar']);
   }
-
-  ngOnInit() {
-
-  }
-  login() {
-    const usuario = { correo: this.correo, contrasenia: this.contrasenia };
-    this.usuarioService.login(usuario).subscribe((data) => {
-      console.log(data);
-      if (data.usuario.rol === 'Administrador') {
-        this.router.navigate(['navbar']);
-      } else if (data.usuario.rol === 'Vendedor') {
-        this.router.navigate(['/productos/actualizar']);
-      } else {
-        // Redirigir a una página por defecto en caso de que el rol no coincida
-        this.router.navigate(['/productos/actualizar']);
-      }
-
-      this.authService.updateLoginStatus(true);
-    });
-  }
-
 }

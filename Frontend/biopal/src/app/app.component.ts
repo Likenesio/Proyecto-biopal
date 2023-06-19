@@ -8,11 +8,4 @@ import { AuthService } from './service/auth-service/auth.service';
 })
 export class AppComponent {
   title = 'biopal';
-  isLoggedIn: boolean = false;
-
-  constructor(private authService: AuthService) {
-    this.authService.isLoggedIn.subscribe((data) => {
-      this.isLoggedIn = true;
-    });
-  }
 }

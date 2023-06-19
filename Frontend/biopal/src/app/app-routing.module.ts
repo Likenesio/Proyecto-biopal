@@ -7,6 +7,7 @@ import { ListarClienteComponent } from './components/Cliente/listar-cliente/list
 import { CrearClienteComponent } from './components/Cliente/ingresar-cliente/crear-cliente/crear-cliente.component';
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
+import { LoginComponent } from './components/login/login/login.component';
 
 
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'cliente/crear', component: CrearClienteComponent},
   {path:'cliente/update', component: UpdateClienteComponent},
   {path:'usuario/crear', component: CrearUsuarioComponent},
+  {path:'login', component: LoginComponent}
 
 
 ];

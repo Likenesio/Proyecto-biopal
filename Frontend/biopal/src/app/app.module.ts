@@ -22,6 +22,7 @@ import { ListarClienteComponent } from './components/Cliente/listar-cliente/list
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
 import { LoginComponent } from './components/login/login/login.component';
+import { AuthService } from './service/auth-service/auth.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { LoginComponent } from './components/login/login/login.component';
 
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
