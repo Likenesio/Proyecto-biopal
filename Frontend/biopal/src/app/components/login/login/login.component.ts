@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { Router } from '@angular/router';
 @Component({
@@ -27,6 +26,6 @@ export class LoginComponent {
     const storedToken = localStorage.getItem('token');
     console.log('Token almacenado:', storedToken);
     // Redirigir al componente 'navbar' después de iniciar sesión
-    this.router.navigate(['productos/ingresar']);
+    this.router.navigate(['usuario/crear']);
   }
 }

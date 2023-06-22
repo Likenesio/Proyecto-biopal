@@ -3,21 +3,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
   private token: any;
-  private currentUser: any | null = null;
+  private currentUser: any;
   private apiUrl = 'http://localhost:5000/api/usuario';
   public isAdmin: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   login(credentials: any): void {
-    this.http.post<any>(`${this.apiUrl}/login`, credentials).subscribe(
-      (response) => {
+    this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
+      map(response => response.token)
+    ).subscribe(
+      (token) => {
         // Guardar el token en el almacenamiento local
-        this.token = response.token;
+        this.token = token;
         localStorage.setItem('token', this.token);
         // Decodificar el token
         const decodedToken: any = jwt_decode(this.token);
@@ -31,7 +34,7 @@ export class AuthService {
 
             // Verificar si el usuario es un administrador y asignar el valor correspondiente a isAdmin
             // Por ejemplo, si el rol del usuario es 'admin', se considera un administrador
-            this.isAdmin = this.currentUser?.role === 'admin';
+            this.isAdmin = this.currentUser?.role === 'Administrador';
           },
           (error) => {
             console.error('Error al obtener los datos del usuario', error);

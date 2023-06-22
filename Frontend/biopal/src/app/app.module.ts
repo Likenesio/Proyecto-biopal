@@ -22,6 +22,7 @@ import { ListarClienteComponent } from './components/Cliente/listar-cliente/list
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
 import { LoginComponent } from './components/login/login/login.component';
+import { PedidoComponent } from './components/Pedidos/pedido/pedido.component';
 import { AuthService } from './service/auth-service/auth.service';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { AuthService } from './service/auth-service/auth.service';
     ListarClienteComponent,
     UpdateClienteComponent,
     CrearUsuarioComponent,
+    PedidoComponent,
     LoginComponent
 
 

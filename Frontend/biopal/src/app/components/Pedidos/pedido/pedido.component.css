@@ -1,0 +1,14 @@
+.separar{
+  margin-top: 20px;
+}
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropdown-unidad{
+  width:100%
+}
+.div-unidad{
+  margin-bottom: 5px;
+}
