@@ -81,8 +81,8 @@ function buscar(req, res){
     .populate("cliente")
     .populate("usuario")
     .exec()
-    .then((pp)=>{
-        res.status(200).send({pp})
+    .then((p)=>{
+        res.status(200).send({p})
     })
     .catch((err)=>{
         return res

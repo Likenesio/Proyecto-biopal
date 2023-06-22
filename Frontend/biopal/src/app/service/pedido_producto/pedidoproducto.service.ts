@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PedidoProducto } from 'models/pedido-producto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,10 @@ export class PedidoProductoService {
 
   constructor(private http: HttpClient) {}
 
-  insertPedidoProducto(pedidoProducto: PedidoProducto): Observable<PedidoProducto> {
-    return this.http.post<PedidoProducto>(this.apiUrl, pedidoProducto);
+  insertPedidoProducto(pedidoProducto: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, pedidoProducto);
+  }
+  buscarPP(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }
