@@ -17,4 +17,7 @@ export class PedidoService {
   buscarP(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+  listarP(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
 }

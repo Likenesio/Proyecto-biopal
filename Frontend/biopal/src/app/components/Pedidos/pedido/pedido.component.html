@@ -1,6 +1,64 @@
-<div class="p-d-flex p-jc-center p-ai-center centrar separar">
-  <p-card>
-    <div class="p-card-title" style="font-size: 16px;">Elija Producto</div>
-    <p-dropdown placeholder="Seleccione producto" (onChange)="buscarDatosP()"  [(ngModel)]="pSelect" optionLabel="nombre_cliente"></p-dropdown>
-  </p-card>
+<p-card header="Ingresar Producto">
+<form (submit)="pedidoProductoInsert()">
+  <div class="p-d-flex p-jc-center p-ai-center separar">
+    <p-card>
+      <div class="p-card-title" style="font-size: 16px;">Elija</div>
+      <p-dropdown placeholder="Seleccione" (onChange)="buscarDatosP()" [options]="pListar"  [(ngModel)]="pSelect" optionLabel="nombre_cliente"></p-dropdown>
+    </p-card>
+  </div>
+
+  <div class="card flex justify-content-center separar">
+    <span class="p-float-label">
+        <input  pattern="[0-9]+" pInputText id="producto" [(ngModel)]="producto" [ngModelOptions]="{standalone: true}"/>
+        <label htmlFor="producto">Código de barras</label>
+    </span>
+  </div>
+  <div class="card flex justify-content-center separar">
+    <p-inputNumber [(ngModel)]="cantidad_producto" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+  </div>
+  <div class="card flex justify-content-center separar">
+    <p-button type="submit" label="Guardar"></p-button>
+  </div>
+
+</form>
+</p-card>
+<div class="card separar margen espacio">
+  <p-table
+      [value]="listarProductos"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 25, 50]"
+  >
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Nombre Producto</th>
+              <th>Precio Unitario</th>
+              <th>Unidad</th>
+              <th>Cantidad</th>
+              <th>Sub Total</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-producto>
+          <tr>
+              <td>{{ rescatarProducto(producto.producto)}}</td>
+              <td>{{ producto.precio_unitario }}</td>
+              <td>{{ producto.stock }}</td>
+              <td>{{ producto.unidad }}</td>
+
+
+          </tr>
+
+</ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-table>
 </div>
+

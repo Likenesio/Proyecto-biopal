@@ -42,7 +42,7 @@ this.unidades = [
 this.productosService.listarProductos().subscribe((date)=>{
     this.respuesta = date;
     this.productosListar = this.respuesta.product;
-    
+
 })
 
 }

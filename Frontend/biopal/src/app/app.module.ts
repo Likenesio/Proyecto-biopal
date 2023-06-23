@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 import { MenubarModule } from 'primeng/menubar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -54,7 +55,8 @@ import { AuthService } from './service/auth-service/auth.service';
     TableModule,
     HttpClientModule,
     MenubarModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    InputNumberModule
 
 
 

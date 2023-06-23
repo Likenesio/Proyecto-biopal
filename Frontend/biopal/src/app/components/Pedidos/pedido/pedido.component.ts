@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { PedidoProductoService } from 'src/app/service/pedido_producto/pedidoproducto.service';
+import { ClienteService } from '../../../service/cliente-service/cliente.service';
+import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
+import { ProductosService } from 'src/app/service/productos.service';
 
+interface pedidoProducto{
+  producto: string;
+  cantidad_produto:Number;
+  subtotal:Number;
+}
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
@@ -19,17 +27,45 @@ seleccion: boolean=false;
 pPSelect:any;
 respuestaBusqueda:any
 pSelect:any;
+respuesta: any;
+pListar: any [] =[];
+listarProductos: pedidoProducto [] = [];
 
 
-
-  constructor(
+constructor(
     private pedidoService: PedidoService,
     private pedidoProductoService: PedidoProductoService,
+    private clienteService:ClienteService,
+    private usuarioService:UsuarioService,
+    private productosService:ProductosService
   ) { }
+  rescatarProducto(id:any){
+    this.productosService.buscarProductos(id).subscribe(
+      data =>{
+        console.log(data);
+        return data.product;
+
+      }
+    )
+  }
+  pedidoProductoInsert(){
+    this.listarProductos.push({producto: this.producto._id, cantidad_produto:this.cantidad_producto, subtotal:this.subtotal})
+    console.log(this.listarProductos)
+  }
 
   ngOnInit(): void {
 
+
+    this.clienteService.listarClientes().subscribe(
+      (data) => {
+        this.respuesta=data;
+        this.pListar = this.respuesta.client;
+
+      })
+
   }
+
+
   buscarDatosPP(){
     this.seleccion = true;
     this.pedidoProductoService.buscarPP(this.pPSelect._id).subscribe(
@@ -45,8 +81,9 @@ pSelect:any;
     this.pedidoService.buscarP(this.pSelect._id).subscribe(
       data=>{
         this.respuestaBusqueda=data;
-        this.cliente=this.respuestaBusqueda.p.nombre_cliente;
-        this.usuario=this.respuestaBusqueda.p.nombre_usuario;
+        this.cliente=this.respuestaBusqueda.client.nombre_cliente;
+        this.usuario=this.respuestaBusqueda.usuario.nombre_usuario;
+        this.numero_pedido=this.respuestaBusqueda.p.numero_pedido;
       }
     )
 
