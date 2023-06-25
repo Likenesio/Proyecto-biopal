@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenubarModule } from 'primeng/menubar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -25,6 +26,9 @@ import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/cre
 import { LoginComponent } from './components/login/login/login.component';
 import { PedidoComponent } from './components/Pedidos/pedido/pedido.component';
 import { AuthService } from './service/auth-service/auth.service';
+import { AuthGuard } from './auth.guard';
+import { AuthInterceptor } from './auth.interceptor';
+import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import { AuthService } from './service/auth-service/auth.service';
     UpdateClienteComponent,
     CrearUsuarioComponent,
     PedidoComponent,
-    LoginComponent
+    LoginComponent,
+    DenegateComponent
 
 
   ],
@@ -62,7 +67,10 @@ import { AuthService } from './service/auth-service/auth.service';
 
 
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

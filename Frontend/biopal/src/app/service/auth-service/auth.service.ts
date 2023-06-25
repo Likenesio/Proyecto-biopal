@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import * as jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +33,18 @@ export class AuthService {
   // Método para cerrar sesión
   logout(): void {
     localStorage.removeItem('token');
+  }
+  
+  obtenerRol(): string | null {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      const rol = decodedToken.rol; // Reemplaza "rol" con la propiedad correspondiente en tu token JWT
+
+      return rol;
+    }
+
+    return null;
   }
 }

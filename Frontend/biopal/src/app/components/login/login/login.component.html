@@ -1,21 +1,27 @@
-<div class="login()">
-  <form class="custom-form" (submit)="login()">
-    <h1>Login</h1>
-    <input
-      type="correo"
-      [(ngModel)]="correo"
-      name="email"
-      placeholder="Email"
-      required
-    />
-    <input
-      type="contrasenia"
-      [(ngModel)]="contrasenia"
-      name="contrasenia"
-      placeholder="contrasenia"
-      required
-    />
-    <button type="submit">Log in</button>
-  </form>
-</div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <script
+      src="https://kit.fontawesome.com/66aa7c98b3.js"
+      crossorigin="anonymous"
+    ></script>
 
+  </head>
+  <body>
+
+    <div class="container">
+      <form class="form-1" (submit)="login()">
+        <h1>Iniciar Sesión</h1>
+        <label for="correo">Email</label>
+        <input  type="Email" placeholder="example@gmail.com" name="correo"  [(ngModel)]="correo" required />
+        <label  for="contrasenia">Contraseña</label>
+        <input  type="password" name="contrasenia" [(ngModel)]="contrasenia" required />
+        <button type="submit">Ingresar</button>
+
+      </form>
+    </div>
+  </body>
+</html>

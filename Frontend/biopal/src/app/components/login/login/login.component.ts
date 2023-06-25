@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   }
 
+
   login() {
 
     //Rescata los datos del formulario
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       //Para verificar si recibió el token
       //alert("Sesión exitosa, \nToken:"+data.token);
       this.router.navigate(['/productos/listar']);
-      this.router.navigate(['/productos/listar']);
+
 
     },
     error => {

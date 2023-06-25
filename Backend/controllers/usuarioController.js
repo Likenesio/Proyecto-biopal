@@ -105,32 +105,32 @@ const buscar = (req, res) => {
 };
 
 const login = async (req, res) => {
-    const { correo, contrasenia} = req.body;
-    // Buscar al usuario en la base de datos por correo electrónico y contraseña
-    try {
-        
-        const usuario = await Usuario.findOne({ correo })
-        if (!usuario) {
-            // Si no se encuentra el usuario, enviar una respuesta de error
-            res.status(404).send({ message: 'Usuario no encontrado' });
-        } 
-        const passMatch = await bcrypt.compare(contrasenia, usuario.contrasenia)
-        if(!passMatch){
-            res.status(401).send ({message: 'Contraseña invalida'});
-        }
-        //creación de token( id, secreto y expiración)
-        const token = jwt.sign({userId: usuario._id, rol: usuario.rol}, 'penelope', {expiresIn: '7d'});
-          
-        //enviar token
-        res.json({token})
+  const { correo, contrasenia} = req.body;
 
-     } catch (error) {
-
-         res.status(500).send({ message: 'Error al iniciar sesión' });
-        
-     }
+  try {
+      const usuario = await Usuario.findOne({ correo });
       
-  };
+      if (!usuario) {
+          res.status(404).json({ message: "Correo no encontrado"});
+          return;
+      } 
+
+      const passMatch = await bcrypt.compare(contrasenia, usuario.contrasenia);
+      
+      if (!passMatch) {
+          res.status(401).send({ message: 'Contraseña inválida' });
+          return;
+      }
+
+      const token = jwt.sign({ userId: usuario._id, rol: usuario.rol }, 'penelope', { expiresIn: '7d' });
+      res.json({ token });
+  } catch (error) {
+      res.status(500).send({ message: 'Error al iniciar sesión', error });
+      return;
+  }
+};
+
+      
 
   module.exports = { insert,
      eliminar, 

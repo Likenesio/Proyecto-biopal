@@ -8,19 +8,21 @@ import { CrearClienteComponent } from './components/Cliente/ingresar-cliente/cre
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
 import { LoginComponent } from './components/login/login/login.component';
+import { DenegateComponent } from './components/denegate/denegate/denegate.component';
+import { RoleGuard } from './role.guard';
 
 
 
 
 const routes: Routes = [
-  {path:'productos/listar', component: ListarProductosComponent},
-  {path: 'productos/ingresar', component: IngresarProductoComponent},
+  {path:'productos/listar', component: ListarProductosComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
+  {path: 'productos/ingresar', component: IngresarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'productos/actualizar', component: ActualizarProductoComponent},
   {path:'cliente/listar', component: ListarClienteComponent},
   {path:'cliente/crear', component: CrearClienteComponent},
   {path:'cliente/update', component: UpdateClienteComponent},
   {path:'usuario/crear', component: CrearUsuarioComponent},
-  {path:'login', component: LoginComponent}
+  {path:'denegate', component : DenegateComponent}
 
 
 ];
