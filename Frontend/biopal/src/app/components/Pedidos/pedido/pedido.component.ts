@@ -5,7 +5,7 @@ import { ClienteService } from '../../../service/cliente-service/cliente.service
 import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
 import { ProductosService } from 'src/app/service/productos.service';
 
-interface pedidoProducto{
+ interface pedidoProducto{
   producto: string;
   cantidad_produto:Number;
   subtotal:Number;

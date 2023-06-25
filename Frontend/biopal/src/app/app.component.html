@@ -1,4 +1,8 @@
-<app-pedido></app-pedido>
-
+<ng-container *ngIf="isLoggedIn">
+  <app-navbar></app-navbar>
+</ng-container>
+<ng-container *ngIf = "!isLoggedIn">
+    <app-login></app-login>
+</ng-container>
 
 

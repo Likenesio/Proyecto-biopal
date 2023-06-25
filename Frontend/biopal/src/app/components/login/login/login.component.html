@@ -1,10 +1,10 @@
-<div class="login">
+<div class="login()">
   <form class="custom-form" (submit)="login()">
     <h1>Login</h1>
     <input
       type="correo"
       [(ngModel)]="correo"
-      name="correo"
+      name="email"
       placeholder="Email"
       required
     />
@@ -12,7 +12,7 @@
       type="contrasenia"
       [(ngModel)]="contrasenia"
       name="contrasenia"
-      placeholder="Password"
+      placeholder="contrasenia"
       required
     />
     <button type="submit">Log in</button>

@@ -1,31 +1,48 @@
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/service/auth-service/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../../service/usuario-service/usuario.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
+import { window } from 'rxjs';
+
+interface Rol{
+  rol:string
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  public correo: any;
-  public contrasenia:any;
+export class LoginComponent implements OnInit {
+  correo: any;
+  contrasenia: any;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private authService: AuthService, private router:Router, private usuarioService: UsuarioService) {
 
-
-
-  login(): void {
-
-    const credentials = {
-      correo: this.correo,
-      contrasenia: this.contrasenia
-    };
-    console.log(credentials);
-    this.authService.login(credentials);
-    // Verificar si el token se guarda en el almacenamiento local
-    const storedToken = localStorage.getItem('token');
-    console.log('Token almacenado:', storedToken);
-    // Redirigir al componente 'navbar' después de iniciar sesión
-    this.router.navigate(['usuario/crear']);
   }
+
+  login() {
+
+    //Rescata los datos del formulario
+    const usuario = { correo: this.correo, contrasenia: this.contrasenia };
+    //Llama el servicio del login y envía los datos del formulario
+    this.usuarioService.login(usuario).subscribe((data) => {
+      //Rescata el token recibido y lo envía a la función del servicio que almacena el token
+      this.authService.saveToken(data.token)
+      //Para verificar si recibió el token
+      //alert("Sesión exitosa, \nToken:"+data.token);
+      this.router.navigate(['/productos/listar']);
+      this.router.navigate(['/productos/listar']);
+
+    },
+    error => {
+      //Para mostrar el caso de falla
+      alert("Error al iniciar sesión")
+    });
+
+  }
+  ngOnInit() {
+
+  }
+
 }

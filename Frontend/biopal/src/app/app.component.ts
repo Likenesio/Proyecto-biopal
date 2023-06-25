@@ -8,4 +8,11 @@ import { AuthService } from './service/auth-service/auth.service';
 })
 export class AppComponent {
   title = 'biopal';
+  isLoggedIn: boolean = false;
+
+  constructor(private authService: AuthService) {}
+  ngOnInit(): void {
+    //Verifica si hay sesión abierta
+    this.isLoggedIn = this.authService.isLoggedIn()
+  }
 }
