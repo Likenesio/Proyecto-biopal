@@ -15,13 +15,13 @@ import { RoleGuard } from './role.guard';
 
 
 const routes: Routes = [
-  {path:'productos/listar', component: ListarProductosComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
+  {path:'productos/listar', component: ListarProductosComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path: 'productos/ingresar', component: IngresarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
-  {path:'productos/actualizar', component: ActualizarProductoComponent},
-  {path:'cliente/listar', component: ListarClienteComponent},
-  {path:'cliente/crear', component: CrearClienteComponent},
-  {path:'cliente/update', component: UpdateClienteComponent},
-  {path:'usuario/crear', component: CrearUsuarioComponent},
+  {path:'productos/actualizar', component: ActualizarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
+  {path:'cliente/listar', component: ListarClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
+  {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
+  {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
+  {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
   {path:'denegate', component : DenegateComponent}
 
 
