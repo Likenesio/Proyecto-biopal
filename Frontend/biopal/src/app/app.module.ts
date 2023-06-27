@@ -29,6 +29,7 @@ import { AuthService } from './service/auth-service/auth.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DenegateComponent } from './components/denegate/denegate/denegate.compo
     HttpClientModule,
     MenubarModule,
     SweetAlert2Module,
-    InputNumberModule
+    InputNumberModule,
+    NgbModule
 
 
 
