@@ -15,6 +15,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
+import {MatInputModule} from '@angular/material/input';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
 import { ActualizarProductoComponent } from './components/Producto/actualizar-producto/actualizar-producto.component';
@@ -29,7 +32,8 @@ import { AuthService } from './service/auth-service/auth.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
   declarations: [
@@ -63,7 +67,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MenubarModule,
     SweetAlert2Module,
     InputNumberModule,
-    NgbModule
+    NgbModule,
+    MatInputModule
 
 
 

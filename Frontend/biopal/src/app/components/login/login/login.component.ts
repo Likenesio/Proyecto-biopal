@@ -3,6 +3,7 @@ import { UsuarioService } from '../../../service/usuario-service/usuario.service
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { window } from 'rxjs';
+import Swal from 'sweetalert2';
 
 interface Rol{
   rol:string
@@ -37,8 +38,12 @@ export class LoginComponent implements OnInit {
 
     },
     error => {
-      //Para mostrar el caso de falla
-      alert("Error al iniciar sesión")
+     Swal.fire({
+     icon: 'error',
+     title: 'Oops...',
+     text: 'El email o contraseña son inválidos',
+     footer: '<a>Intenta con un email o contraseña distinto</a>'
+    })
     });
 
   }
