@@ -17,6 +17,11 @@ import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {MatInputModule} from '@angular/material/input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -32,6 +37,7 @@ import { AuthService } from './service/auth-service/auth.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
+import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
 
 
 
@@ -48,7 +54,8 @@ import { DenegateComponent } from './components/denegate/denegate/denegate.compo
     CrearUsuarioComponent,
     PedidoComponent,
     LoginComponent,
-    DenegateComponent
+    DenegateComponent,
+    DashboardComponent
 
 
   ],
@@ -68,8 +75,12 @@ import { DenegateComponent } from './components/denegate/denegate/denegate.compo
     SweetAlert2Module,
     InputNumberModule,
     NgbModule,
-    MatInputModule
-
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatButtonModule
 
 
 
