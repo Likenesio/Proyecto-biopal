@@ -7,9 +7,9 @@ import { ListarClienteComponent } from './components/Cliente/listar-cliente/list
 import { CrearClienteComponent } from './components/Cliente/ingresar-cliente/crear-cliente/crear-cliente.component';
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
-import { LoginComponent } from './components/login/login/login.component';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 import { RoleGuard } from './role.guard';
+import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
 
 
 
@@ -22,6 +22,7 @@ const routes: Routes = [
   {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
+  {path:'home', component : DashboardComponent},
   {path:'denegate', component : DenegateComponent}
 
 

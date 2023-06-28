@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.authService.saveToken(data.token)
       //Para verificar si recibió el token
       //alert("Sesión exitosa, \nToken:"+data.token);
-      this.router.navigate(['/productos/listar']);
+      this.router.navigate(['home']);
 
 
     },

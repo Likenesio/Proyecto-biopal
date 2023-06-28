@@ -1,10 +1,14 @@
+
 .example-spacer {
   flex: 1 1 auto;
+
 }
 
 .mat-sidenav-container
 {
   height: calc(100vh - 65px);
+  background-color: aliceblue;
+ 
 }
 
 
@@ -12,6 +16,7 @@
 {
 background: #065e28;
 color: white;
+background-size: 100%100%100%;
 }
 
 .mat-sidenav{
@@ -81,3 +86,4 @@ margin-top: 16px;
 margin-bottom: 16px;
 background-color: white;
 }
+
