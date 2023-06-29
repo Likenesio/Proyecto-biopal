@@ -22,6 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -75,12 +76,15 @@ import { DashboardComponent } from './components/dashboard/Principal/dashboard/d
     SweetAlert2Module,
     InputNumberModule,
     NgbModule,
+
+    
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
 
 
 

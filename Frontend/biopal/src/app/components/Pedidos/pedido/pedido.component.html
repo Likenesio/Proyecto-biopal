@@ -1,3 +1,4 @@
+<!--
 <p-card header="Ingresar Producto">
 <form (submit)="pedidoProductoInsert()">
   <div class="p-d-flex p-jc-center p-ai-center separar">
@@ -59,4 +60,70 @@
     </ng-template>
 </p-table>
 </div>
+-->
+<form>
+<div class="card flex justify-content-center mat-card">
 
+<div>
+      <div class="p-card-title" class="input-cliente" style="font-size: 16px;">Cliente:</div>
+      <p-dropdown class="card-cliente" placeholder="Seleccione" (onChange)="buscarDatosP()" [options]="pListar"  [(ngModel)]="pSelect" optionLabel="nombre_cliente"></p-dropdown>
+</div>
+
+
+<div>
+      <div  class="p-card-title div-cod" style="font-size: 16px;">Código de barra:</div>
+      <span class="p-float-label codBarra">
+          <input  pattern="[0-9]+" pInputText id="producto" [(ngModel)]="producto" [ngModelOptions]="{standalone: true}"/>
+          <label  htmlFor="producto">Agregar producto</label>
+      </span>
+</div>
+
+<div>
+  <label class="mb-2 block font-bold label-number" style="font-size: 16px;" for="stacked">Cantidad producto:</label>
+  <p-inputNumber class="input-number" [showButtons]="true" inputId="stacked"> </p-inputNumber>
+</div>
+
+<div class="card flex justify-content-center button-submit">
+  <p-button label="Realizar pedido" [disabled]="false"></p-button>
+</div>
+
+<div class="card table">
+    <p-table
+        [value]="listarProductos"
+        [paginator]="true"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre Producto</th>
+                <th>Precio Unitario</th>
+                <th>Unidad</th>
+                <th>Cantidad</th>
+                <th>Sub Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <td>{{ rescatarProducto(producto.producto)}}</td>
+                <td>{{ producto.precio_unitario }}</td>
+                <td>{{ producto.stock }}</td>
+                <td>{{ producto.unidad }}</td>
+                <td>{{ producto.unidad }}</td>
+            </tr>
+
+  </ng-template>
+        <ng-template pTemplate="paginatorleft">
+          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+  </div>
+</div>
+
+</form>

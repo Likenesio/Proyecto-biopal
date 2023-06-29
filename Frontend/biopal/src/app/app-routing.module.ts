@@ -10,11 +10,14 @@ import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/cre
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 import { RoleGuard } from './role.guard';
 import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login/login.component';
 
 
 
 
 const routes: Routes = [
+  {path:'', redirectTo:'/login', pathMatch: 'full'},
+  {path:'dashboard', component : DashboardComponent},
   {path:'productos/listar', component: ListarProductosComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path: 'productos/ingresar', component: IngresarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'productos/actualizar', component: ActualizarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
@@ -22,7 +25,6 @@ const routes: Routes = [
   {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
-  {path:'home', component : DashboardComponent},
   {path:'denegate', component : DenegateComponent}
 
 
