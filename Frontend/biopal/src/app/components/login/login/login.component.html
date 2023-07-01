@@ -28,26 +28,28 @@
 </html>
 -->
 
-<h1 class="h1-tittle">Biopal</h1>
 
+<h1 class="h1-tittle">Biopal</h1>
+<div>
+<form class="example-form" (submit)="login()">
 <mat-card-content class="background">
-  <mat-card class="mat-elevation-z100 card">
-    <form class="example-form" (submit)="login()">
+  <h1 class="h1-tittle">Biopal</h1>
+  <mat-card class="card">
       <h1>Login</h1>
       <div>
         <mat-form-field class="example-full-width">
-          <input type="email" matInput placeholder="example@gmail.com" name="email" [(ngModel)]="correo" required>
-          <mat-label>Correo electrónico</mat-label>
+          <input type="Email" matInput placeholder="example@gmail.com" name="correo" [(ngModel)]="correo" required/>
+          <mat-label for ="correo">Correo electrónico</mat-label>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field class="example-full-width">
-          <input type="password" matInput placeholder="Contraseña" name="password" [(ngModel)]="contrasenia" required>
-          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput placeholder="Contraseña" name="contrasenia" [(ngModel)]="contrasenia" required/>
+          <mat-label for="contrasenia">Contraseña</mat-label>
         </mat-form-field>
       </div>
       <button mat-raised-button color="primary" type="submit">Enviar</button>
-    </form>
   </mat-card>
 </mat-card-content>
-
+</form>
+</div>

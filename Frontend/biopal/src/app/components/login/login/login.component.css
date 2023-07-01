@@ -5,7 +5,6 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: -1;
   background-image: radial-gradient(ellipse farthest-corner at -300px 140px , #065e28 55%, rgba(0, 0, 0, 0) 0%, white 0%);
   background-repeat: no-repeat;
   background-attachment: fixed;
