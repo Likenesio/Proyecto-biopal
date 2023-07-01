@@ -22,7 +22,7 @@ cliente: any;
 usuario: any;
 producto:any;
 pedido:any;
-cantidad_producto:any;
+cantidad_producto: any;
 subtotal:any;
 seleccion: boolean=false;
 pPSelect:any;
@@ -48,6 +48,21 @@ constructor(
 
       }
     )
+  }
+  pedProductoInsert() {
+    if (this.producto && this.cantidad_producto && this.subtotal) {
+      this.listarProductos.push({
+        producto: this.producto._id,
+        cantidad_produto: this.cantidad_producto, 
+        subtotal: this.subtotal
+      });
+      console.log(this.listarProductos);
+
+      // Limpiar los valores después de agregar el producto
+      this.producto = null;
+      this.cantidad_producto = null;
+      this.subtotal = null;
+    }
   }
   pedidoProductoInsert(){
     this.listarProductos.push({producto: this.producto._id, cantidad_produto:this.cantidad_producto, subtotal:this.subtotal})

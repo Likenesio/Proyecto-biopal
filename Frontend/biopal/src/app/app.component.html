@@ -1,10 +1,12 @@
 <!--
-  <ng-container *ngIf = "!isLoggedIn">
-  <app-login></app-login>
-  </ng-container>
-  <ng-container *ngIf="isLoggedIn">
+  <app-pedido></app-pedido>
   <app-navbar></app-navbar>
-  </ng-container>
-  <app-dashboard></app-dashboard>
+
 -->
-<app-pedido></app-pedido>
+<ng-container *ngIf = "!isLoggedIn">
+  <app-login></app-login>
+</ng-container>
+<ng-container *ngIf="isLoggedIn">
+  <app-dashboard></app-dashboard>
+</ng-container>
+

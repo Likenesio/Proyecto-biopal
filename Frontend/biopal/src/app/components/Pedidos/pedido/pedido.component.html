@@ -73,7 +73,7 @@
 <div>
       <div  class="p-card-title div-cod" style="font-size: 16px;">Código de barra:</div>
       <span class="p-float-label codBarra">
-          <input  pattern="[0-9]+" pInputText id="producto" [(ngModel)]="producto" [ngModelOptions]="{standalone: true}"/>
+          <input  pattern="[0-9]+" pInputText id="producto" [(ngModel)]="producto" (ngModelChange)="pedProductoInsert()" [ngModelOptions]="{standalone: true}"/>
           <label  htmlFor="producto">Agregar producto</label>
       </span>
 </div>
