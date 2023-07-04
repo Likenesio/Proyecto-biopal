@@ -23,6 +23,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -77,14 +83,20 @@ import { DashboardComponent } from './components/dashboard/Principal/dashboard/d
     InputNumberModule,
     NgbModule,
 
-    
+
+
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatDividerModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatTreeModule,
+    MatListModule,
+    MatMenuModule,
+    MatExpansionModule,
+
 
 
 

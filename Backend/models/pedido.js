@@ -1,13 +1,26 @@
 'use strict'
-
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const pedidoSchema = schema( 
 {
-            
             numero_pedido : {
                 type: Number,
-                required: true
+                required: true,
+                unique:true,
+                default: 0
+            },
+
+            estado:{
+                 type: String,
+                 required:true
+            },
+            fecha: {
+              type: Date,
+              required:true
+            },
+            total:{
+                type:Number,
+                requered:true
             },
             cliente:[{
                 type: schema.ObjectId,

@@ -59,11 +59,12 @@ const actualizar = (req, res) => {
 
 const listar = (req, res) => {
   Pedido_producto.find({})
-    .populate("pedido")
-    .populate("producto")
-    .exec()
-    .then((pp) => {
-      res.status(200).send({ pp });
+  .populate("producto")
+  .populate({path:'pedido', populate:{path:'usuario'}})
+  .populate({path:'pedido', populate:{path:'cliente'}})
+  .exec()
+    .then((productoP) => {
+      res.status(200).send({ productoP });
     })
     .catch((err) => {
       return res

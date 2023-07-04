@@ -6,7 +6,7 @@ const pedprodSchema = schema(
 {
             producto:[{
                 type: schema.ObjectId,
-                ref: "producto"
+                ref: "productos"
             }],
             pedido:[{
                 type: schema.ObjectId,
@@ -14,8 +14,7 @@ const pedprodSchema = schema(
             }],
             cantidad_producto:{
                 type: Number,
-                require: true
-                
+                require: true   
             },
             subtotal:{
                 type: Number,

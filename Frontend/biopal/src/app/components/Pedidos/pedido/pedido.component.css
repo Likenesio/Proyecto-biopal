@@ -50,6 +50,7 @@
   width: 50%;
   margin-left: 45%;
   margin-top: -25%;
+  max-height: 80%;
 }
 .card-cliente{
   position: absolute;
@@ -142,4 +143,10 @@ font-size: 1rem;
 margin-top: 16px;
 margin-bottom: 16px;
 background-color: white;
+}
+.button-submit2{
+  position: absolute;
+  top: 80%;
+  left: 45%;
+  width: 9,5%;
 }

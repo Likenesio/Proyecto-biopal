@@ -31,7 +31,7 @@ export class ProductosService {
   }
 
   obtenerPorCodigoBarras(codigoBarra: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?codigo_barra=${codigoBarra}`);
+    return this.http.get<any>(`${this.apiUrl}/buscar/${codigoBarra}`);
   }
 }
 

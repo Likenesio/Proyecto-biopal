@@ -8,7 +8,7 @@
 {
   height: calc(100vh - 65px);
   background-color: aliceblue;
- 
+
 }
 
 
@@ -86,4 +86,24 @@ margin-top: 16px;
 margin-bottom: 16px;
 background-color: white;
 }
+
+.mat-expansion-panel {
+  background-color: transparent !important;
+}
+
+.mat-expansion-panel-header {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  background-color: transparent !important;
+}
+
+.mat-expansion-panel-header.mat-expanded:hover {
+  background-color: transparent !important;
+}
+
+
+
 

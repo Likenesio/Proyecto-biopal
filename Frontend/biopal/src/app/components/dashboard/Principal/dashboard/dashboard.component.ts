@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import{BreakpointObserver} from '@angular/cdk/layout';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { Router } from "@angular/router";
-
-
-
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +11,53 @@ import { Router } from "@angular/router";
   styleUrls: ['./dashboard.component.css'],
 
 })
+
+
 export class DashboardComponent implements OnInit {
 
-  constructor(private observer: BreakpointObserver, private cd: ChangeDetectorRef, private authService: AuthService, private router: Router) {
+  items: MenuItem[] = [];
+  panelAbierto: number | null = null;
+
+  constructor(private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
+     private router: Router) {
+
 
   }
 
 
   ngOnInit() {
+
+    if(this.authService.obtenerRol() =="Vendedor"){
+      this.items = [
+        {
+        items: [
+
+          {
+
+          routerLink:['cliente/update']
+
+         },
+
+          ]
+
+      },
+      {
+        items: [
+          {
+
+            routerLink:['usuario/crear']
+
+
+          }
+        ]
+    }]}
   }
 
   @ViewChild(MatSidenav)
   sidenav!:MatSidenav;
+
+
+
 
   logout(){
     this.authService.logout();
@@ -45,6 +78,16 @@ export class DashboardComponent implements OnInit {
       })
       this.cd.detectChanges()
     }
+
+    cambiarPanel(index: number) {
+      if (this.panelAbierto === index) {
+        this.panelAbierto = null;
+      } else {
+        this.panelAbierto = index;
+      }
+    }
+
+
 
 }
 

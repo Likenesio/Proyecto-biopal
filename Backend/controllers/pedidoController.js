@@ -1,19 +1,47 @@
 const Pedido = require('../models/pedido');
+var contador = 0;
 
 const insert = (req, res) => {
   let pedido = new Pedido();
-  pedido.numero_pedido = req.body.numero_pedido;
-  pedido.cliente = req.body.cliente;
-  pedido.usuario = req.body.usuario;
-  
-  pedido
-    .save()
-    .then((p) => {
-      res.status(200).send({ p });
-    })
-    .catch((err) => {
-      return res.status(500).send({ mensaje: "Error al insertar datos" });
-    });
+  Pedido.find({}).count().then((count)=>{
+    if(count){
+      contador = count;
+      pedido.numero_pedido = contador +1;
+      console.log(contador);
+      pedido.estado= req.body.estado;
+      pedido.fecha=req.body.fecha;
+      pedido.cliente = req.body.cliente;
+      pedido.usuario = req.body.usuario;
+      pedido.total = req.body.total
+      pedido
+        .save()
+        .then((p) => {
+          res.status(200).send({ p });
+        })
+        .catch((err) => {
+          return res.status(500).send({ mensaje: "Error al insertar datos" });
+        });
+    }else{
+        pedido.numero_pedido = 1;
+        pedido.estado= req.body.estado;
+        pedido.fecha=req.body.fecha;
+        pedido.cliente = req.body.cliente;
+        pedido.usuario = req.body.usuario;
+        pedido.total = req.body.total
+        pedido
+          .save()
+          .then((p) => {
+            res.status(200).send({ p });
+          })
+          .catch((err) => {
+            return res.status(500).send({ mensaje: "Error al insertar datos" });
+          });
+    }
+    
+  }).catch((error)=>{
+    console.log(error, "error interno");
+    
+  }) 
 };
 
 const eliminar = (req, res) => {
@@ -30,15 +58,21 @@ const eliminar = (req, res) => {
 const actualizar = (req, res) => {
   let pedidoId = req.params._id;
   let numero_pedido = req.body.numero_pedido;
+  let fecha = req.body.fecha;
+  let estado = req.body.estado;
   let cliente = req.body.cliente;
   let usuario = req.body.usuario;
+  let total = req.body.total;
   
   Pedido.findByIdAndUpdate(
     pedidoId,
     {
       numero_pedido: numero_pedido,
+      fecha: fecha,
+      estado: estado,
       cliente: cliente,
       usuario: usuario,
+      total:total
     },
     { new: true }
   )
@@ -52,8 +86,8 @@ const actualizar = (req, res) => {
 
 const listar = (req, res) => {
   Pedido.find({})
-    .populate("usuario")
     .populate("cliente")
+    .populate("usuario")
     .exec()
     .then((p) => {
       res.status(200).send({ p });

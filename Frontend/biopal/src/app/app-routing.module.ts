@@ -23,7 +23,7 @@ const routes: Routes = [
   {path:'productos/actualizar', component: ActualizarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/listar', component: ListarClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
-  {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
+  {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador'}},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
   {path:'denegate', component : DenegateComponent}
 

@@ -25,6 +25,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+
   // Método para comprobar si el usuario ha iniciado sesión
   isLoggedIn(): boolean {
     return !!this.getToken();
@@ -34,7 +35,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
   }
-  
+
   obtenerRol(): string | null {
     const token = localStorage.getItem('token');
 
@@ -45,6 +46,16 @@ export class AuthService {
       return rol;
     }
 
+    return null;
+  }
+
+  obtenerIdUsuario(): string | null{
+    const token=localStorage.getItem("token");
+    if(token){
+      const decodeT: any = jwt_decode(token);
+      const id = decodeT.userId;
+      return id;
+    }
     return null;
   }
 }
