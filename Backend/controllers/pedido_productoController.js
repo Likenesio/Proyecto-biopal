@@ -11,7 +11,7 @@ const insert = (req, res) => {
     .then((pp) => {
       res.status(200).send({ pp });
     })
-    .catch((err)=>{
+    .catch((err) => {
       return res.status(500).send({ mensaje: "Error al insertar datos" });
     });
 };
@@ -22,12 +22,12 @@ const eliminar = (req, res) => {
     .then((pp) => {
       res
         .status(200)
-        .send({ message: "El producto ha sido eliminado del pedido" });
+        .send({ message: "El pedido producto ha sido eliminado cone exito" });
     })
     .catch((err) => {
       return res
         .status(500)
-        .send({ message: `Error al borrar el producto del pedido ${err}` });
+        .send({ message: `Error al borrar el pedido producto ${err}` });
     });
 };
 
@@ -59,20 +59,36 @@ const actualizar = (req, res) => {
 
 const listar = (req, res) => {
   Pedido_producto.find({})
-  .populate("producto")
-  .populate({path:'pedido', populate:{path:'usuario'}})
-  .populate({path:'pedido', populate:{path:'cliente'}})
-  .exec()
+    .populate("producto")
+    .populate({ path: "pedido", populate: { path: "usuario" } })
+    .populate({ path: "pedido", populate: { path: "cliente" } })
+    .exec()
     .then((productoP) => {
       res.status(200).send({ productoP });
     })
     .catch((err) => {
-      return res
-        .status(500)
-        .send({
-          mensaje:
-            "Error al listar los productos los pedidos en la base de datos"
-        });
+      return res.status(500).send({
+        mensaje:
+          "Error al listar los productos los pedidos en la base de datos",
+      });
+    });
+};
+
+const buscarIdPedido = async (req, res) => {
+  let pedidoID = req.params.pedido;
+   await Pedido_producto.find({pedido: pedidoID})
+    .populate("pedido")
+    .populate('producto')
+    .exec()
+    .then((pedido_producto) => {
+      
+        res.status(200).send({ pedido_producto });
+     
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        mensaje: "No existe ese pedido",
+      });
     });
 };
 
@@ -82,16 +98,13 @@ const buscarPPId = (req, res) => {
     .populate("pedido")
     .populate("producto")
     .exec()
-    .then((pp) => {
-      res.status(200).send({ pp });
+    .then((pedido_producto) => {
+      res.status(200).send({ pedido_producto });
     })
     .catch((err) => {
-      return res
-        .status(500)
-        .send({
-          mensaje:
-            "Error al listar los productos del pedido de la base de datos"
-        });
+      return res.status(500).send({
+        mensaje: "Error al listar los productos del pedido de la base de datos",
+      });
     });
 };
 module.exports = {
@@ -100,4 +113,5 @@ module.exports = {
   actualizar,
   listar,
   buscarPPId,
+  buscarIdPedido,
 };

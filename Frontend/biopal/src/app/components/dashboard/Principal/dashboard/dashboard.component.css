@@ -103,7 +103,21 @@ background-color: white;
 .mat-expansion-panel-header.mat-expanded:hover {
   background-color: transparent !important;
 }
+.div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan cuando el espacio es insuficiente */
+  text-align: center; /* Centra el contenido de texto dentro de los elementos */
+}
 
+/* Ejemplo de un elemento dentro del div */
+.div-element {
+  flex: 0 0 50%; /* Ocupa el 50% del ancho del contenedor, se puede ajustar según sea necesario */
+  max-width: 100%; /* Limita el ancho máximo para asegurar que se ajuste en pantallas más pequeñas */
+}
 
-
+.a {
+  font-size: 5px;
+}
 

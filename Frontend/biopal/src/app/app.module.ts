@@ -39,13 +39,14 @@ import { ListarClienteComponent } from './components/Cliente/listar-cliente/list
 import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/update-cliente/update-cliente.component';
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
 import { LoginComponent } from './components/login/login/login.component';
-import { PedidoComponent } from './components/Pedidos/pedido/pedido.component';
+import { PedidoComponent } from './components/Pedidos/crear-pedido/pedido.component';
 import { AuthService } from './service/auth-service/auth.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
-
+import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
+import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
 
 
 @NgModule({
@@ -62,7 +63,9 @@ import { DashboardComponent } from './components/dashboard/Principal/dashboard/d
     PedidoComponent,
     LoginComponent,
     DenegateComponent,
-    DashboardComponent
+    DashboardComponent,
+    ListarPedidoComponent,
+    DetallePedidoComponent
 
 
   ],

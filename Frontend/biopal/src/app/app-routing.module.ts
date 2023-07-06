@@ -10,7 +10,9 @@ import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/cre
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 import { RoleGuard } from './role.guard';
 import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
-import { LoginComponent } from './components/login/login/login.component';
+import { PedidoComponent } from './components/Pedidos/crear-pedido/pedido.component';
+import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
+import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
 
 
 
@@ -23,7 +25,10 @@ const routes: Routes = [
   {path:'productos/actualizar', component: ActualizarProductoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/listar', component: ListarClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
   {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor' }},
-  {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador'}},
+  {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
+  {path:'pedidos/crear', component: PedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
+  {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
+  {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
   {path:'denegate', component : DenegateComponent}
 

@@ -94,7 +94,7 @@ export class NavbarComponent implements OnInit{
 
         ]}
 
-        if(this.authService.obtenerRol() =="Vendedor"){
+        if(this.authService.obtenerRol() =="Administrador"){
         this.items = [ {
 
           label: 'Inventario Productos',
@@ -182,7 +182,7 @@ export class NavbarComponent implements OnInit{
       }
 
         ]}
-        if(this.authService.obtenerRol() =="Bodeguero"){
+        if(this.authService.obtenerRol() =="Administrador"){
             this.items = [ {
 
               label: 'Inventario',

@@ -42,13 +42,13 @@
                 <label htmlFor="direccion">Dirección</label>
             </span>
         </div>
-          <div class="card flex justify-content-center separar">
+          <div class="separar">
               <div class="div-comuna">
                   <label for="comuna">Comuna:</label>
               </div>
               <p-dropdown [style]="{'width': '100%'}" id="comuna" [options]="comunas" [(ngModel)]="selectedComuna" optionLabel="comuna" [ngModelOptions]="{standalone: true}"></p-dropdown>
           </div>
-          <div class="card flex justify-content-center separar">
+          <div class="separar">
               <p-button type="submit" label="Actualizar"></p-button>
           </div>
       </form>

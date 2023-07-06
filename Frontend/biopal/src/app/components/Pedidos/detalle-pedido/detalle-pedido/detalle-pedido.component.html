@@ -1,0 +1,73 @@
+<div class="container">
+
+  <p-card class="text-center" header="Detalle del Pedido">
+    <div class="row row-cols-2">
+  <div class="col mb-2">
+      <label class="col-form-label" for="numero_pedido">Numero de Pedido:</label>
+      <input class="form-control" type="text" id="numero_pedido"  [(ngModel)]="numero_pedido" disabled>
+  </div>
+  <div class="col mb-2">
+    <label class="col-form-label" for="vendedor">Vendedor:</label>
+    <input class="form-control" type="text" id="vendedor"  [(ngModel)]="vendedor" disabled>
+  </div>
+  <div class="col mb-2">
+  <label class="col-form-label" for="cliente">Cliente:</label>
+  <input class="form-control" type="text" id="cliente" [(ngModel)]="cliente" disabled>
+</div>
+<div class="col mb-2">
+  <label class="col-form-label" for="total">Total:</label>
+  <input class="form-control" type="text" id="total" [(ngModel)]="total" disabled>
+</div>
+<div class="col mb-2">
+  <label class="col-form-label" for="date">Fecha:</label>
+  <input class="form-control" type="date" id="date" [(ngModel)]="date" disabled>
+</div>
+<div class="col mb-2">
+  <label class="col-form-label" for="status">Estado:</label>
+  <input class="form-control" type="text" id="status" [(ngModel)]="status" disabled>
+</div>
+</div>
+</p-card>
+</div>
+
+<div class="card separar margen">
+  <p-table
+      [value]="listarDetallePedido"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 25, 50]"
+  >
+      <ng-template pTemplate="header">
+          <tr>
+              <td>Codigo Barra</td>
+              <th>Producto</th>
+              <th>Cantidad Producto</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-productoP>
+          <tr>
+              <td>{{productoP.producto[0].codigo_barra}}</td>
+              <td>{{productoP.producto[0].nombre_producto}}</td>
+              <td>{{ productoP.cantidad_producto}}</td>
+              <td>{{ productoP.producto[0].precio_unitario}}</td>
+              <td>{{ productoP.subtotal}}</td>
+          </tr>
+
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+</div>
+
+<router-outlet ></router-outlet>

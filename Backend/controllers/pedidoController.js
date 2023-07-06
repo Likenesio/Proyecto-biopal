@@ -89,8 +89,8 @@ const listar = (req, res) => {
     .populate("cliente")
     .populate("usuario")
     .exec()
-    .then((p) => {
-      res.status(200).send({ p });
+    .then((pedido) => {
+      res.status(200).send({ pedido });
     })
     .catch((err) => {
       return res.status(500).send({ message: "Error al listar los pedidos" });
