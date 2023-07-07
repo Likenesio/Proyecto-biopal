@@ -43,7 +43,7 @@ mongoose.connect('mongodb://localhost:27017/Biopal', options)
 
 app.listen(3000, () => {
 
-    console.log('> Servicio corriendo en puerto 5000')
+    console.log('> Servicio corriendo en puerto 3000')
 })
 
 
