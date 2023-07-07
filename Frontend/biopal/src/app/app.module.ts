@@ -27,7 +27,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import {MatTableModule} from '@angular/material/table';
 
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
@@ -99,6 +99,7 @@ import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/deta
     MatListModule,
     MatMenuModule,
     MatExpansionModule,
+    MatTableModule
 
 
 

@@ -26,6 +26,7 @@ export class ListarPedidoComponent implements OnInit {
    this.pedidoService.listarP().subscribe((data)=>{
          this.respuesta =data;
          this.pedidosListar = this.respuesta.pedido;
+         console.log("Pedidos",this.pedidosListar);
    })
   }
   eliminar(id: string) {

@@ -46,12 +46,22 @@
   width: 18%;
 }
 
-.table{
-  width: 50%;
-  margin-left: 45%;
-  margin-top: -25%;
-  max-height: 80%;
+.table {
+  width: 100%;
+  max-width: 50%;
+  margin: 0 auto;
+  max-height: 100%;
+  margin-left: 800px;
 }
+
+@media screen and (max-width: 1000px) {
+  .table {
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
 .card-cliente{
   position: absolute;
   top: 15%;

@@ -41,9 +41,9 @@ module.exports = app;
 mongoose.connect('mongodb://localhost:27017/Biopal', options)
 .then(() => console.log('> Successfully connected to DB')).catch(err => console.log(err))
 
-app.listen(3000, () => {
+app.listen(5000, () => {
 
-    console.log('> Servicio corriendo en puerto 3000')
+    console.log('> Servicio corriendo en puerto 5000')
 })
 
 

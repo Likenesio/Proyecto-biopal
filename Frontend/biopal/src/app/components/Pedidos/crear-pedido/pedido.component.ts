@@ -6,6 +6,10 @@ import { UsuarioService } from 'src/app/service/usuario-service/usuario.service'
 import { ProductosService } from 'src/app/service/productos.service';
 import { AuthService } from '../../../service/auth-service/auth.service';
 import { formatDate } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
+import {MatTableModule} from '@angular/material/table';
+
+
 
 interface PedidoProducto {
   producto: string;
@@ -13,12 +17,10 @@ interface PedidoProducto {
   subtotal: Number;
 }
 interface Producto {
-  _id: string;
-  codigo_barra: string;
   nombre_producto: string;
   precio_unitario: number;
   unidad: string;
-  stock: number;
+  cantidad: number;
 }
 interface Tabla {
   nombre_producto: string;
@@ -33,6 +35,7 @@ interface Pedido {
   cliente: string; //es la id de cliente
   usuario: string; //es la id de usuario
 }
+
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
@@ -58,7 +61,7 @@ export class PedidoComponent implements OnInit {
   productoEncontrado: any;
   listaTabla: Tabla[] = [];
   idPedido:any;
-
+  total: number = 0;
 
   constructor(
     private pedidoService: PedidoService,
@@ -74,6 +77,8 @@ export class PedidoComponent implements OnInit {
       this.respuesta = data;
       this.clientesListar = this.respuesta.client;
     });
+
+    this.cantidad_producto = 1;
   }
   cargarCliente() {
     this.clienteService
@@ -91,11 +96,11 @@ export class PedidoComponent implements OnInit {
       .obtenerPorCodigoBarras(this.codigo_barra)
       .subscribe((data) => {
         this.productoEncontrado = data.product;
+        if(!this.listarProductos.some((producto)=> producto.producto === this.productoEncontrado._id)){
         this.listarProductos.push({
           producto: this.productoEncontrado._id,
           cantidad_producto: this.cantidad_producto,
-          subtotal:
-            this.cantidad_producto * this.productoEncontrado.precio_unitario,
+          subtotal:this.cantidad_producto * this.productoEncontrado.precio_unitario,
         });
         this.listaTabla.push({
           nombre_producto: this.productoEncontrado.nombre_producto,
@@ -104,10 +109,27 @@ export class PedidoComponent implements OnInit {
           subtotal:
             this.cantidad_producto * this.productoEncontrado.precio_unitario,
           cantidad: this.cantidad_producto,
-        });
-        if (this.productoEncontrado) {
-        }
+        })}else{
+
+          let indice = this.listarProductos.findIndex((item)=>( item.producto === this.productoEncontrado._id))
+          this.listarProductos[indice].cantidad_producto = Number(this.listarProductos[indice].cantidad_producto) + this.cantidad_producto;
+          this.listarProductos[indice].subtotal = Number(this.listarProductos[indice].cantidad_producto) * this.productoEncontrado.precio_unitario
+
+
+          indice = this.listaTabla.findIndex((item)=>(item.nombre_producto === this.productoEncontrado.nombre_producto))
+          this.listaTabla[indice].cantidad = Number(this.listaTabla[indice].cantidad) + this.cantidad_producto;
+          this.listaTabla[indice].subtotal = Number(this.listaTabla[indice].cantidad) * this.productoEncontrado.precio_unitario
+
+
+
+          console.log(this.total)
+
+        };
+        this.total = this.listarProductos.filter(producto=>producto.subtotal)
+        .reduce((sum:any, producto)=> sum + producto.subtotal, 0)
+        this.codigo_barra = null;
       });
+
   }
 
   realizarPedido() {
@@ -143,9 +165,10 @@ export class PedidoComponent implements OnInit {
         //limpieza datos del formulario
         this.listarProductos = [];
         this.codigo_barra = null;
-        this.cantidad_producto = 0;
+        this.cantidad_producto = 1;
         this.clienteSelect = [];
         this.listaTabla = [];
+        this.total = 0
 
       },
       (error) => {
@@ -155,4 +178,6 @@ export class PedidoComponent implements OnInit {
       );
 
   }
+
+
 }
