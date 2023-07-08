@@ -122,7 +122,6 @@ export class PedidoComponent implements OnInit {
 
 
 
-          console.log(this.total)
 
         };
         this.total = this.listarProductos.filter(producto=>producto.subtotal)

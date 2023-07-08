@@ -4,6 +4,7 @@ import{BreakpointObserver} from '@angular/cdk/layout';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,48 +16,23 @@ import { MenuItem } from 'primeng/api';
 
 export class DashboardComponent implements OnInit {
 
+  usuario: any;
+
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
 
-  constructor(private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
+  constructor(private _location: Location, private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
      private router: Router) {
 
 
-  }
+    }
 
 
-  ngOnInit() {
+    ngOnInit() {
+    }
 
-    if(this.authService.obtenerRol() =="Vendedor"){
-      this.items = [
-        {
-        items: [
-
-          {
-
-          routerLink:['cliente/update']
-
-         },
-
-          ]
-
-      },
-      {
-        items: [
-          {
-
-            routerLink:['usuario/crear']
-
-
-          }
-        ]
-    }]}
-  }
-
-  @ViewChild(MatSidenav)
-  sidenav!:MatSidenav;
-
-
+    @ViewChild(MatSidenav)
+    sidenav!:MatSidenav;
 
 
   logout(){
@@ -87,8 +63,9 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-
-
+    goBack(){
+      this._location.back();
+    }
 }
 
 

@@ -3,7 +3,7 @@ import { PedidoProductoService } from 'src/app/service/pedido_producto/pedidopro
 import { ActivatedRoute, Params } from '@angular/router';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { formatDate } from '@angular/common';
-
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class DetallePedidoComponent implements OnInit {
   subtotal: any;
   precioUnitario:any;
 
-  constructor(private pedidoService:PedidoService, private activateRoute:ActivatedRoute,private pedidoProductoService: PedidoProductoService) { }
+  constructor(private _location: Location, private pedidoService:PedidoService, private activateRoute:ActivatedRoute,private pedidoProductoService: PedidoProductoService) { }
 
   ngOnInit() {
 
@@ -54,4 +54,8 @@ export class DetallePedidoComponent implements OnInit {
 
 
   }
+  goBack(){
+    this._location.back();
+  }
+
 }

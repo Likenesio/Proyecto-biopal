@@ -88,6 +88,7 @@ import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/deta
 
 
 
+
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
@@ -99,7 +100,8 @@ import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/deta
     MatListModule,
     MatMenuModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+
 
 
 
