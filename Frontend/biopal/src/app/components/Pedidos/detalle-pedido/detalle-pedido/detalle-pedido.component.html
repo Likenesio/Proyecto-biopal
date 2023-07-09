@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5 m-4">
 
   <p-card class="text-center" header="Detalle del Pedido">
     <div class="row row-cols-2">
@@ -30,19 +30,19 @@
 </p-card>
 </div>
 
-<div class="card separar margen">
+<div class="card mt-5 m-lg-5">
   <p-table
       [value]="listarDetallePedido"
       [paginator]="true"
       [rows]="5"
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} productos"
       [rowsPerPageOptions]="[10, 25, 50]"
   >
       <ng-template pTemplate="header">
           <tr>
-              <td>Codigo Barra</td>
+              <th>Codigo Barra</th>
               <th>Producto</th>
               <th>Cantidad Producto</th>
               <th>Precio Unitario</th>
@@ -62,14 +62,14 @@
       </ng-template>
 
       <ng-template pTemplate="paginatorleft">
-          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-      </ng-template>
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
   </p-table>
 </div>
+<button class="position-absolute end-0 mb-0 mt-5 me-5 align-items-center" mat-raised-button (click)="goBack()">Volver</button>
 
-<button style="position:absolute ; margin-left: 80%;" mat-raised-button (click)="goBack()">Volver</button>
 <router-outlet ></router-outlet>
 

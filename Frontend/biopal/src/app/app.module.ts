@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 
 
+
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
 import { ActualizarProductoComponent } from './components/Producto/actualizar-producto/actualizar-producto.component';

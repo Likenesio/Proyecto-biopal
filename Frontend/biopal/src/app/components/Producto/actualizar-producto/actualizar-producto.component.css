@@ -1,7 +1,5 @@
 .centrar{
-  display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .margen{
@@ -11,9 +9,6 @@
 
 .form {
   margin-top: -200px;
-}
-.separar{
-  margin-top: 20px;
 }
 
 .selector {
