@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/Principal/dashboard/d
 import { PedidoComponent } from './components/Pedidos/crear-pedido/pedido.component';
 import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
 import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
+import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario/listar-usuario.component';
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path:'pedidos/crear', component: PedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
   {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
   {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data: { requiredRole: 'Vendedor'}},
+  {path:'usuario/listarUsuario', component: ListarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRole: 'Administrador' }},
   {path:'denegate', component : DenegateComponent}
 

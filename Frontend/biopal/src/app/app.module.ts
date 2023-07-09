@@ -48,6 +48,7 @@ import { DenegateComponent } from './components/denegate/denegate/denegate.compo
 import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
 import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
 import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
+import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario/listar-usuario.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/deta
     DenegateComponent,
     DashboardComponent,
     ListarPedidoComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    ListarUsuarioComponent
 
 
   ],
