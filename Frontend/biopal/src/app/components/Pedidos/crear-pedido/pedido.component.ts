@@ -142,48 +142,53 @@ export class PedidoComponent implements OnInit {
   }
 
   realizarPedido() {
-    let total = this.listarProductos
-      .filter((producto) => producto.subtotal)
-      .reduce((sum: any, producto) => sum + producto.subtotal, 0);
-    let idUser = this.authService.obtenerIdUsuario();
-    let pedido = {
-      cliente: this.clienteSelect._id,
-      usuario: idUser, // rescatar usuario logeado en el sistema token
-      fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-      estado: 'En proceso',
-      total: total,
-    };
-    console.log(pedido);
-    this.pedidoService.insertPedido(pedido).subscribe(
-      (data) => {
-        alert('Pedido creado exitosamente');
-        console.log(data);
-        this.idPedido = data.p._id;
-        this.listarProductos.forEach((productoP) => {
-          let productoPedido = {
-            producto: productoP.producto,
-            pedido: this.idPedido,
-            cantidad_producto: productoP.cantidad_producto,
-            subtotal: productoP.subtotal,
-          };
-          this.pedidoProductoService
-            .insertPedidoProducto(productoPedido)
-            .subscribe((data) => {
-              console.log('producto insertado a pedido');
-            });
-        });
-        //limpieza datos del formulario
-        this.listarProductos = [];
-        this.codigo_barra = null;
-        this.cantidad_producto = 1;
-        this.clienteSelect = [];
-        this.listaTabla = [];
-        this.total = 0;
-      },
-      (error) => {
-        console.log(error);
-        alert('error al crear pedido');
-      }
-    );
+    if (this.listarProductos.length > 0) {
+      let total = this.listarProductos
+        .filter((producto) => producto.subtotal)
+        .reduce((sum: any, producto) => sum + producto.subtotal, 0);
+      let idUser = this.authService.obtenerIdUsuario();
+      let pedido = {
+        cliente: this.clienteSelect._id,
+        usuario: idUser, // rescatar usuario logeado en el sistema token
+        fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+        estado: 'En proceso',
+        total: total,
+      };
+      console.log(pedido);
+      this.pedidoService.insertPedido(pedido).subscribe(
+        (data) => {
+          alert('Pedido creado exitosamente');
+          console.log(data);
+          this.idPedido = data.p._id;
+          this.listarProductos.forEach((productoP) => {
+            let productoPedido = {
+              producto: productoP.producto,
+              pedido: this.idPedido,
+              cantidad_producto: productoP.cantidad_producto,
+              subtotal: productoP.subtotal,
+            };
+            this.pedidoProductoService
+              .insertPedidoProducto(productoPedido)
+              .subscribe((data) => {
+                console.log('producto insertado a pedido');
+              });
+          });
+          //limpieza datos del formulario
+          this.listarProductos = [];
+          this.codigo_barra = null;
+          this.cantidad_producto = 1;
+          this.clienteSelect = [];
+          this.listaTabla = [];
+          this.total = 0;
+        },
+        (error) => {
+          console.log(error);
+          alert('error al crear pedido');
+        }
+      );
+    } else {
+      alert('Debe ingresar al menos un producto para crear el pedido.');
+    }
   }
+
 }
