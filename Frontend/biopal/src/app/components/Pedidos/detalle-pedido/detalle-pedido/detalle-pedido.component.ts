@@ -23,6 +23,10 @@ export interface DetallePedido{
 })
 export class DetallePedidoComponent implements OnInit {
 
+
+  first = 0;
+  rows = 10;
+
   listarProducto: DetallePedido[] = [];
   respuesta: any;
   listarDetallePedido: []=[];
@@ -64,6 +68,7 @@ export class DetallePedidoComponent implements OnInit {
 
   })
 
+
   this.idPedido = this.activateRoute.snapshot.paramMap.get('pedido');
 
   this.pedidoService.buscarP(this.idPedido).subscribe((data)=>{
@@ -85,6 +90,25 @@ export class DetallePedidoComponent implements OnInit {
 
 
 
+}
+next() {
+  this.first = this.first + this.rows;
+}
+
+prev() {
+  this.first = this.first - this.rows;
+}
+
+reset() {
+  this.first = 0;
+}
+
+isLastPage(): boolean {
+  return this.listarProducto ? this.first === this.listarProducto.length - this.rows : true;
+}
+
+isFirstPage(): boolean {
+  return this.listarProducto ? this.first === 0 : true;
 }
   goBack(){
     this._location.back();
