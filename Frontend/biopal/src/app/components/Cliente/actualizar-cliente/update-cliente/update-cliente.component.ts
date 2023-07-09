@@ -71,7 +71,7 @@ export class UpdateClienteComponent{
     contacto:this.contacto,
     email: this.email,
     direccion: this.direccion,
-    comuna:this.selectedComuna.comuna,
+    comuna:this.selectedComuna.comuna
 
   }
 

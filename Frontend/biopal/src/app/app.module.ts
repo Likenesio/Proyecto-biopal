@@ -49,7 +49,7 @@ import { DashboardComponent } from './components/dashboard/Principal/dashboard/d
 import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
 import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario/listar-usuario.component';
-
+import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usuario/actualizar-usuario/actualizar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +68,8 @@ import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/list
     DashboardComponent,
     ListarPedidoComponent,
     DetallePedidoComponent,
-    ListarUsuarioComponent
-
+    ListarUsuarioComponent,
+    ActualizarUsuarioComponent
 
   ],
   imports: [
