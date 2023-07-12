@@ -26,12 +26,13 @@ export class UpdateClienteComponent{
     clienteSelect : any
     seleccion: boolean= false ;
 
+    camposCompletos: boolean = false;
+
 
   constructor(private clienteService: ClienteService) { }
 
   ngOnInit(){
     this.comunas = [
-      { comuna: '' },
       { comuna: 'San Pedro de la Paz' },
       { comuna: 'Chiguayante' },
       { comuna: 'Concepción' },
@@ -43,6 +44,16 @@ export class UpdateClienteComponent{
     })
 
     }
+
+    validarCamposCompletos() {
+      this.camposCompletos = !!this.rut && !!this.nombre_cliente && !!this.contacto && !!this.email && !!this.direccion && !!this.selectedComuna;
+    }
+
+    validarTelefonoChileno(telefono: string): boolean {
+      const regex = /^\+?56(?:9\d{8}|\d{8})$/;
+      return regex.test(telefono);
+    }
+
     cargarDatos() {
       this.seleccion = true;
 
@@ -65,19 +76,27 @@ export class UpdateClienteComponent{
 
  actualizar(){
   //se crea un objeto llamado cliente
-  let cliente = {
-    rut: this.rut,
-    nombre_cliente:this.nombre_cliente,
-    contacto:this.contacto,
-    email: this.email,
+  this.validarCamposCompletos()
+  if (this.camposCompletos) {
+    let cliente = {
+      rut: this.rut,
+      nombre_cliente:this.nombre_cliente,
+      contacto:this.contacto,
+      email: this.email,
     direccion: this.direccion,
     comuna:this.selectedComuna.comuna
 
   }
 
+  if (!this.validarTelefonoChileno(this.contacto)) {
+    alert("El número de teléfono no es válido.");
+    return;
+  }
   this.clienteService.actualizarCliente(this.clienteSelect._id, cliente).subscribe((date)=>{
     alert("cliente actualizado");
   },
-  err =>{alert("Error al actualizar cliente")});
+  err =>{alert("Error al actualizar cliente")
+});
+} else{alert("Debe llenar todos los campos antes de guardar.");}
 }
 }

@@ -15,6 +15,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
+
 import {MatInputModule} from '@angular/material/input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -28,6 +29,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import{MatMomentDateModule} from '@angular/material-moment-adapter'
 
 import { DialogModule } from 'primeng/dialog';
 
@@ -51,6 +55,7 @@ import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/deta
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario/listar-usuario.component';
 import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usuario/actualizar-usuario/actualizar-usuario.component';
 import { HomeComponent } from './components/home/home/home.component';
+import { HistorialPedidoComponent } from './components/historial-pedido/historial-pedido/historial-pedido.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +74,7 @@ import { HomeComponent } from './components/home/home/home.component';
     DashboardComponent,
     ListarPedidoComponent,
     DetallePedidoComponent,
+    HistorialPedidoComponent,
     ListarUsuarioComponent,
     ActualizarUsuarioComponent,
     HomeComponent
@@ -106,8 +112,9 @@ import { HomeComponent } from './components/home/home/home.component';
     MatMenuModule,
     MatExpansionModule,
     MatTableModule,
-
-    DialogModule
+    DialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
 
 

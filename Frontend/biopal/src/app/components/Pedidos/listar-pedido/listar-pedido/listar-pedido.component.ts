@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
-import { Pedido } from '../../../../../../models/pedido';
+
 
 interface Estados{
   estado:string;
