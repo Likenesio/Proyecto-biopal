@@ -14,7 +14,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HTTP_INTERCEPTORS} from '@angular/common/http';
-
+import { CalendarModule } from 'primeng/calendar';
 
 import {MatInputModule} from '@angular/material/input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -82,6 +82,7 @@ import { HistorialPedidoComponent } from './components/historial-pedido/historia
   ],
   imports: [
     BrowserModule,
+    CalendarModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

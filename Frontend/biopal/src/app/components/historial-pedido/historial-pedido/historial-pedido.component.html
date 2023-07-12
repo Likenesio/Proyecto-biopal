@@ -1,19 +1,15 @@
-<mat-form-field>
-  <mat-label>Month and Year</mat-label>
-  <input matInput [matDatepicker]="dp" [formControl]="date">
-  <mat-hint>MM/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-  <mat-datepicker #dp
-                  startView="multi-year"
-                  (monthSelected)="setMonthAndYear($event, dp)"
-                  panelClass="example-month-picker">
-  </mat-datepicker>
-</mat-form-field>
+
 
 
 <div class="m-lg-5 mt-5">
- <p-card>
-  <p-table
+  <p-card>
+    <div  class="mb-2">
+
+       <mat-icon>search</mat-icon>
+      <p-calendar  [(ngModel)]="startDate" dateFormat="mm/yy" view="month" [maxDate]="maxDate"></p-calendar>
+
+    </div>
+   <p-table
       [value]="pedidosListar"
       [paginator]="true"
       [rows]="5"
