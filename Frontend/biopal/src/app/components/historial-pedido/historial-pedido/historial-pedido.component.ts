@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { DatePipe } from '@angular/common';
-import {FormControl} from '@angular/forms';
-import {MatDatepicker} from '@angular/material/datepicker';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
   selector: 'app-historial-pedido',
@@ -17,6 +13,7 @@ export class HistorialPedidoComponent implements OnInit {
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
+  startDate = new Date();
 
   constructor(private pedidoService: PedidoService) { }
 
