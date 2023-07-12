@@ -29,7 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 
-
+import { DialogModule } from 'primeng/dialog';
 
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
@@ -50,6 +50,7 @@ import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar
 import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario/listar-usuario.component';
 import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usuario/actualizar-usuario/actualizar-usuario.component';
+import { HomeComponent } from './components/home/home/home.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usua
     ListarPedidoComponent,
     DetallePedidoComponent,
     ListarUsuarioComponent,
-    ActualizarUsuarioComponent
+    ActualizarUsuarioComponent,
+    HomeComponent
 
   ],
   imports: [
@@ -104,6 +106,8 @@ import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usua
     MatMenuModule,
     MatExpansionModule,
     MatTableModule,
+
+    DialogModule
 
 
 

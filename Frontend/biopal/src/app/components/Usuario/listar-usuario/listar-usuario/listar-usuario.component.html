@@ -16,7 +16,6 @@
               <th>Nombre Usuario</th>
               <th>Contacto</th>
               <th>Email</th>
-              <th>Password</th>
               <th>ROL</th>
               <th>Acciones</th>
           </tr>
@@ -28,7 +27,6 @@
               <td>{{ usuario.nombre_usuario}}</td>
               <td>{{ usuario.fono}}</td>
               <td>{{ usuario.correo }}</td>
-              <td>{{ usuario.contrasenia }}</td>
               <td>{{ usuario.rol }}</td>
               <td>
                 <p-button (click)="eliminar(usuario._id) " label="Eliminar" styleClass="p-button-raised p-button-text p-button-danger"></p-button>

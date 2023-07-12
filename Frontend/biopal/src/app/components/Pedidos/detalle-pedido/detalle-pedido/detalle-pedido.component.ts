@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { formatDate } from '@angular/common';
 import { Location } from '@angular/common';
-import { ProductosService } from 'src/app/service/productos.service';
+import { ProductosService } from 'src/app/service/productos-service/productos.service';
 ;
 
 

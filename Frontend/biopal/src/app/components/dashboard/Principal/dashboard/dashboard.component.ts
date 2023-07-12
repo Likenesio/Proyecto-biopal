@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
-
+import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,20 +15,32 @@ import { Location } from '@angular/common';
 
 
 export class DashboardComponent implements OnInit {
-
+  idUsuario : any;
   usuario: any;
+  respuestaIdUsuario: any
+  obtenerRol: any
 
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
 
   constructor(private _location: Location, private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
-     private router: Router) {
+     private router: Router, private usuarioService: UsuarioService) {
 
 
     }
 
 
     ngOnInit() {
+      this.idUsuario = this.authService.obtenerIdUsuario();
+      this.usuarioService.buscarUsuario(this.idUsuario)
+      .subscribe((data)=>{
+        this.respuestaIdUsuario = data;
+        this.usuario = this.respuestaIdUsuario.usuario.nombre_usuario;
+        this.obtenerRol = this.authService.obtenerRol();
+        console.log(this.usuario);
+        console.log(this.obtenerRol);
+
+      });
     }
 
     @ViewChild(MatSidenav)
@@ -66,6 +78,7 @@ export class DashboardComponent implements OnInit {
     goBack(){
       this._location.back();
     }
+
 }
 
 

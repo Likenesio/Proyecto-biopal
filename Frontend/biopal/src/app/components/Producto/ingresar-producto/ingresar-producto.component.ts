@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductosService } from 'src/app/service/productos.service';
+import { ProductosService } from 'src/app/service/productos-service/productos.service';
 
 
 interface Unidad {

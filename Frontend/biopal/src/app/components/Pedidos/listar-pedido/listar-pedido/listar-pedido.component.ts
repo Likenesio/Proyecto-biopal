@@ -15,6 +15,7 @@ export class ListarPedidoComponent implements OnInit {
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
+  visible: boolean = false;
 
   constructor(
     private pedidoService: PedidoService,
@@ -48,5 +49,7 @@ export class ListarPedidoComponent implements OnInit {
     });
   }
 
-
+  showDialog() {
+    this.visible = true;
+}
 }

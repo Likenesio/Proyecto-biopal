@@ -28,7 +28,10 @@
               <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
               <td>{{ pedido.estado }}</td>
               <td>
-                <p-button icon="pi pi-arrow-right-arrow-left" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
+                <p-button icon="pi pi-arrow-right-arrow-left" (click)="showDialog()" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
+                <p-dialog header="Actualizar estado" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                  
+                </p-dialog>
                 <p-button [routerLink]= "['/pedidos/detalle/', pedido._id]" icon="pi pi-eye" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised " class="button"></p-button>
                 <p-button (onClick)="eliminar(pedido._id)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"  class="button"></p-button>
 

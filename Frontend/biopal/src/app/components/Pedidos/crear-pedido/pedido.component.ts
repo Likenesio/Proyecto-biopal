@@ -3,7 +3,7 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { PedidoProductoService } from 'src/app/service/pedido_producto/pedidoproducto.service';
 import { ClienteService } from '../../../service/cliente-service/cliente.service';
 import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
-import { ProductosService } from 'src/app/service/productos.service';
+import { ProductosService } from 'src/app/service/productos-service/productos.service';
 import { AuthService } from '../../../service/auth-service/auth.service';
 import { formatDate } from '@angular/common';
 import { NgIf, NgFor } from '@angular/common';
@@ -154,7 +154,7 @@ export class PedidoComponent implements OnInit {
         estado: 'En proceso',
         total: total,
       };
-      console.log(pedido);
+      //console.log(pedido);
       this.pedidoService.insertPedido(pedido).subscribe(
         (data) => {
           alert('Pedido creado exitosamente');
