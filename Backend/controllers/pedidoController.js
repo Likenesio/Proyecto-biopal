@@ -90,6 +90,11 @@ const listar = (req, res) => {
     .populate("usuario")
     .exec()
     .then((pedido) => {
+      /* rescatar los pedidos
+      let pedidos = pedido;
+      filtrar los pedidos por fecha(según corresponda)
+      let pedidosFiltrados = pedido.filter((ped) => Date(ped.fecha).match())
+*/
       res.status(200).send({ pedido });
     })
     .catch((err) => {

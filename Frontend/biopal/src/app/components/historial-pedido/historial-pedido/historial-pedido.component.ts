@@ -23,7 +23,6 @@ export class HistorialPedidoComponent implements OnInit {
 
   constructor(private pedidoService: PedidoService) {
     this.startDate = new Date(); // Establecer la fecha de inicio en la fecha actual
-
     // Obtener el mes y año actual
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -41,7 +40,7 @@ export class HistorialPedidoComponent implements OnInit {
     this.pedidoService.listarP().subscribe((data)=>{
           this.respuesta =data;
           this.pedidosListar = this.respuesta.pedido;
-   })
-  }
+        })
+      }
 
 }

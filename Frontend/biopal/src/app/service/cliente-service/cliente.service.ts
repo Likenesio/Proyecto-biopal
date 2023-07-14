@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:5000/api/cliente';
+  private apiUrl = 'http://localhost:3000/api/cliente';
   constructor(private http: HttpClient) {}
 
   listarClientes(): Observable<any> {

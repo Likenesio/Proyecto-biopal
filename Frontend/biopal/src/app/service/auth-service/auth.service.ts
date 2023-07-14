@@ -7,7 +7,7 @@ import jwt_decode from "jwt-decode";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/usuario'; // URL del servidor de autenticación
+  private apiUrl = 'http://localhost:3000/api/usuario'; // URL del servidor de autenticación
 
   constructor(private http: HttpClient) { }
 

@@ -3,7 +3,13 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 
-
+export interface Detalle{
+ nombre_usuario: string;
+ nombre_cliente:string;
+ estado: string;
+ fecha: Date;
+ numero_pedido:number;
+ }
 interface Estados{
   estado:string;
 }
@@ -16,6 +22,7 @@ export class ListarPedidoComponent implements OnInit {
 
   respuesta: any;
   pedidosListar: []=[];
+  listarPedido: Detalle []=[]
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
@@ -27,6 +34,9 @@ export class ListarPedidoComponent implements OnInit {
   estados: Estados[] =[];
   estadoPedidoListar: any[] =[];
   estadoSelect: any;
+
+  first = 0;
+  rows = 10;
 
   constructor(
     private pedidoService: PedidoService,
@@ -40,6 +50,22 @@ export class ListarPedidoComponent implements OnInit {
          this.pedidosListar = this.respuesta.pedido;
          this.estadoPedidoListar = this.respuesta.pedido
    })
+
+
+   this.pedidoService.listarP().subscribe((data)=>{
+    this.respuesta =data.pedido;
+    console.log(this.respuesta);
+    this.respuesta.map((pedido:any) => {
+     this.listarPedido.push({
+       nombre_usuario:pedido.usuario[0].nombre_usuario,
+       nombre_cliente:pedido.cliente[0].nombre_cliente,
+       numero_pedido: pedido.numero_pedido,
+       fecha: pedido.fecha,
+       estado: pedido.estado
+     });
+     console.log(this.pedidosListar);
+    })
+})
 
    this.estados=[
     {estado: 'Esperando ser preparado'},
@@ -89,4 +115,24 @@ export class ListarPedidoComponent implements OnInit {
 
     this.idSeleccionado = id;
 }
+next() {
+  this.first = this.first + this.rows;
+}
+
+prev() {
+  this.first = this.first - this.rows;
+}
+
+reset() {
+  this.first = 0;
+}
+
+isLastPage(): boolean {
+  return this.listarPedido ? this.first === this.listarPedido.length - this.rows : true;
+}
+
+isFirstPage(): boolean {
+  return this.listarPedido ? this.first === 0 : true;
+}
+
 }

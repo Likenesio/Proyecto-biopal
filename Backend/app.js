@@ -35,15 +35,18 @@ const options = {
     connectTimeoutMS: 10000,
     socketTimeoutMS: 45000,
     family: 4, // Use IPv4, skip trying IPv6
-  }
-  
-module.exports = app;
-mongoose.connect('mongodb://localhost:27017/Biopal', options)
+}
+const db_host = process.env.DB_HOST;
+const db_port = process.env.DB_PORT;
+const db_name = process.env.DB_NAME;
+const port = process.env.PORT;
+
+mongoose.connect(`mongodb://${db_host}:${db_port}/${db_name}`, options)
 .then(() => console.log('> Successfully connected to DB')).catch(err => console.log(err))
 
-app.listen(5000, () => {
+app.listen(port, () => {
 
-    console.log('> Servicio corriendo en puerto 5000')
+    console.log('> Servicio corriendo en puerto ' + port)
 })
 
 

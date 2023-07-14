@@ -1,12 +1,11 @@
-<div class="card separar margen">
+<div class="container mt-5 m-lg-5">
   <p-table
       [value]="pedidosListar"
       [paginator]="true"
-      [rows]="5"
+      [rows]="8"
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[10, 25, 50]"
+      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} pedidos"
   >
       <ng-template pTemplate="header">
           <tr>
@@ -50,10 +49,10 @@
       </ng-template>
 
       <ng-template pTemplate="paginatorleft">
-          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+          <p-button type="button" styleClass="p-button-text"></p-button>
       </ng-template>
       <ng-template pTemplate="paginatorright">
-          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+          <p-button type="button" styleClass="p-button-text"></p-button>
       </ng-template>
   </p-table>
 </div>

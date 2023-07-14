@@ -167,11 +167,14 @@ export class PedidoComponent implements OnInit {
               cantidad_producto: productoP.cantidad_producto,
               subtotal: productoP.subtotal,
             };
+            //operación restar stock --------------------->
+
             this.pedidoProductoService
               .insertPedidoProducto(productoPedido)
               .subscribe((data) => {
                 console.log('producto insertado a pedido');
               });
+
           });
           //limpieza datos del formulario
           this.listarProductos = [];

@@ -131,107 +131,110 @@
 </table>
 </form>
 -->
-<form (submit)="productoInsert()">
 
-  <div class="card mt-5 m-lg-5">
-  <div class="card">
-    <div class="container">
-          <div class="row">
 
-            <div class="col-12 col-md-6 mt-2">
-              <span class="p-float-label">
-                <input
-                class="form-control"
-                pattern="[0-9]+"
-                pInputText
-                id="producto"
-                [(ngModel)]="codigo_barra"
-                autofocus
-                [ngModelOptions]="{ standalone: true }"
-                />
-              </span>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <!-- Columna del formulario -->
+    <div class="col-lg-6">
+      <p-card class="w-100 h-100">
+        <form (submit)="productoInsert()">
+          <div class="row align-items-center">
+            <div class="col m-lg-2">
+              <div>
+              <label class="mb-2" for="cliente">Cliente:</label>
             </div>
-
-
-            <div class="col-12 col-md-6 mt-2">
-                <p-dropdown
+              <p-dropdown
+                id="cliente"
                 placeholder="Seleccione"
                 (onChange)="cargarCliente()"
                 [options]="clientesListar"
                 [(ngModel)]="clienteSelect"
-              optionLabel="nombre_cliente"
-              [ngModelOptions]="{ standalone: true }"
+                optionLabel="nombre_cliente"
+                [ngModelOptions]="{ standalone: true }"
               ></p-dropdown>
             </div>
+            <div class="col-6 col-sm-4">
+              <div class="col-12 me-5">
+                <label class="mb-2" for="codigo_barra">Código de Barra:</label>
+                <span class="p-float-label">
+                  <input
+                    class="form-control"
+                    pattern="[0-9]+"
+                    pInputText
+                    id="producto"
+                    [(ngModel)]="codigo_barra"
+                    autofocus
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </span>
+              </div>
+            </div>
+            <div class="col">
+              <label class="mb-2" for="cantidad_producto"> Cantidad Producto:</label>
+              <p-inputNumber
 
-
-            <div class="col-6 col-md-6 mt-2">
-            <p-inputNumber
-            class="form-control"
-            [showButtons]="true"
-            inputId="stacked"
-              [(ngModel)]="cantidad_producto"
-              [readonly]="true"
-              [ngModelOptions]="{ standalone: true }"
+                [showButtons]="true"
+                inputId="stacked"
+                [(ngModel)]="cantidad_producto"
+                [readonly]="true"
+                [ngModelOptions]="{ standalone: true }"
               ></p-inputNumber>
             </div>
-
-            <div class="row justify-content-center mt-3">
-              <div class="col-6 col-md-4">
-                <button class="btn btn-primary btn-block" type="submit">Agregar Producto</button>
-              </div>
-              <div class="col-6 col-md-4 mt-2 mt-md-0">
-                <button class="btn btn-secondary btn-block" (onClick)="realizarPedido()">Realizar Pedido</button>
-              </div>
-            </div>
-
           </div>
-      </div>
+          <div class="container text-center mt-5">
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-primary btn-block" type="submit">
+                Agregar Producto
+              </button>
+            </div>
+          </div>
+          </div>
+        </form>
+      </p-card>
+    </div>
+
+    <!-- Columna de la tabla -->
+    <div class="col-lg-6 mt-1">
+      <p-card class="w-100 h-100">
+        <p-table
+        [value]="listaTabla"
+        [scrollable]="true"
+          scrollHeight="400px"
+          [tableStyle]="{ 'min-width': '50rem', 'max-width': '100%' }"
+          ><ng-template pTemplate="header">
+            <tr class="row">
+              <th class="col">Nombre Producto</th>
+              <th class="col">Precio Unitario</th>
+              <th class="col">Unidad</th>
+              <th class="col">Cantidad</th>
+              <th class="col">Sub Total</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-producto>
+            <tr class="row">
+              <td class="col">{{ producto.nombre_producto }}</td>
+              <td class="col">{{ producto.precio_unitario }}</td>
+              <td class="col">{{ producto.unidad }}</td>
+              <td class="col">{{ producto.cantidad }}</td>
+              <td class="col">{{ producto.subtotal }}</td>
+          </tr>
+        </ng-template>
+          <!-- Contenido de la tabla -->
+        </p-table>
+        <div class="d-flex justify-content-end mt-5" style="color: black">
+          <h1 style="font-size: 32px">Total: ${{ total }}</h1>
+        </div>
+        <div class="container text-center mt-5">
+          <p-button
+            (onClick)="realizarPedido()" label="Realizar Pedido" [disabled]="false"
+          >
+          </p-button>
+        </div>
+      </p-card>
     </div>
   </div>
+</div>
 
-  <div class="mt-2 m-lg-5 w-100">
-    <p-card class="position-absolute">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <p-table
-              [value]="listaTabla"
-              [scrollable]="true"
-              scrollHeight="400px"
-              [tableStyle]="{ 'min-width': '50rem', 'max-width': '100%' }"
-            >
-              <ng-template pTemplate="header">
-                <tr class="row">
-                  <th class="col">Nombre Producto</th>
-                  <th class="col">Precio Unitario</th>
-                  <th class="col">Unidad</th>
-                  <th class="col">Cantidad</th>
-                  <th class="col">Sub Total</th>
-                </tr>
-              </ng-template>
-
-              <ng-template pTemplate="body" let-producto>
-                <tr class="row">
-                  <td class="col">{{ producto.nombre_producto }}</td>
-                  <td class="col">{{ producto.precio_unitario }}</td>
-                  <td class="col">{{ producto.unidad }}</td>
-                  <td class="col">{{ producto.cantidad }}</td>
-                  <td class="col">{{ producto.subtotal }}</td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end mt-5" style="color: black">
-        <h1 style="font-size: 32px">Total: ${{ total }}</h1>
-      </div>
-    </p-card>
-  </div>
-
-
-
-
-
-</form>
