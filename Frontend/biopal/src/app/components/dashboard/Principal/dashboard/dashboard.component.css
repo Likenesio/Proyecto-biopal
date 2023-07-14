@@ -64,7 +64,8 @@ font-size: 1rem;
 
 
 .logout{
-  margin-top: 225%;
+  bottom: 0;
+  align-items: flex-end;
   .mat-icon, span, a {
     margin-right: 8px;
     color:white;
@@ -73,12 +74,15 @@ font-size: 1rem;
 }
 .content{
   height: calc(100vh - 65px);
+  width: 85%;
   border-radius: 10px;
   margin: 16px;
   margin-left: 32px;
   display: flex;
   font-size: 2rem;
   color: lightgray;
+  justify-content: center;
+
 }
 
 .mat-divider{

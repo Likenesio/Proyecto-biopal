@@ -132,18 +132,17 @@
 </form>
 -->
 
-
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-5 align-content-center">
   <div class="row">
     <!-- Columna del formulario -->
-    <div class="col-lg-6">
+    <div class="col-4 mt-2">
       <p-card class="w-100 h-100">
         <form (submit)="productoInsert()">
           <div class="row align-items-center">
-            <div class="col m-lg-2">
+            <div class="col-auto">
               <div>
-              <label class="mb-2" for="cliente">Cliente:</label>
-            </div>
+                <label class="mb-2" for="cliente">Cliente:</label>
+              </div>
               <p-dropdown
                 id="cliente"
                 placeholder="Seleccione"
@@ -154,8 +153,8 @@
                 [ngModelOptions]="{ standalone: true }"
               ></p-dropdown>
             </div>
-            <div class="col-6 col-sm-4">
-              <div class="col-12 me-5">
+            <div class="row mt-3">
+              <div class="col-auto">
                 <label class="mb-2" for="codigo_barra">Código de Barra:</label>
                 <span class="p-float-label">
                   <input
@@ -170,39 +169,47 @@
                 </span>
               </div>
             </div>
-            <div class="col">
-              <label class="mb-2" for="cantidad_producto"> Cantidad Producto:</label>
-              <p-inputNumber
-
-                [showButtons]="true"
-                inputId="stacked"
-                [(ngModel)]="cantidad_producto"
-                [readonly]="true"
-                [ngModelOptions]="{ standalone: true }"
-              ></p-inputNumber>
+            <div class="row mt-3">
+              <div class="col-6">
+                <div>
+                  <!--
+                  <label class="mb-2" for="cantidad_producto"> Cantidad Producto:</label>
+                  -->
+                </div>
+                <p-inputNumber
+                  style="width: 80%"
+                  class="col-sm-auto"
+                  [showButtons]="true"
+                  hidden="true"
+                  inputId="stacked"
+                  [(ngModel)]="cantidad_producto"
+                  [readonly]="true"
+                  [ngModelOptions]="{ standalone: true }"
+                ></p-inputNumber>
+              </div>
             </div>
           </div>
           <div class="container text-center mt-5">
-          <div class="row">
-            <div class="col">
-              <button class="btn btn-primary btn-block" type="submit">
-                Agregar Producto
-              </button>
+            <div class="row mt-3">
+              <div class="col">
+                <button class="btn btn-primary btn-block" type="submit">
+                  Agregar Producto
+                </button>
+              </div>
             </div>
-          </div>
           </div>
         </form>
       </p-card>
     </div>
 
     <!-- Columna de la tabla -->
-    <div class="col-lg-6 mt-1">
+    <div class="col-lg-8 mt-2">
       <p-card class="w-100 h-100">
         <p-table
-        [value]="listaTabla"
-        [scrollable]="true"
-          scrollHeight="400px"
-          [tableStyle]="{ 'min-width': '50rem', 'max-width': '100%' }"
+          [value]="listaTabla"
+          [scrollable]="true"
+          scrollHeight="450px"
+          [tableStyle]="{ 'min-width': '50rem', 'max-width': '98%' }"
           ><ng-template pTemplate="header">
             <tr class="row">
               <th class="col">Nombre Producto</th>
@@ -220,8 +227,8 @@
               <td class="col">{{ producto.unidad }}</td>
               <td class="col">{{ producto.cantidad }}</td>
               <td class="col">{{ producto.subtotal }}</td>
-          </tr>
-        </ng-template>
+            </tr>
+          </ng-template>
           <!-- Contenido de la tabla -->
         </p-table>
         <div class="d-flex justify-content-end mt-5" style="color: black">
@@ -229,7 +236,9 @@
         </div>
         <div class="container text-center mt-5">
           <p-button
-            (onClick)="realizarPedido()" label="Realizar Pedido" [disabled]="false"
+            (onClick)="realizarPedido()"
+            label="Realizar Pedido"
+            [disabled]="false"
           >
           </p-button>
         </div>
@@ -237,4 +246,3 @@
     </div>
   </div>
 </div>
-

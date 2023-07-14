@@ -73,7 +73,7 @@
     </mat-accordion>
   </ng-container>
 
-  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor'" >
+  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor' || 'Bodeguero'" >
     <mat-accordion>
       <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(3)" [expanded]="panelAbierto === 3">
         <mat-expansion-panel-header>
@@ -95,7 +95,7 @@
     </mat-accordion>
   </ng-container>
 
-  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor'" >
+  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor' || 'Bodeguero'" >
     <mat-accordion >
       <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(4)" [expanded]="panelAbierto === 4">
         <mat-expansion-panel-header>
@@ -150,7 +150,7 @@
 
     </mat-sidenav>
 
-    <mat-sidenav-content  class=" align-items-center" >
+    <mat-sidenav-content  class="container-fluid" >
       <!--Aquí van las gráficas-->
       <div class="content mat-elevation-z8">
 

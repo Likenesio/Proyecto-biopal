@@ -3,21 +3,21 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@a
 import { Observable } from 'rxjs';
 import { AuthService } from './service/auth-service/auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class RoleGuard  {
+export class RoleGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
     if (this.authService.isLoggedIn()) {
-      const requiredRole = next.data['requiredRole'];
+      const requiredRoles = next.data['requiredRoles'] as string[];
       const userRole = this.authService.obtenerRol();
 
-      if (userRole === requiredRole) {
+      if (userRole && requiredRoles.includes(userRole)) {
         return true;
       } else {
         // Redireccionar a una página de acceso denegado u otra ruta adecuada

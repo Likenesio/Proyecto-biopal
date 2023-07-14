@@ -138,6 +138,9 @@ export class PedidoComponent implements OnInit {
           .filter((producto) => producto.subtotal)
           .reduce((sum: any, producto) => sum + producto.subtotal, 0);
         this.codigo_barra = null;
+      },
+      err =>{
+        this.codigo_barra = null;
       });
   }
 
