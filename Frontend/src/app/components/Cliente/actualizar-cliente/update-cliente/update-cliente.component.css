@@ -1,0 +1,36 @@
+.separar{
+  margin-top: 25px;
+  max-width: 100%;
+  flex: 0 0 50%;
+}
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.margen{
+  margin-left: 200px;
+  margin-top: 10%;
+}
+
+.form {
+  margin-top: -200px;
+}
+
+
+.selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px; /* Ajusta el margen superior según sea necesario */
+}
+.card-pequena {
+  width: 50px; /* Ajusta el ancho según sea necesario */
+}
+
+.margen
+{
+  margin-bottom: 50px;
+}

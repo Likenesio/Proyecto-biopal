@@ -1,0 +1,48 @@
+<div  class="card mt-5 w-75 m-lg-5">
+  <p-card >
+  <p-table
+      [value]="usuarios"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '25rem' , 'max-width': '50%' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 25, 50]"
+  >
+      <ng-template pTemplate="header">
+          <tr>
+              <th>ID</th>
+              <th>RUT</th>
+              <th>Nombre Usuario</th>
+              <th>Contacto</th>
+              <th>Email</th>
+              <th>ROL</th>
+              <th>Acciones</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+          <tr>
+              <td>{{ usuario._id}}</td>
+              <td>{{ usuario.rut_usuario}}</td>
+              <td>{{ usuario.nombre_usuario}}</td>
+              <td>{{ usuario.fono}}</td>
+              <td>{{ usuario.correo }}</td>
+              <td>{{ usuario.rol }}</td>
+              <td>
+                <p-button (click)="eliminar(usuario._id) " label="Eliminar" styleClass="p-button-raised p-button-text p-button-danger"></p-button>
+              </td>
+
+
+          </tr>
+
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+</p-card>
+</div>

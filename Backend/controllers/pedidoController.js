@@ -7,7 +7,6 @@ const insert = (req, res) => {
     if(count){
       contador = count;
       pedido.numero_pedido = contador +1;
-      console.log(contador);
       pedido.estado= req.body.estado;
       pedido.fecha=req.body.fecha;
       pedido.cliente = req.body.cliente;

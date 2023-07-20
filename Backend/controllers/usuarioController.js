@@ -46,7 +46,7 @@ const actualizar = async (req, res) =>{
     let usuarioId = req.params._id;
     rut_usuario = req.body.rut_usuario;
     nombre_usuario = req.body.nombre_usuario;
-    contrasenia = await bcrypt.hash(salt, pass);
+    contrasenia = await bcrypt.hash(pass, salt);
     fono = req.body.fono;
     correo = req.body.correo;
     rol = req.body.rol;

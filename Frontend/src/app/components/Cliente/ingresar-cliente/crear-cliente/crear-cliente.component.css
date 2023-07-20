@@ -1,0 +1,16 @@
+.separar{
+  margin-top: 25px;
+  max-width: 100%;
+  flex: 0 0 50%;
+}
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown{
+  width: 100%;
+  flex: 0 0 50%;
+  margin-top: 25px;
+}

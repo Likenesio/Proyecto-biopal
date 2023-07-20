@@ -1,0 +1,72 @@
+<div class="container-fluid justify-content-center align-items mt-5">
+<div class="container-fluid d-flex justify-content-center align-items-center mt-5">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1 style="font-size: 30px; color: black;">Actualizar Producto</h1>
+      <div class="p-card-title mt-5" style="font-size: 16px; color: black;">Elija Producto:</div>
+      <p-dropdown placeholder="Seleccione producto" (onChange)="cargarDatos()" [options]="productosListar" [style]="{'width': '100%'}" [(ngModel)]="productoSelect" optionLabel="nombre_producto"></p-dropdown>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="seleccion">
+<div class="container mt-5 text-center">
+    <p-card class="m-lg-5" header="Producto:">
+      <form (submit)="actualizar()" class="row">
+
+        <div class="col-md-6">
+          <div class="form-group mt-3">
+            <label htmlFor="codigo_barras">Código de barras</label>
+            <span class="p-float-label">
+              <input pattern="[0-9]+" pInputText id="codigo_barras" [(ngModel)]="codigo_barra" readonly disabled [ngModelOptions]="{standalone: true}" />
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group mt-3">
+            <label htmlFor="nombre_producto">Nombre del producto</label>
+            <span class="p-float-label">
+              <input pInputText id="nombre_producto" [(ngModel)]="nombre_producto" [ngModelOptions]="{standalone: true}" />
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group mt-3">
+            <label htmlFor="precio_unitario">Precio Unitario</label>
+            <span class="p-float-label">
+              <input pInputText id="precio_unitario" [(ngModel)]="precio_unitario" [ngModelOptions]="{standalone: true}" />
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group mt-3">
+            <label htmlFor="stock">Cantidad:</label>
+            <span class="p-float-label">
+              <input pInputText id="stock" [(ngModel)]="stock" [ngModelOptions]="{standalone: true}" />
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group mt-3">
+            <label htmlFor="unidad">Unidad de medida:</label>
+            <span class="p-float-label">
+              <p-dropdown [style]="{'width': '35%'}" id="unidad" [options]="unidades" [(ngModel)]="selectedUnidad" optionLabel="unidad" [ngModelOptions]="{standalone: true}"></p-dropdown>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group mt-3">
+            <p-button type="submit" label="Actualizar"></p-button>
+          </div>
+        </div>
+
+      </form>
+    </p-card>
+  </div>
+</ng-container>
+</div>

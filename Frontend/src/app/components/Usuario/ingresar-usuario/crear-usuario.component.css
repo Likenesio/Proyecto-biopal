@@ -1,0 +1,9 @@
+.separar{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,13 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+body {
+  font-family: var(--font-family);
+ /* background-image: url("../src/assets/2.jpeg");*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100% 100%;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
