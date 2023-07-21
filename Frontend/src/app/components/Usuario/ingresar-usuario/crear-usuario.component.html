@@ -1,46 +1,58 @@
-<div class="centrar separar">
-  <p-card header="Ingresar Usuario">
-      <form (ngSubmit)="ingresar()">
-          <div class="card flex justify-content-center separar">
-              <span class="p-float-label">
-                  <input  pattern="[0-9]{8}-[0-9kK]{1}" placeholder="10111000-1" pInputText id="rut_usuario" [(ngModel)]="rut_usuario" [ngModelOptions]="{standalone: true}"required />
-                  <label htmlFor="rut_usuario">RUT</label>
-              </span>
-          </div>
-          <div class="card flex justify-content-center separar">
-              <span class="p-float-label">
-                  <input pInputText id="nombre_usuario" [(ngModel)]="nombre_usuario" [ngModelOptions]="{standalone: true}"required/>
-                  <label htmlFor="nombre_usuario">Nombre del usuario</label>
-              </span>
-          </div>
-          <div class="card flex justify-content-center separar">
-              <span class="p-float-label">
-                  <input pattern="^\+\d{11}$"  placeholder="+56911111111" pInputText id="fono" [(ngModel)]="fono" [ngModelOptions]="{standalone: true}"required/>
-                  <label htmlFor="fono">Teléfono</label>
-              </span>
-          </div>
-          <div class="card flex justify-content-center separar">
-            <span class="p-float-label">
-                <input pInputText id="correo" [(ngModel)]="correo" [ngModelOptions]="{standalone: true}"required/>
-                <label htmlFor="correo">Email</label>
-            </span>
-        </div>
-        <div class="card flex justify-content-center separar">
+<div class="container mt-5 text-center">
+  <p-card class="m-lg-5" header="Usuario:">
+    <form (submit)="ingresar()" class="row">
+
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="rut">Rut</label>
           <span class="p-float-label">
-              <input pInputText id="contrasenia" [(ngModel)]="contrasenia" [ngModelOptions]="{standalone: true}"required/>
-              <label htmlFor="contrasenia">Contraseña</label>
+            <input pattern="[0-9]{8}-[0-9kK]{1}" placeholder="10111000-1" pInputText id="rut_usuario" [(ngModel)]="rut_usuario" [ngModelOptions]="{standalone: true}"required />
           </span>
-         </div>
-         <div class="card flex justify-content-center separar">
-          <div class="div-rol">
-              <label for="rol">Rol:</label>
-          </div>
-          <p-dropdown [style]="{'width': '100%'}" id="rol" [options]="roles" [(ngModel)]="selectedRol" optionLabel="rol" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+        </div>
       </div>
 
-          <div class="card flex justify-content-center separar">
-              <p-button type="submit" label="Guardar"></p-button>
-          </div>
-      </form>
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="nombre_usuario">Nombre del Usuario</label>
+          <span class="p-float-label">
+            <input pInputText id="nombre_usuario" [(ngModel)]="nombre_usuario" [ngModelOptions]="{standalone: true}" required/>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="fono">Contacto</label>
+          <span class="p-float-label">
+            <input pInputText id="fono" placeholder="+56911111111" pattern="^\+\d{11}$"  [(ngModel)]="fono" [ngModelOptions]="{standalone: true}" required/>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="correo">Correo</label>
+          <span class="p-float-label">
+            <input pInputText id="correo" placeholder="example@gmail.com" [(ngModel)]="correo" [ngModelOptions]="{standalone: true}" required/>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="rol">Roles:</label>
+          <span class="p-float-label">
+            <p-dropdown [style]="{'width': '35%'}" id="rol" [options]="roles" [(ngModel)]="selectedRol" optionLabel="rol" [ngModelOptions]="{standalone: true}"></p-dropdown>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group mt-3">
+          <p-button type="submit" label="Ingresar"></p-button>
+        </div>
+      </div>
+
+    </form>
   </p-card>
 </div>

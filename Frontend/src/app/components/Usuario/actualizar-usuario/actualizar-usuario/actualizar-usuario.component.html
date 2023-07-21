@@ -36,7 +36,7 @@
             <div class="form-group mt-3">
               <label htmlFor="fono">Contacto</label>
               <span class="p-float-label">
-                <input pInputText id="fono" [(ngModel)]="fono" [ngModelOptions]="{standalone: true}" />
+                <input pInputText id="fono"pattern="^\+\d{11}$"  [(ngModel)]="fono" [ngModelOptions]="{standalone: true}" />
               </span>
             </div>
           </div>
