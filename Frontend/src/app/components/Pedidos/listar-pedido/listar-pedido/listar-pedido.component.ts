@@ -54,7 +54,6 @@ export class ListarPedidoComponent implements OnInit {
 
    this.pedidoService.listarP().subscribe((data)=>{
     this.respuesta =data.pedido;
-    console.log(this.respuesta);
     this.respuesta.map((pedido:any) => {
      this.listarPedido.push({
        nombre_usuario:pedido.usuario[0].nombre_usuario,
@@ -63,7 +62,7 @@ export class ListarPedidoComponent implements OnInit {
        fecha: pedido.fecha,
        estado: pedido.estado
      });
-     console.log(this.pedidosListar);
+     console.log(this.listarPedido);
     })
 })
 
