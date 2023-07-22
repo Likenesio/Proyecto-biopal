@@ -4,7 +4,7 @@
 
        <mat-icon>search</mat-icon>
       <p-calendar  [(ngModel)]="startDate" dateFormat="mm/yy" view="month" [maxDate]="maxDate"></p-calendar>
-
+      <button pButton type="button" label="Buscar" class="p-button-rounded" (click)="buscarPedidosPorMesYAnio()"></button>
     </div>
    <p-table
       [value]="pedidosListar"

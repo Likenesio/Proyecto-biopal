@@ -43,4 +43,18 @@ export class HistorialPedidoComponent implements OnInit {
         })
       }
 
+
+      buscarPedidosPorMesYAnio() {
+        // Obtener el mes y año seleccionados
+        const selectedDate = new Date(this.startDate);
+        const selectedYear = selectedDate.getFullYear();
+        const selectedMonth = selectedDate.getMonth();
+
+        // Filtrar los pedidos en base al mes y año seleccionados
+        this.pedidosListar = this.respuesta.pedido.filter((pedido: any) => {
+          const fechaPedido = new Date(pedido.fecha);
+          return fechaPedido.getFullYear() === selectedYear && fechaPedido.getMonth() === selectedMonth;
+        });
+      }
+
 }
