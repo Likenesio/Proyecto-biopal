@@ -18,6 +18,7 @@ import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usua
 import { HomeComponent } from './components/home/home/home.component';
 import { HistorialPedidoComponent } from './components/historial-pedido/historial-pedido/historial-pedido.component';
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
+import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'pedidos/historialPedidos', component: HistorialPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
+  {path:'pedidos/ventasPorMes', component: VentasAnualesComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'usuario/listarUsuario', component: ListarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/modificarUsuario', component: ActualizarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},

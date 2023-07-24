@@ -1,12 +1,12 @@
-<div class="card container">
+<div class="card container-fluid mt-5">
   <p-table
       [value]="usuarios"
       [paginator]="true"
       [rows]="5"
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '25rem' , 'max-width': '50%' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[10, 25, 50]"
+      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} usuarios"
+
   >
       <ng-template pTemplate="header">
           <tr>
@@ -37,10 +37,10 @@
       </ng-template>
 
       <ng-template pTemplate="paginatorleft">
-          <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+          <p-button styleClass="p-button-text"></p-button>
       </ng-template>
       <ng-template pTemplate="paginatorright">
-          <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+          <p-button styleClass="p-button-text"></p-button>
       </ng-template>
   </p-table>
 </div>

@@ -115,10 +115,29 @@ const buscar = (req, res) => {
     });
 };
 
+const obtenerVentasPorMes = async (req, res) => {
+  try {
+    // Agregación de MongoDB para calcular el total de ventas por mes
+    const ventasPorMes = await Pedido.aggregate([
+      {
+        $group: {
+          _id: { $month: '$fecha' },
+          totalVentas: { $sum: '$total' },
+        },
+      },
+    ]);
+
+    res.json(ventasPorMes);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener las ventas por mes' });
+  }
+};
+
 module.exports = {
   insert,
   eliminar,
   actualizar,
   listar,
-  buscar
+  buscar,
+  obtenerVentasPorMes,
 };

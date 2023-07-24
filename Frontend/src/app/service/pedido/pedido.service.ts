@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class PedidoService {
   private apiUrl = 'http://localhost:3000/api/pedido';
 
+
   constructor(private http: HttpClient) {}
 
   insertPedido(pedido: any): Observable<any> {
@@ -26,5 +27,8 @@ export class PedidoService {
 
   actualizarPedido(id: string, pedido: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, pedido);
+  }
+  obtenerVentasPorMes(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
 }

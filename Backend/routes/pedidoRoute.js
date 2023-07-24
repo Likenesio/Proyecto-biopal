@@ -9,5 +9,6 @@ api.get('/pedido', pedidoController.listar);
 api.get('/pedido/:_id', pedidoController.buscar);
 api.put('/pedido/:_id', pedidoController.actualizar);
 api.delete('/pedido/:_id', pedidoController.eliminar);
+api.get('/pedido', pedidoController.obtenerVentasPorMes);
 
 module.exports = api;

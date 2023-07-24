@@ -32,7 +32,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { NgChartsModule } from 'ng2-charts';
 
 import { DialogModule } from 'primeng/dialog';
 
@@ -58,6 +58,7 @@ import { ActualizarUsuarioComponent } from './components/Usuario/actualizar-usua
 import { HomeComponent } from './components/home/home/home.component';
 import { HistorialPedidoComponent } from './components/historial-pedido/historial-pedido/historial-pedido.component';
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
+import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { BoletasComponent } from './components/documentos/boletas/boletas.compon
     ListarUsuarioComponent,
     ActualizarUsuarioComponent,
     HomeComponent,
-    BoletasComponent
+    BoletasComponent,
+    VentasAnualesComponent
 
   ],
   imports: [
@@ -115,6 +117,10 @@ import { BoletasComponent } from './components/documentos/boletas/boletas.compon
     DialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgChartsModule,
+
+
+
     ],
   providers: [AuthService,
     AuthGuard,
