@@ -36,6 +36,7 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { DialogModule } from 'primeng/dialog';
 
+
 import { ListarProductosComponent } from './components/Producto/listar-productos/listar-productos.component';
 import { IngresarProductoComponent } from './components/Producto/ingresar-producto/ingresar-producto.component';
 import { ActualizarProductoComponent } from './components/Producto/actualizar-producto/actualizar-producto.component';

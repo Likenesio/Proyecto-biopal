@@ -1,46 +1,49 @@
-<div class="card container-fluid mt-5">
-  <p-table
-      [value]="usuarios"
-      [paginator]="true"
-      [rows]="5"
-      [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '25rem' , 'max-width': '50%' }"
-      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} usuarios"
-
-  >
-      <ng-template pTemplate="header">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <p-table
+        class="table table-dark table-striped"
+        [value]="usuarios"
+        [paginator]="true"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '10rem', 'max-width': '100%' }"
+        currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} usuarios"
+      >
+        <ng-template pTemplate="header">
           <tr>
-              <th>ID</th>
-              <th>RUT</th>
-              <th>Nombre Usuario</th>
-              <th>Contacto</th>
-              <th>Email</th>
-              <th>ROL</th>
-              <th>Acciones</th>
+            <th class="col-2 col-sm-1">ID</th>
+            <th class="col-3 col-sm-2">RUT</th>
+            <th class="col-4 col-sm-3">Nombre Usuario</th>
+            <th class="col-3 col-sm-2">Contacto</th>
+            <th class="col-12 col-sm-4 col-md-3">Email</th>
+            <th class="col-6 col-sm-2 col-md-1">ROL</th>
+            <th class="col-6 col-sm-2 col-md-1">Acciones</th>
           </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-usuario>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
           <tr>
-              <td>{{ usuario._id}}</td>
-              <td>{{ usuario.rut_usuario}}</td>
-              <td>{{ usuario.nombre_usuario}}</td>
-              <td>{{ usuario.fono}}</td>
-              <td>{{ usuario.correo }}</td>
-              <td>{{ usuario.rol }}</td>
-              <td>
-                <p-button (click)="eliminar(usuario._id) " label="Eliminar" styleClass="p-button-raised p-button-text p-button-danger"></p-button>
-              </td>
-
-
+            <td class="col-2 col-sm-1">{{ usuario._id }}</td>
+            <td class="col-3 col-sm-2">{{ usuario.rut_usuario }}</td>
+            <td class="col-4 col-sm-3">{{ usuario.nombre_usuario }}</td>
+            <td class="col-3 col-sm-2">{{ usuario.fono }}</td>
+            <td class="col-12 col-sm-4 col-md-3">{{ usuario.correo }}</td>
+            <td class="col-6 col-sm-2 col-md-1">{{ usuario.rol }}</td>
+            <td class="col-6 col-sm-2 col-md-1">
+              <p-button
+                (click)="eliminar(usuario._id)"
+                label="Eliminar"
+                styleClass="p-button-raised p-button-text p-button-danger"
+              ></p-button>
+            </td>
           </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
 
-      </ng-template>
-
-      <ng-template pTemplate="paginatorleft">
-          <p-button styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-          <p-button styleClass="p-button-text"></p-button>
-      </ng-template>
-  </p-table>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </div>
