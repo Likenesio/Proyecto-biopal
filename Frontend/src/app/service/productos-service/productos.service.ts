@@ -33,5 +33,9 @@ export class ProductosService {
   obtenerPorCodigoBarras(codigoBarra: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/buscar/${codigoBarra}`);
   }
+  restarCantidadesProductos(id: string, cantidadARestar: number): Observable<any> {
+    console.log(`ID del producto: ${id}, Cantidad a restar: ${cantidadARestar}`);
+    return this.http.patch<any>(`${this.apiUrl}/${id}/restar-cantidad`, { cantidad_producto: cantidadARestar });
+  }
 }
 

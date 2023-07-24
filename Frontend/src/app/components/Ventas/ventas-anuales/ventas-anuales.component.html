@@ -1,20 +1,13 @@
-<div class="container-fluid mt-5">
+<div class="container-fluid card mt-5">
   <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <canvas baseChart
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  chartType="horizontalBar"
-                  style="width: 100%; height: 400px;">
-          </canvas>
-        </div>
+    <div class="col-md-12">
+        <canvas style="height: 500px; width: 100%;" baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                chartType="horizontalBar">
+        </canvas>
       </div>
     </div>
   </div>
-</div>
-
-

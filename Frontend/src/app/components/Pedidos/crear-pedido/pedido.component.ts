@@ -157,7 +157,7 @@ export class PedidoComponent implements OnInit {
         this.codigo_barra = null;
       });
   }
-
+/*
   realizarPedido() {
     if (this.listarProductos.length > 0) {
       let total = this.listarProductos
@@ -185,7 +185,7 @@ export class PedidoComponent implements OnInit {
               subtotal: productoP.subtotal,
             };
             //operación restar stock --------------------->
-            //falta implementar 
+            //falta implementar
             this.pedidoProductoService
               .insertPedidoProducto(productoPedido)
               .subscribe((data) => {
@@ -210,6 +210,71 @@ export class PedidoComponent implements OnInit {
       alert('Debe ingresar al menos un producto para crear el pedido.');
     }
   }
+*/
+realizarPedido() {
+  if (this.listarProductos.length > 0) {
+    let total = this.listarProductos
+      .filter((producto) => producto.subtotal)
+      .reduce((sum: any, producto) => sum + producto.subtotal, 0);
+    let idUser = this.authService.obtenerIdUsuario();
+    let pedido = {
+      cliente: this.clienteSelect._id,
+      usuario: idUser,
+      fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+      estado: 'En proceso',
+      total: total,
+    };
+
+    this.pedidoService.insertPedido(pedido).subscribe(
+      (data) => {
+        alert('Pedido creado exitosamente');
+        this.idPedido = data.p._id;
+
+        // Iterar por los productos del pedido para restar cantidades
+        this.listarProductos.forEach((productoP) => {
+          let productoPedido = {
+            producto: productoP.producto,
+            pedido: this.idPedido,
+            cantidad_producto: productoP.cantidad_producto,
+            subtotal: productoP.subtotal,
+          };
+
+          // Insertar el producto en el pedido
+          this.pedidoProductoService
+            .insertPedidoProducto(productoPedido)
+            .subscribe((data) => {
+              console.log('producto insertado a pedido');
+            });
+
+          // Restar cantidades del producto en la base de datos
+          this.productosService.restarCantidadesProductos(productoP.producto, Number(productoP.cantidad_producto))
+            .subscribe(() => {
+
+              console.log('Cantidad restada del producto en la base de datos', productoP.producto,productoP.cantidad_producto);
+            }, (error) => {
+              console.log('Error al restar cantidades del producto en la base de datos', error);
+            });
+        });
+
+        // Limpieza datos del formulario y variables
+        this.listarProductos = [];
+        this.codigo_barra = null;
+        this.cantidad_producto = 1;
+        this.clienteSelect = [];
+        this.listaTabla = [];
+        this.total = 0;
+      },
+      (error) => {
+        console.log(error);
+        alert('error al crear pedido');
+      }
+    );
+  } else {
+    alert('Debe ingresar al menos un producto para crear el pedido.');
+  }
+}
+
+
 
   emitirBoleta() {
     let productos: ProductoBoleta[] = [];
@@ -226,7 +291,7 @@ export class PedidoComponent implements OnInit {
       productos.push(productoBoleta);
     });
 
-   
+
     let boleta = {
       productos: productos,
       fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
@@ -241,7 +306,7 @@ export class PedidoComponent implements OnInit {
     }, err => {
       alert('Error al emitir boleta');
       console.log("error al emitir boleta ",err);
-    
+
     })
     this.realizarPedido();
     this.visible = false;

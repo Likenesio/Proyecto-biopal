@@ -109,13 +109,39 @@ const obtenerPorCodigoBarras = (req, res) => {
         res.status(500).send({ message: "Error al buscar producto" });
       });
   };
-  
 
+  const restarCantidadProducto = async (req, res) => {
+    try {
+      const productoId = req.params._id;
+  
+      // Verificar si el producto existe
+      const producto = await Producto.findById(productoId);
+      if (!producto) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+      }
+  
+      // Verificar si hay suficiente cantidad para restar (aquí restaremos 1 unidad)
+      if (producto.stock < 1) {
+        return res.status(400).json({ error: 'No hay suficiente cantidad para restar' });
+      }
+  
+      // Restar una unidad de la cantidad en stock y guardar el producto actualizado en la base de datos
+      producto.stock -= 1;
+      await producto.save();
+  
+      res.json({ message: 'Cantidad restada exitosamente' });
+    } catch (error) {
+      console.error('Error al restar cantidades de productos', error);
+      res.status(500).json({ error: 'Error al restar cantidades de productos' });
+    }
+  };
+  
 module.exports = {
     insert,
     eliminar,
     actualizar, 
     listar, 
     buscarPorID,
-    obtenerPorCodigoBarras
+    obtenerPorCodigoBarras,
+    restarCantidadProducto
 };
