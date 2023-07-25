@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   usuario: any;
   respuestaIdUsuario: any
   obtenerRol: any
+  email: any;
 
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
@@ -35,8 +36,11 @@ export class DashboardComponent implements OnInit {
       this.usuarioService.buscarUsuario(this.idUsuario)
       .subscribe((data)=>{
         this.respuestaIdUsuario = data;
+        console.log(this.respuestaIdUsuario)
         this.usuario = this.respuestaIdUsuario.usuario.nombre_usuario;
+        this.email = this.respuestaIdUsuario.usuario.correo;
         this.obtenerRol = this.authService.obtenerRol();
+
       });
     }
 

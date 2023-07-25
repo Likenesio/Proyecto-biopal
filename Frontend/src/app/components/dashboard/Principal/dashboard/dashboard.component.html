@@ -1,3 +1,4 @@
+<!--
 <mat-toolbar   color="mat-toolbar">
   <button mat-icon-button *ngIf="sidenav.mode==='over'"(click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
@@ -8,8 +9,29 @@
     </mat-icon>
   </button>
   <span >Biopal</span>
+
   <span  class="example-spacer"></span>
 
+</mat-toolbar>
+-->
+
+<mat-toolbar color="mat-toolbar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-6 d-flex align-items-center">
+        <button mat-icon-button *ngIf="sidenav.mode==='over'" (click)="sidenav.toggle()">
+          <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+          <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+        </button>
+        <span>Biopal</span>
+      </div>
+      <div class="col-lg-6 col-md-4 d-none d-md-flex justify-content-center">
+      </div>
+      <div class="col-lg-3 col-md-4 col-6 d-none d-sm-flex justify-content-end align-items-center">
+        <span class="email" style="font-size: 15px;">{{ email }}</span>
+      </div>
+    </div>
+  </div>
 </mat-toolbar>
 
 
