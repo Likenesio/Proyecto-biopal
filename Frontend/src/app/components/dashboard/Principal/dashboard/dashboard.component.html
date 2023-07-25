@@ -153,12 +153,11 @@
 
     <mat-sidenav-content>
       <!--Aquí van las gráficas-->
-     <div class="content mat-elevation-z8 row w-100">
-      <div class="col-md-8">
-        <router-outlet ></router-outlet>
-
-
-      </div>
+      <div class="content mat-elevation-z8 row w-100 h-100" style="height: 100%; overflow: hidden;">
+        <!-- Agregar las columnas dentro del div con clase "row" -->
+        <div class="col-md-8">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
