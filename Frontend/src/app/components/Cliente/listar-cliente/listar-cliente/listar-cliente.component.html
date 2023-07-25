@@ -1,11 +1,11 @@
-<div class="card container">
+<div class="card container mt-5">
   <p-table
       class="container-fluid mt-3"
       [value]="clientes"
       [paginator]="true"
       [rows]="8"
       [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '50rem' }"
+      [tableStyle]="{ 'min-width': '50rem', 'max-width': '100%' }"
       currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} clientes"
   >
       <ng-template pTemplate="header">
