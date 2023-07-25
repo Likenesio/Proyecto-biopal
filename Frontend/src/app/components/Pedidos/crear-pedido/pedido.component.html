@@ -132,69 +132,70 @@
 </form>
 -->
 
-<div class="container-fluid mt-5 align-content-center">
+<div class="container">
   <div class="row">
     <!-- Columna del formulario -->
-    <div class="col-4 mt-2">
-      <p-card class="w-100 h-100">
+    <div class="col-md-4 mt-2">
+      <p-card>
         <form (submit)="productoInsert()">
-          <div class="row align-items-center">
-            <div class="col-auto">
+          <div class="row">
+            <div class="col-12">
               <div>
-                <label class="mb-2" for="cliente">Cliente:</label>
+                <label for="cliente">Cliente:</label>
               </div>
-              <p-dropdown
-                id="cliente"
-                placeholder="Seleccione"
-                (onChange)="cargarCliente()"
-                [options]="clientesListar"
-                [(ngModel)]="clienteSelect"
-                optionLabel="nombre_cliente"
-                [ngModelOptions]="{ standalone: true }"
-              ></p-dropdown>
-            </div>
-            <div class="row mt-3">
-              <div class="col-auto">
-                <label class="mb-2" for="codigo_barra">Código de Barra:</label>
-                <span class="p-float-label">
-                  <input
-                    class="form-control"
-                    pattern="[0-9]+"
-                    pInputText
-                    id="producto"
-                    [(ngModel)]="codigo_barra"
-                    autofocus
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                </span>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-6">
-                <div>
-                  <!--
-                  <label class="mb-2" for="cantidad_producto"> Cantidad Producto:</label>
-                  -->
-                </div>
-                <p-inputNumber
-                  class="col-sm-auto"
-                  [showButtons]="true"
-                  hidden="true"
-                  inputId="stacked"
-                  [(ngModel)]="cantidad_producto"
-                  [readonly]="true"
+              <div class="m-lg-2">
+                <p-dropdown
+                  class=" row w-100"
+                  id="cliente"
+                  placeholder="Seleccione"
+                  (onChange)="cargarCliente()"
+                  [options]="clientesListar"
+                  [(ngModel)]="clienteSelect"
+                  optionLabel="nombre_cliente"
                   [ngModelOptions]="{ standalone: true }"
-                ></p-inputNumber>
+                ></p-dropdown>
               </div>
             </div>
           </div>
-          <div class="container text-center mt-5">
-            <div class="row mt-3">
-              <div class="col">
-                <button class="btn btn-primary btn-block" type="submit">
-                  Agregar Producto
-                </button>
+          <div class="row mt-3">
+            <div class="col-12">
+              <label class="mb-2" for="codigo_barra">Código de Barra:</label>
+              <span class="p-float-label">
+                <input
+                  class="form-control"
+                  pattern="[0-9]+"
+                  pInputText
+                  id="producto"
+                  [(ngModel)]="codigo_barra"
+                  autofocus
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </span>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <div>
+                <!--
+                <label class="mb-2" for="cantidad_producto"> Cantidad Producto:</label>
+                -->
               </div>
+              <p-inputNumber
+                class="w-100"
+                [showButtons]="true"
+                hidden="true"
+                inputId="stacked"
+                [(ngModel)]="cantidad_producto"
+                [readonly]="true"
+                [ngModelOptions]="{ standalone: true }"
+              ></p-inputNumber>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12 text-center">
+              <button class="btn btn-primary btn-block" type="submit">
+                Agregar Producto
+              </button>
             </div>
           </div>
         </form>
@@ -202,13 +203,13 @@
     </div>
 
     <!-- Columna de la tabla -->
-    <div class="col-lg-8 mt-2">
-      <p-card class="w-100 h-100">
+    <div class="col-md-8 mt-2">
+      <p-card class="w-100">
         <p-table
           [value]="listaTabla"
           [scrollable]="true"
           scrollHeight="450px"
-          [tableStyle]="{ 'min-width': '50rem', 'max-width': '98%' }"
+          [tableStyle]="{ 'min-width': '50rem', 'max-width': '100%' }"
           ><ng-template pTemplate="header">
             <tr class="row">
               <th class="col">Nombre Producto</th>
@@ -230,33 +231,38 @@
           </ng-template>
           <!-- Contenido de la tabla -->
         </p-table>
-        <div class="d-flex justify-content-end mt-5" style="color: black">
-          <h1 style="font-size: 32px">Total: ${{ total }}</h1>
+        <div class="d-flex justify-content-end mt-5 container" style="color: black">
+          <h1 style="font-size: 25px">Total: ${{ total }}</h1>
         </div>
-        <div class="container text-center mt-5">
+        <div class="container text-center mt-3">
           <p-button
             (onClick)="showDialog()"
             label="Realizar Pedido"
             [disabled]="false"
           >
           </p-button>
-          <p-dialog header="Confirmar documento de compra" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-            <p-button
-            styleClass="p-button-success"
-            (onClick)="emitirBoleta()"
-            label="Boleta"
-            [disabled]="false"
+          <p-dialog
+            header="Confirmar documento de compra"
+            [(visible)]="visible"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
           >
-        </p-button>
-        &nbsp;
-          <p-button
-          styleClass="p-button-warning"
-          (onClick)="emitirBoleta()"
-          label="Factura"
-          [disabled]="true"
-        >
-        </p-button>
-        </p-dialog>
+            <p-button
+              styleClass="p-button-success"
+              (onClick)="emitirBoleta()"
+              label="Boleta"
+              [disabled]="false"
+            ></p-button>
+            &nbsp;
+            <p-button
+              styleClass="p-button-warning"
+              (onClick)="emitirBoleta()"
+              label="Factura"
+              [disabled]="true"
+            ></p-button>
+          </p-dialog>
         </div>
       </p-card>
     </div>
