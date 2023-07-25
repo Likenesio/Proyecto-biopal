@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
-
+  email: any;
   constructor(private _location: Location, private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
      private router: Router, private usuarioService: UsuarioService) {
 
@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
         this.respuestaIdUsuario = data;
         this.usuario = this.respuestaIdUsuario.usuario.nombre_usuario;
         this.obtenerRol = this.authService.obtenerRol();
+        console.log(this.respuestaIdUsuario)
       });
     }
 
