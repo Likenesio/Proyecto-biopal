@@ -13,6 +13,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   rut_usuario: any;
   nombre_usuario: any;
+  apellido:any;
   contrasenia: any;
   fono: any;
   correo:any;
@@ -95,6 +96,7 @@ ingresar(){
   let usuario = {
    rut_usuario:this.rut_usuario,
    nombre_usuario:this.nombre_usuario,
+   apellido:this.apellido,
    contrasenia:this.contrasenia,
    fono: this.fono,
    correo:this.correo,
@@ -102,6 +104,7 @@ ingresar(){
   };
   this.usuarioService.insertarUsuario(usuario).subscribe(
     (data:any)=>{
+      console.log(data)
       alert("Usuario creado exitosamente")
     },
     (error:any)=>{
