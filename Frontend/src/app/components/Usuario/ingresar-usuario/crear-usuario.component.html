@@ -28,7 +28,14 @@
           </span>
         </div>
       </div>
-
+      <div class="col-md-6">
+        <div class="form-group mt-3">
+          <label htmlFor="contrasenia">Password</label>
+          <span class="p-float-label">
+            <input pInputText id="contrasenia"[(ngModel)]="contrasenia" [ngModelOptions]="{standalone: true}" required/>
+          </span>
+        </div>
+      </div>
       <div class="col-md-6">
         <div class="form-group mt-3">
           <label htmlFor="correo">Correo</label>

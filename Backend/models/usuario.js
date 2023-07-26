@@ -11,15 +11,15 @@ const userSchema = schema(
                 type: String,
                 require: true
             },
-            apellido:{
+            apellido: {
              type: String,
              require: true
             },
-            contrasenia:{
+            contrasenia: {
                 type: String,
                 require: true
             },
-            fono:{
+            fono: {
                 type: String,
                 require:true
             },
