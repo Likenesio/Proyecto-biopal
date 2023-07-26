@@ -10,9 +10,15 @@
           <div class="card flex justify-content-center separar">
               <span class="p-float-label">
                   <input pInputText id="nombre_usuario" [(ngModel)]="nombre_usuario" [ngModelOptions]="{standalone: true}"required/>
-                  <label htmlFor="nombre_usuario">Nombre del usuario</label>
+                  <label htmlFor="nombre_usuario">FirstName</label>
               </span>
           </div>
+          <div class="card flex justify-content-center separar">
+            <span class="p-float-label">
+                <input pInputText id="apellido" [(ngModel)]="apellido" [ngModelOptions]="{standalone: true}"required/>
+                <label htmlFor="apellido">LastName</label>
+            </span>
+        </div>
           <div class="card flex justify-content-center separar">
               <span class="p-float-label">
                   <input pattern="^\+\d{11}$"  placeholder="+56911111111" pInputText id="fono" [(ngModel)]="fono" [ngModelOptions]="{standalone: true}"required/>

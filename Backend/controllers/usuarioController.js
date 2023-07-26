@@ -10,6 +10,7 @@ const insert = async (req, res) =>{
        const pass = req.body.contrasenia;
        usuario.rut_usuario = req.body.rut_usuario;
        usuario.nombre_usuario = req.body.nombre_usuario;
+       usuario.apellido = req.body.apellido;
        usuario.contrasenia = await bcrypt.hash(pass, salt);
        usuario.fono = req.body.fono;
        usuario.correo = req.body.correo;
@@ -46,6 +47,7 @@ const actualizar = async (req, res) =>{
     let usuarioId = req.params._id;
     rut_usuario = req.body.rut_usuario;
     nombre_usuario = req.body.nombre_usuario;
+    usuario.apellido = req.body.apellido;
     contrasenia = await bcrypt.hash(pass, salt);
     fono = req.body.fono;
     correo = req.body.correo;
@@ -55,6 +57,7 @@ const actualizar = async (req, res) =>{
         {
             rut_usuario: rut_usuario,
             nombre_usuario: nombre_usuario,
+            apellido: apellido,
             contrasenia: contrasenia,
             fono: fono,
             correo: correo,

@@ -11,6 +11,10 @@ const userSchema = schema(
                 type: String,
                 require: true
             },
+            apellido:{
+             type: String,
+             require: true
+            },
             contrasenia:{
                 type: String,
                 require: true

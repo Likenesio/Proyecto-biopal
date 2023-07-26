@@ -13,6 +13,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   rut_usuario: any;
   nombre_usuario: any;
+  apellido:any
   contrasenia: any;
   fono: any;
   correo:any;
@@ -35,7 +36,7 @@ export class CrearUsuarioComponent implements OnInit {
 }
 
 validarCamposCompletos() {
-  this.camposCompletos = !!this.rut_usuario && !!this.nombre_usuario && !!this.fono && !!this.correo && !!this.contrasenia && !!this.selectedRol;
+  this.camposCompletos = !!this.rut_usuario && !!this.nombre_usuario && !!this.apellido && !!this.fono && !!this.correo && !!this.contrasenia && !!this.selectedRol;
 }
 validarTelefonoChileno(telefono: string): boolean {
   const regex = /^\+?56(?:9\d{8}|\d{8})$/;
@@ -95,6 +96,7 @@ ingresar(){
   let usuario = {
    rut_usuario:this.rut_usuario,
    nombre_usuario:this.nombre_usuario,
+   apellido:this.apellido,
    contrasenia:this.contrasenia,
    fono: this.fono,
    correo:this.correo,
