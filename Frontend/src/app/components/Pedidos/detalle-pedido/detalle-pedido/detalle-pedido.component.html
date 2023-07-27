@@ -8,7 +8,7 @@
   </div>
   <div class="col mb-2">
     <label class="col-form-label" for="vendedor">Vendedor:</label>
-    <input class="form-control" type="text" id="vendedor"  [(ngModel)]="vendedor" disabled>
+    <input class="form-control" type="text" id="vendedor"  [(ngModel)]="vendedor"  disabled>
   </div>
   <div class="col mb-2">
   <label class="col-form-label" for="cliente">Cliente:</label>
@@ -38,7 +38,7 @@
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '50rem' }"
       currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} productos"
-      
+
   >
       <ng-template pTemplate="header">
           <tr>

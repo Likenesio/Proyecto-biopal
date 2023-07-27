@@ -73,7 +73,7 @@ export class DetallePedidoComponent implements OnInit {
 
   this.pedidoService.buscarP(this.idPedido).subscribe((data)=>{
     this.numero_pedido = data.p.numero_pedido;
-    this.vendedor=data.p.usuario[0].nombre_usuario;
+    this.vendedor=data.p.usuario[0].nombre_usuario + " " + data.p.usuario[0].apellido;
     this.cliente=data.p.cliente[0].nombre_cliente;
     this.total=data.p.total;
     this.date = formatDate(data.p.fecha, 'yyyy-MM-dd', 'en-US');
