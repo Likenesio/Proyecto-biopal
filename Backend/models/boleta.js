@@ -5,6 +5,7 @@ const schema = mongoose.Schema;
 const boletaSchema = schema({
   productos: [
     {
+      //conserva los precios a futuro
       productoId: {
         type: schema.Types.ObjectId,
         ref: "productos",
@@ -21,7 +22,6 @@ const boletaSchema = schema({
       codigo_barras: {
         type: String,
         required: true,
-        unique: true,
       },
       nombre_producto: {
         type: String,

@@ -38,7 +38,6 @@
                     <p-button (onClick)="eliminar(pedido._id)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"></p-button>
                   </div>
                 </div>
-
                 <p-dialog header="Actualizar estado del pedido" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw', height:'25vw' }" [draggable]="false" [resizable]="false">
                   <div class="text-center w-100 h-100">
                     <p-dropdown placeholder="Seleccione estado del pedido" [options]="estados" [(ngModel)]="estadoSelect" optionLabel="estado"></p-dropdown>

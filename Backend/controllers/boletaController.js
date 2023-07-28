@@ -1,39 +1,73 @@
 var Boleta = require("../models/boleta");
 var Producto = require("../models/productos");
 
+let contador = 0;
 
-const insert = async (req, res) => {
+const insert = (req, res) => {
   try {
-    let contador = await Boleta.find({}).countDocuments();
-    contador = contador ? contador : 0;
+    Boleta.find({})
+      .count()
+      .then((count) => {
+        if (count) {
+          contador = count;
+          let productos = req.body.productos;
+          let totalVenta = 0;
 
-    let productos = req.body.productos;
-    let totalVenta = 0;
+          for (const producto of productos) {
+            const productoEnDB = Producto.findById(producto.productoId).exec();
+            if (productoEnDB) {
+              totalVenta += Number(producto.precio) * Number(producto.cantidad);
+            }
+          }
 
-    for (const producto of productos) {
-      const productoEnDB = await Producto.findById(producto.productoId).exec();
-      if (productoEnDB) {
-        totalVenta += Number(producto.precio) * Number(producto.cantidad);
-      }
-    }
+          const neto = totalVenta - totalVenta * 0.19;
+          const iva = totalVenta * 0.19;
 
-    const neto = totalVenta - totalVenta * 0.19;
-    const iva = totalVenta * 0.19;
+          const boleta = new Boleta({
+            productos: req.body.productos,
+            numero_boleta: contador + 1,
+            fecha_emision: req.body.fecha_emision,
+            modo_pago: req.body.modo_pago,
+            total: totalVenta,
+            cliente: req.body.cliente,
+            neto: neto.toFixed(0), // Redondeado
+            iva: iva.toFixed(0), // Redondeado
+            estado: req.body.estado,
+          });
+          const createBoleta = boleta.save();
+          res.status(200).json({ createBoleta });
+        } else {
+          let productos = req.body.productos;
+          let totalVenta = 0;
 
-    const boleta = new Boleta({
-      productos: req.body.productos,
-      numero_boleta: contador + 1,
-      fecha_emision: req.body.fecha_emision,
-      modo_pago: req.body.modo_pago,
-      total: totalVenta,
-      cliente: req.body.cliente,
-      neto: neto.toFixed(0), // Redondeado
-      iva: iva.toFixed(0), // Redondeado
-      estado: req.body.estado,
-    });
-    const createBoleta = await boleta.save();
+          for (const producto of productos) {
+            const productoEnDB = Producto.findById(producto.productoId).exec();
+            if (productoEnDB) {
+              totalVenta += Number(producto.precio) * Number(producto.cantidad);
+            }
+          }
 
-    res.status(200).json({ createBoleta });
+          const neto = totalVenta - totalVenta * 0.19;
+          const iva = totalVenta * 0.19;
+
+          const boleta = new Boleta({
+            productos: req.body.productos,
+            numero_boleta: 1,
+            fecha_emision: req.body.fecha_emision,
+            modo_pago: req.body.modo_pago,
+            total: totalVenta,
+            cliente: req.body.cliente,
+            neto: neto.toFixed(0), // Redondeado
+            iva: iva.toFixed(0), // Redondeado
+            estado: req.body.estado,
+          });
+          const createBoleta = boleta.save();
+          res.status(200).json({ createBoleta });
+        }
+      })
+      .catch((error) => {
+        console.log(error, "error interno");
+      });
   } catch (err) {
     res.status(500).json({ message: "Error al crear la boleta: " + err });
   }

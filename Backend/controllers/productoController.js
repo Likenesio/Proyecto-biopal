@@ -1,6 +1,5 @@
 var Producto = require('../models/productos');
 
-
 const insert = (req, res)=>{
         
             let producto = new Producto();
@@ -17,7 +16,8 @@ const insert = (req, res)=>{
             .catch((err)=>{
                 res.status(500).send({message: "Error al crear producto" + err});
             });
-};
+}
+
 
 const eliminar = (req, res) => {
     let productoId = req.params._id;

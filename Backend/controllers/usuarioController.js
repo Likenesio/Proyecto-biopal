@@ -2,7 +2,6 @@ const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const jwt = require ('jsonwebtoken');
 
-
 const insert = async (req, res) =>{
    
        let usuario = new Usuario();
@@ -133,6 +132,7 @@ const login = async (req, res) => {
   }
 };
 
+
       
 
   module.exports = { insert,
@@ -140,4 +140,4 @@ const login = async (req, res) => {
      actualizar, 
      listar, 
      buscar, 
-     login };
+     login, };

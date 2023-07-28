@@ -94,8 +94,8 @@ export class BoletasComponent {
         doc.setTextColor('green');
         doc.text('BioPal', 14, 15);
         doc.setFontSize(7);
-        doc.text('Desde la naturaleza a su mesa (cambiar eslogan)', 14, 18);
-        doc.text('Venta de frutas y verduras', 14, 21);
+        doc.text('Brindando siempre los mejores y más selectos productos para el consumo de nuestros clientes', 14, 18);
+        doc.text('Venta de frutas y verduras al por mayor', 14, 21);
 
         // Encabezado derecho (borde de color rojo)
         doc.setDrawColor('red');
