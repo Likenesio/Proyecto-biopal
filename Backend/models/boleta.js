@@ -33,17 +33,17 @@ const boletaSchema = schema({
     type: String,
     required: true,
   },
+  pedido:{
+    type: schema.ObjectId,
+    ref:"pedido"   
+  },
   fecha_emision: {
     type: Date,
-    require: true,
-  },
-  modo_pago: {
-    type: String,
-    require: true,
+    require: true
   },
   cliente: {
     type: schema.ObjectId,
-    ref: "cliente",
+    ref: "cliente"
   },
 
   total: {

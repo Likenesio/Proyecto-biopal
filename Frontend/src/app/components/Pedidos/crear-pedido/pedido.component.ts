@@ -7,6 +7,7 @@ import { ProductosService } from 'src/app/service/productos-service/productos.se
 import { AuthService } from '../../../service/auth-service/auth.service';
 import { formatDate } from '@angular/common';
 import { BoletaService } from 'src/app/service/boleta-service/boleta.service';
+import { timeout } from 'rxjs';
 
 
 interface PedidoProducto {
@@ -35,6 +36,9 @@ interface Tabla {
   cantidad: number;
   id: string;
   codigo_barras: string;
+}
+interface Modo_pago {
+  modo_pago: string;
 }
 
 interface Pedido {
@@ -67,8 +71,17 @@ export class PedidoComponent implements OnInit {
   clientesListar: any;
   productoEncontrado: any;
   listaTabla: Tabla[] = [];
+
   idPedido: any;
+
   total: number = 0;
+
+  modo_pagos: Modo_pago[] =[];
+  modo_pago: any;
+  selectedMedioPago: any;
+
+  pedidoNuevo: any[]=[];
+
 
   //Modal
   visible: boolean = false;
@@ -89,6 +102,11 @@ export class PedidoComponent implements OnInit {
     });
 
     this.cantidad_producto = 1;
+
+    this.modo_pagos = [
+      {modo_pago: "Efectivo"},
+      {modo_pago: "Crédito"},
+    ]
   }
   cargarCliente() {
     this.clienteService
@@ -97,6 +115,7 @@ export class PedidoComponent implements OnInit {
         this.respuestaBusqueda = data;
       });
   }
+
 
   //fin cliente formulario
 
@@ -219,109 +238,131 @@ export class PedidoComponent implements OnInit {
     }
   }
 */
-realizarPedido() {
-  if (this.listarProductos.length > 0) {
-    let total = this.listarProductos
-      .filter((producto) => producto.subtotal)
-      .reduce((sum: any, producto) => sum + producto.subtotal, 0);
-    let idUser = this.authService.obtenerIdUsuario();
-    let pedido = {
-      cliente: this.clienteSelect._id,
-      usuario: idUser,
-      fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-      estado: 'En proceso',
-      total: total,
+realizarBoleta(){
+  let productos: ProductoBoleta[] = [];
+  //Insertar productos para que se muestren en la boleta con su precio
+  this.listaTabla.forEach((productoP) => {
+    let productoBoleta = {
+      productoId: productoP.id,
+      cantidad: productoP.cantidad,
+      precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
+      nombre_producto: productoP.nombre_producto,
+      codigo_barras: productoP.codigo_barras,
+
     };
-
-    this.pedidoService.insertPedido(pedido).subscribe(
-      (data) => {
-        alert('Pedido creado exitosamente');
-        this.idPedido = data.p._id;
-
-        // Iterar por los productos del pedido para restar cantidades
-        this.listarProductos.forEach((productoP) => {
-          let productoPedido = {
-            producto: productoP.producto,
-            pedido: this.idPedido,
-            cantidad_producto: productoP.cantidad_producto,
-            subtotal: productoP.subtotal,
-          };
-
-          // Insertar el producto en el pedido
-          this.pedidoProductoService
-            .insertPedidoProducto(productoPedido)
-            .subscribe((data) => {
-              console.log('producto insertado a pedido');
-            });
-
-          // Restar cantidades del producto en la base de datos
-          this.productosService.restarCantidadesProductos(productoP.producto, Number(productoP.cantidad_producto))
-            .subscribe(() => {
-
-              console.log('Cantidad restada del producto en la base de datos', productoP.producto,productoP.cantidad_producto);
-            }, (error) => {
-              console.log('Error al restar cantidades del producto en la base de datos', error);
-            });
-        });
-
-        // Limpieza datos del formulario y variables
-        this.listarProductos = [];
-        this.codigo_barra = null;
-        this.cantidad_producto = 1;
-        this.clienteSelect = [];
-        this.listaTabla = [];
-        this.total = 0;
-      },
-      (error) => {
-        console.log(error);
-        alert('error al crear pedido');
-      }
-    );
-  } else {
-    alert('Debe ingresar al menos un producto para crear el pedido.');
+    console.log("productop//////////", productoP)
+    productos.push(productoBoleta);
+  });
+ console.log("Datos Boleta1: ", this.listaTabla)
+  let boleta = {
+    productos: productos,
+    fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+    pedido: this.idPedido, //cambiar por --------------------------> medio de pago seleccionado antes de realizar pedido
+    cliente: this.clienteSelect._id,
+    total: this.total,
+    estado: 'En proceso'
   }
+  console.log("Datos Boleta2: ", boleta)
+
+
+  this.boletaService.crearBoleta(boleta).subscribe(data => {
+    alert('Boleta emitida exitosamente');
+  }, err => {
+    alert('Error al emitir boleta');
+    console.log("error al emitir boleta ",err);
+
+  }
+  )
+  this.limpiezaForm()
+
+  this.pedidoNuevo=[];
+  this.visible = false;
 }
 
+emitirBoleta() {
+  setTimeout(()=>{
+    this.realizarPedido()
+  }, 500)
+  setTimeout(()=>{
+    this.realizarBoleta()
+ },1000)
 
+}
 
-  emitirBoleta() {
-    let productos: ProductoBoleta[] = [];
-    //Insertar productos para que se muestren en la boleta con su precio
-    this.listaTabla.forEach((productoP) => {
-      let productoBoleta = {
-        productoId: productoP.id,
-        cantidad: productoP.cantidad,
-        precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
-        nombre_producto: productoP.nombre_producto,
-        codigo_barras: productoP.codigo_barras,
-
-      };
-      productos.push(productoBoleta);
-    });
-
-
-    let boleta = {
-      productos: productos,
-      fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-      modo_pago: 'Efectivo',
-      cliente: this.clienteSelect._id,
-      total: this.total,
-      estado: 'En proceso'
-    }
-    console.log(boleta)
-    this.boletaService.crearBoleta(boleta).subscribe(data => {
-      alert('Boleta emitida exitosamente');
-    }, err => {
-      alert('Error al emitir boleta');
-      console.log("error al emitir boleta ",err);
-
-    })
-    this.realizarPedido();
-    this.visible = false;
-  }
   //Mostrar modal
   showDialog() {
     this.visible = true;
+  }
+
+  realizarPedido() {
+    if (this.listarProductos.length > 0) {
+      let total = this.listarProductos
+
+      .filter((producto) => producto.subtotal)
+      .reduce((sum: any, producto) => sum + producto.subtotal, 0);
+      let idUser = this.authService.obtenerIdUsuario();
+      let pedido = {
+        cliente: this.clienteSelect._id,
+        modo_pago: this.selectedMedioPago.modo_pago,
+        usuario: idUser,
+        fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+        estado: 'En proceso',
+        total: total,
+      };
+
+      this.pedidoService.insertPedido(pedido).subscribe(
+        (data) => {
+          alert('Pedido creado exitosamente');
+          this.idPedido = data.p._id;
+          this.pedidoNuevo.push(data.p)
+          console.log("Push pedido nuevo: ", this.pedidoNuevo)
+          // Iterar por los productos del pedido para restar cantidades
+          this.listarProductos.forEach((productoP) => {
+            let productoPedido = {
+              producto: productoP.producto,
+              pedido: this.idPedido,
+              cantidad_producto: productoP.cantidad_producto,
+              subtotal: productoP.subtotal,
+            };
+
+            // Insertar el producto en el pedido
+            this.pedidoProductoService
+              .insertPedidoProducto(productoPedido)
+              .subscribe((data) => {
+                console.log('producto insertado a pedido');
+              });
+
+            // Restar cantidades del producto en la base de datos
+            this.productosService.restarCantidadesProductos(productoP.producto, Number(productoP.cantidad_producto))
+              .subscribe(() => {
+
+                console.log('Cantidad restada del producto en la base de datos', productoP.producto,productoP.cantidad_producto);
+              }, (error) => {
+                console.log('Error al restar cantidades del producto en la base de datos', error);
+              });
+          });
+
+        },
+        (error) => {
+          console.log(error);
+          alert('error al crear pedido');
+        }
+      );
+    } else {
+      alert('Debe ingresar al menos un producto para crear el pedido.');
+    }
+  }
+  limpiezaForm(){
+    // Limpieza datos del formulario y variables
+    this.listarProductos = [];
+    this.codigo_barra = null;
+    this.cantidad_producto = 1;
+    this.clienteSelect = [];
+    this.selectedMedioPago=[];
+    this.listaTabla = [];
+    this.total = 0;
+
+  }
 }
 
-}
+

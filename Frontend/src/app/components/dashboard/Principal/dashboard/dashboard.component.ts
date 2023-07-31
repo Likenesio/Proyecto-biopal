@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
 import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   obtenerRol: any
   email: any;
   apellido:any;
+  rut:any;
 
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
@@ -37,10 +39,11 @@ export class DashboardComponent implements OnInit {
       this.usuarioService.buscarUsuario(this.idUsuario)
       .subscribe((data)=>{
         this.respuestaIdUsuario = data;
-        console.log(this.respuestaIdUsuario)
+        console.log( "este:", this.respuestaIdUsuario)
         this.usuario = this.respuestaIdUsuario.usuario.nombre_usuario;
         this.apellido = this.respuestaIdUsuario.usuario.apellido;
         this.email = this.respuestaIdUsuario.usuario.correo;
+
         this.obtenerRol = this.authService.obtenerRol();
 
       });

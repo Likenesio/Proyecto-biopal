@@ -9,6 +9,10 @@ const pedidoSchema = schema(
                 unique:true,
                 default: 0
             },
+            modo_pago: {
+                type:String,
+                required:true,
+            },
 
             estado:{
                  type: String,

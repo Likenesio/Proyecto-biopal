@@ -20,20 +20,24 @@ const insert = (req, res) => {
             }
           }
 
-          const neto = totalVenta - totalVenta * 0.19;
+          //const neto = totalVenta - totalVenta * 0.19;
+          const neto = totalVenta;
           const iva = totalVenta * 0.19;
+          const total = totalVenta + iva;
 
           const boleta = new Boleta({
             productos: req.body.productos,
             numero_boleta: contador + 1,
             fecha_emision: req.body.fecha_emision,
-            modo_pago: req.body.modo_pago,
-            total: totalVenta,
+            pedido: req.body.pedido,
+            total: total,
             cliente: req.body.cliente,
             neto: neto.toFixed(0), // Redondeado
             iva: iva.toFixed(0), // Redondeado
             estado: req.body.estado,
           });
+
+          console.log("boleta del backend: ", boleta)
           const createBoleta = boleta.save();
           res.status(200).json({ createBoleta });
         } else {
@@ -47,15 +51,16 @@ const insert = (req, res) => {
             }
           }
 
-          const neto = totalVenta - totalVenta * 0.19;
+          const neto = totalVenta;
           const iva = totalVenta * 0.19;
+          const total = totalVenta + iva;
 
           const boleta = new Boleta({
             productos: req.body.productos,
             numero_boleta: 1,
             fecha_emision: req.body.fecha_emision,
-            modo_pago: req.body.modo_pago,
-            total: totalVenta,
+            total: total,
+            pedido: req.body.pedido,
             cliente: req.body.cliente,
             neto: neto.toFixed(0), // Redondeado
             iva: iva.toFixed(0), // Redondeado
@@ -92,8 +97,8 @@ const actualizar = (req, res) => {
   iva = req.body.iva;
   total = req.body.total;
   fecha_emision = req.body.fecha_emision;
-  modo_pago = req.body.modo_pago;
   estado = req.body.estado;
+  pedido = req.body.pedido;
   cliente = req.body.cliente;
   Boleta.findByIdAndUpdate(
     boletaId,
@@ -104,8 +109,8 @@ const actualizar = (req, res) => {
       iva: iva,
       total: total,
       fecha_emision: fecha_emision,
-      modo_pago: modo_pago,
       estado: estado,
+      pedido: pedido,
       cliente: cliente,
     },
     { new: true }
@@ -125,7 +130,8 @@ const actualizar = (req, res) => {
 
 const listar = (req, res) => {
   Boleta.find({})
-    .populate("cliente")
+    //.populate("cliente")
+    .populate({ path: "pedido", populate: { path: "cliente" } })
     .exec()
     .then((boleta) => {
       res.status(200).send({ boleta });
@@ -138,7 +144,8 @@ const listar = (req, res) => {
 const buscar = (req, res) => {
   let boletaId = req.params._id;
   Boleta.findById(boletaId)
-    .populate("cliente")
+    //.populate("cliente")
+    .populate({ path: "pedido", populate: { path: "cliente" } })
     .exec()
     .then((boleta) => {
       res.status(200).send({ boleta });
@@ -150,7 +157,8 @@ const buscar = (req, res) => {
 const buscarPorNumero = (req, res) => {
   let boletaNumero = req.params.numero_boleta;
   Boleta.find({ numero_boleta: boletaNumero })
-    .populate("cliente")
+    //.populate("cliente")
+    .populate({ path: "pedido", populate: { path: "cliente" } })
     .exec()
     .then((boleta) => {
       res.status(200).send({ boleta });

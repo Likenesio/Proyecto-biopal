@@ -17,8 +17,8 @@
             <tr>
                 <td>{{ boleta.numero_boleta}}</td>
                 <td>{{ boleta.fecha_emision | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
-                <td>{{boleta.cliente.nombre_cliente}}</td>
-                <td>{{boleta.modo_pago}}</td>
+                <td>{{boleta.pedido.cliente[0].nombre_cliente}}</td>
+                <td>{{boleta.pedido.modo_pago}}</td>
                 <td>${{ boleta.total}}</td>
                 <td>{{ boleta.estado }}</td>
                 <td>

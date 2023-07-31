@@ -32,7 +32,7 @@ export class BoletasComponent {
     this.boletaService.listarBoletas().subscribe((data) => {
       this.respuesta = data;
       this.listaBoletasAPI = this.respuesta.boleta;
-      //console.log(this.listaBoletasAPI);
+      console.log(this.listaBoletasAPI);
     });
   }
 
@@ -67,7 +67,9 @@ export class BoletasComponent {
     this.boletaService.buscarBoletaID(id).subscribe(
       (data) => {
         let boletaData = data.boleta;
-        //console.log(boletaData);
+
+        console.log("Datos Boleta Dataaa:", boletaData);
+
         const doc = new jsPDF({
           orientation: 'portrait',
           unit: 'mm',
@@ -114,7 +116,7 @@ export class BoletasComponent {
         doc.setTextColor('black'); // Texto en negro
         doc.setFontSize(10); // Tamaño de fuente para datos
 
-        doc.text('Cliente: ' + boletaData.cliente.nombre_cliente, 16, 45);
+        doc.text('Cliente: ' + boletaData.pedido.cliente[0].nombre_cliente, 16, 45);
         doc.text(
           'Fecha de Venta: ' +
             formatDate(
@@ -125,7 +127,7 @@ export class BoletasComponent {
           16,
           50
         );
-        doc.text('Medio de Pago: ' + boletaData.modo_pago, 16, 55);
+        doc.text('Medio de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
 
         // Detalles de la boleta
         doc.setFillColor('white'); // Fondo blanco
@@ -156,7 +158,7 @@ export class BoletasComponent {
         doc.rect(pageWidth - 70, pageHeight - 70, 55, 20, 'S'); // Rectángulo con fondo blanco
         doc.setFontSize(10); // Tamaño de fuente para neto e iva
         doc.text('Neto: $' + boletaData.neto, pageWidth - 68, 214);
-        doc.text('IVA: $' + boletaData.iva, pageWidth - 68, 220);
+        doc.text('IVA (19%): $' + boletaData.iva, pageWidth - 68, 220);
         doc.setFontSize(14);//Agrandar más el tamaño de la letra para el total
         doc.text('TOTAL: $' + boletaData.total, pageWidth - 68, 227);
 
@@ -192,7 +194,7 @@ export class BoletasComponent {
         doc.setTextColor('black'); // Texto en negro
         doc.setFontSize(10); // Tamaño de fuente para datos
 
-        doc.text('Cliente: ' + boletaData.cliente.nombre_cliente, 16, 45);
+        doc.text('Cliente: ' + boletaData.pedido.cliente[0].nombre_cliente, 16, 45);
         doc.text(
           'Fecha de Venta: ' +
             formatDate(
@@ -203,7 +205,8 @@ export class BoletasComponent {
           16,
           50
         );
-        doc.text('Medio de Pago: ' + boletaData.modo_pago, 16, 55);
+        doc.text('Medio de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
+        console.log("Datos de boleta: ", boletaData);
 
         // Detalles de la boleta
         doc.setFillColor('white'); // Fondo blanco
@@ -232,7 +235,7 @@ export class BoletasComponent {
         doc.rect(pageWidth - 70, pageHeight - 70, 55, 20, 'S'); // Rectángulo con fondo blanco
         doc.setFontSize(10); // Tamaño de fuente para totales
         doc.text('Neto: $' + boletaData.neto, pageWidth - 68, 214);
-        doc.text('IVA: $' + boletaData.iva, pageWidth - 68, 220);
+        doc.text('IVA (19%): $' + boletaData.iva, pageWidth - 68, 220);
         doc.setFontSize(14);
         doc.text('TOTAL: $' + boletaData.total, pageWidth - 68, 227);
 

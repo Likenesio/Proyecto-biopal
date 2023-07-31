@@ -157,6 +157,26 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <label for="modo_pago">Modo de Pago:</label>
+              </div>
+              <div class="m-lg-2">
+                <p-dropdown
+                  class=" row w-100"
+                  id="cliente"
+                  placeholder="Seleccione"
+                  (onChange)="cargarCliente()"
+                  [options]="modo_pagos"
+                  [(ngModel)]="selectedMedioPago"
+                  optionLabel="modo_pago"
+                  [ngModelOptions]="{ standalone: true }"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+
           <div class="row mt-3">
             <div class="col-12">
               <label class="mb-2" for="codigo_barra">Código de Barra:</label>

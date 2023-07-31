@@ -9,6 +9,7 @@ const insert = (req, res) => {
       pedido.numero_pedido = contador +1;
       pedido.estado= req.body.estado;
       pedido.fecha=req.body.fecha;
+      pedido.modo_pago = req.body.modo_pago;
       pedido.cliente = req.body.cliente;
       pedido.usuario = req.body.usuario;
       pedido.total = req.body.total
@@ -24,6 +25,7 @@ const insert = (req, res) => {
         pedido.numero_pedido = 1;
         pedido.estado= req.body.estado;
         pedido.fecha=req.body.fecha;
+        pedido.modo_pago = req.body.modo_pago;
         pedido.cliente = req.body.cliente;
         pedido.usuario = req.body.usuario;
         pedido.total = req.body.total
@@ -58,6 +60,7 @@ const actualizar = (req, res) => {
   let pedidoId = req.params._id;
   let numero_pedido = req.body.numero_pedido;
   let fecha = req.body.fecha;
+  let modo_pago = req.body.modo_pago;
   let estado = req.body.estado;
   let cliente = req.body.cliente;
   let usuario = req.body.usuario;
@@ -69,6 +72,7 @@ const actualizar = (req, res) => {
       numero_pedido: numero_pedido,
       fecha: fecha,
       estado: estado,
+      modo_pago: modo_pago,
       cliente: cliente,
       usuario: usuario,
       total:total
