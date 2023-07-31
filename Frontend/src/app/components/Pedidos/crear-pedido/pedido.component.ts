@@ -83,6 +83,8 @@ export class PedidoComponent implements OnInit {
   pedidoNuevo: any[]=[];
 
 
+
+
   //Modal
   visible: boolean = false;
 
@@ -99,6 +101,11 @@ export class PedidoComponent implements OnInit {
     this.clienteService.listarClientes().subscribe((data) => {
       this.respuesta = data;
       this.clientesListar = this.respuesta.client;
+      //console.log("Respuesta: ", this.respuesta)
+      //console.log("Respuesta Cliente Listar: ", this.clientesListar)
+      this.clienteSelect = this.clientesListar.filter((cliente:any)=>cliente.nombre_cliente == "n/n")[0];
+      console.log("Cliente Select: ", this.clienteSelect)
+
     });
 
     this.cantidad_producto = 1;
@@ -106,6 +113,7 @@ export class PedidoComponent implements OnInit {
     this.modo_pagos = [
       {modo_pago: "Efectivo"},
       {modo_pago: "Crédito"},
+      {modo_pago: "Débito"},
     ]
   }
   cargarCliente() {
