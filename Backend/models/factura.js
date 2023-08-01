@@ -53,10 +53,10 @@ const factSchema = schema({
                 type: schema.ObjectId,
                 ref: "pedido"
             },
-            cliente: {
+            cliente: [{
                 type: schema.ObjectId,
                 ref: "cliente"
-              },
+              }],
              usuario: {
                 type: schema.ObjectId,
                 ref: "usuario"

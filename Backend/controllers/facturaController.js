@@ -167,7 +167,8 @@ const buscar = (req, res) => {
     Factura.findById(facturaId)
     //.populate("cliente")
     //.populate("usuario")
-    .populate({ path: "pedido", populate: { path: "cliente" }, populate: { path: "usuario" } })
+    .populate({ path: "pedido", populate: { path: "usuario" } })
+    .populate({ path: "pedido", populate: { path: "cliente" } })
     .exec()
     .then((factura)=>{
         res.status(200).send({factura});
@@ -183,7 +184,8 @@ const buscarPorNumeroFactura = (req, res) => {
     let facturaNumero = req.params.numero_factura;
     Factura.find({ numero_factura: facturaNumero })
       //.populate("cliente")
-      .populate({ path: "pedido", populate: { path: "cliente" }, populate: { path: "usuario" } })
+      .populate({ path: "pedido", populate: { path: "cliente" } })
+      .populate({ path: "pedido", populate: { path: "usuario" } })
       .exec()
       .then((factura) => {
         res.status(200).send({ factura });

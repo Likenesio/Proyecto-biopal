@@ -6,8 +6,8 @@
           <tr>
               <th>N° Factura</th>
               <th>Fecha emisión</th>
-              <th>Nombre usuario</th>
-              <th>Medio pago</th>
+              <th>Vendedor</th>
+              <th>Forma pago</th>
               <th>Total</th>
               <th>Estado</th>
               <th>Acciones</th>
@@ -17,7 +17,7 @@
           <tr>
               <td>{{ factura.numero_factura}}</td>
               <td>{{ factura.fecha_emision | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
-              <td>{{factura.pedido.usuario[0].nombre_usuario}}</td>
+              <td>{{factura.pedido.usuario[0].nombre_usuario}} {{factura.pedido.usuario[0].apellido}}</td>
               <td>{{factura.pedido.modo_pago}}</td>
               <td>${{factura.total}}</td>
               <td>{{ factura.estado }}</td>

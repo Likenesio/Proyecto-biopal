@@ -64,10 +64,10 @@ export class FacturaComponent{
   isFirstPage(): boolean {
     return this.listaFacturaAPI ? this.first === 0 : true;
   }
-generarFacturaPDF(id: any) {
+generarFacturaPDF(id: string) {
 this.facturaService.buscarFacturaID(id).subscribe((data) => {
 let facturaData = data.factura;
-console.log(facturaData);
+console.log("Datos factura: ", facturaData);
 
 const doc = new jsPDF({
   orientation: 'portrait',
@@ -79,11 +79,12 @@ const doc = new jsPDF({
 const pageWidth = doc.internal.pageSize.getWidth();//Variable que considera la anchura total de la página
 const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la altura total de la página
 
+
             // Encabezado izquierdo
         doc.setFontSize(20);
         doc.setTextColor('green');
         doc.text('BioPal', 14, 15);
-        doc.setFontSize(7);
+        doc.setFontSize(8);
         doc.text('Brindando siempre los mejores y más selectos productos para el consumo de nuestros clientes', 14, 18);
         doc.text('Venta de frutas y verduras al por mayor', 14, 21);
 
@@ -93,8 +94,8 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.setTextColor('red');
         doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
-        doc.text('FACTURA ELECTRÓNICA', pageWidth - 55, 11);
-        doc.text('N° ' + facturaData.numero_factura, pageWidth - 40, 16);
+        doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
+        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
 
         // Datos de la boleta
         doc.setDrawColor('black');
@@ -105,7 +106,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.setFontSize(10); // Tamaño de fuente para datos
 
         //doc.text('Cliente: ' + facturaData.pedido.cliente[0].nombre_cliente, 16, 45);
-        doc.text('Vendedor: ' + facturaData.pedido.usuario[0].nombre_usuario, 16, 45);
+        doc.text('Vendedor: ' + facturaData.pedido.usuario[0].nombre_usuario + ' ' + facturaData.pedido.usuario[0].apellido, 16, 45);
         doc.text(
           'Fecha de Venta: ' +
             formatDate(
@@ -117,7 +118,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
           50
         );
         doc.text('Forma de Pago: ' + facturaData.pedido.modo_pago, 16, 55);
-        // Detalles de la boleta
+        // Detalles de la factura
         doc.setFillColor('white'); // Fondo blanco
         //doc.rect(14, 100, pageWidth - 40, 80, 'FD'); // Rectángulo con fondo blanco
         autoTable(doc, {
@@ -155,10 +156,172 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.text('Copia cliente', pageWidth - 120, pageHeight - 5);
 
 
+
+
+
+        //Página 2 COPIA EMPRESA
+        doc.addPage();
+
+        // Encabezado izquierdo
+        doc.setFontSize(20);
+        doc.setTextColor('green');
+        doc.text('BioPal', 14, 15);
+        doc.setFontSize(8);
+        doc.text('Brindando siempre los mejores y más selectos productos para el consumo de nuestros clientes', 14, 18);
+        doc.text('Venta de frutas y verduras al por mayor', 14, 21);
+
+        // Encabezado derecho (borde de color rojo)
+        doc.setDrawColor('red');
+        doc.rect(pageWidth - 58, 3, 50, 18, 'S');
+        doc.setTextColor('red');
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
+        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
+
+        // Datos de la boleta
+        doc.setDrawColor('black');
+        doc.setFillColor('white'); // Fondo blanco
+        doc.setLineWidth(0.1);
+        doc.rect(14, 38, pageWidth - 28, 25, 'FD'); // Rectángulo con fondo blanco
+        doc.setTextColor('black'); // Texto en negro
+        doc.setFontSize(10); // Tamaño de fuente para datos
+
+        doc.text('Vendedor: ' + facturaData.pedido.usuario[0].nombre_usuario + ' ' + facturaData.pedido.usuario[0].apellido, 16, 45);
+        doc.text(
+          'Fecha de Venta: ' +
+            formatDate(
+              new Date(facturaData.fecha_emision),
+              'dd/MM/yyyy',
+              'en-US'
+            ),
+          16,
+          50
+        );
+        doc.text('Forma de Pago: ' + facturaData.pedido.modo_pago, 16, 55);
+        console.log("Datos de boleta: ", facturaData);
+
+        // Detalles de la boleta
+        doc.setFillColor('white'); // Fondo blanco
+        //doc.rect(14, 100, pageWidth - 40, 80, 'FD'); // Rectángulo con fondo blanco
+        autoTable(doc, {
+          startY: 85,
+          head: [
+            [
+              'Código Barras',
+              'Nombre Producto',
+              'Precio',
+              'Cantidad',
+              'Subtotal',
+            ],
+          ],
+          body: facturaData.productos.map((detalle: any) => [
+            detalle.codigo_barras,
+            detalle.nombre_producto,
+            '$' + detalle.precio,
+            detalle.cantidad,
+            '$' + detalle.cantidad * detalle.precio,
+          ]),
+        });
+
+        // Totales
+        doc.rect(pageWidth - 70, pageHeight - 70, 55, 20, 'S'); // Rectángulo con fondo blanco
+        doc.setFontSize(10); // Tamaño de fuente para totales
+        doc.text('Neto: $' + facturaData.neto, pageWidth - 68, 214);
+        doc.text('IVA (19%): $' + facturaData.iva, pageWidth - 68, 220);
+        doc.setFontSize(14);
+        doc.text('TOTAL: $' + facturaData.total, pageWidth - 68, 227);
+
+        //Pie de página
+        doc.setFontSize(7);
+        doc.text('Copia empresa', pageWidth - 120, pageHeight - 5);
+
+
+        // Copia cedible...
+        doc.addPage();
+
+        // Encabezado izquierdo
+        doc.setFontSize(20);
+        doc.setTextColor('green');
+        doc.text('BioPal', 14, 15);
+        doc.setFontSize(8);
+        doc.text('Brindando siempre los mejores y más selectos productos para el consumo de nuestros clientes', 14, 18);
+        doc.text('Venta de frutas y verduras al por mayor', 14, 21);
+
+        // Encabezado derecho (borde de color rojo)
+        doc.setDrawColor('red');
+        doc.rect(pageWidth - 58, 3, 50, 18, 'S');
+        doc.setTextColor('red');
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
+        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
+
+        // Datos de la boleta
+        doc.setDrawColor('black');
+        doc.setFillColor('white'); // Fondo blanco
+        doc.setLineWidth(0.1);
+        doc.rect(14, 38, pageWidth - 28, 25, 'FD'); // Rectángulo con fondo blanco
+        doc.setTextColor('black'); // Texto en negro
+        doc.setFontSize(10); // Tamaño de fuente para datos
+
+        doc.text('Vendedor: ' + facturaData.pedido.usuario[0].nombre_usuario + ' ' + facturaData.pedido.usuario[0].apellido, 16, 45);
+        doc.text(
+          'Fecha de Venta: ' +
+            formatDate(
+              new Date(facturaData.fecha_emision),
+              'dd/MM/yyyy',
+              'en-US'
+            ),
+          16,
+          50
+        );
+        doc.text('Forma de Pago: ' + facturaData.pedido.modo_pago, 16, 55);
+        console.log("Datos de boleta: ", facturaData);
+
+        // Detalles de la boleta
+        doc.setFillColor('white'); // Fondo blanco
+        //doc.rect(14, 100, pageWidth - 40, 80, 'FD'); // Rectángulo con fondo blanco
+        autoTable(doc, {
+          startY: 85,
+          head: [
+            [
+              'Código Barras',
+              'Nombre Producto',
+              'Precio',
+              'Cantidad',
+              'Subtotal',
+            ],
+          ],
+          body: facturaData.productos.map((detalle: any) => [
+            detalle.codigo_barras,
+            detalle.nombre_producto,
+            '$' + detalle.precio,
+            detalle.cantidad,
+            '$' + detalle.cantidad * detalle.precio,
+          ]),
+        });
+
+        // Totales
+        doc.rect(pageWidth - 70, pageHeight - 70, 55, 20, 'S'); // Rectángulo con fondo blanco
+        doc.setFontSize(10); // Tamaño de fuente para totales
+        doc.text('Neto: $' + facturaData.neto, pageWidth - 68, 214);
+        doc.text('IVA (19%): $' + facturaData.iva, pageWidth - 68, 220);
+        doc.setFontSize(14);
+        doc.text('TOTAL: $' + facturaData.total, pageWidth - 68, 227);
+
+        //Pie de página
+        doc.setFontSize(7);
+        doc.text('CEDIBLE', pageWidth - 120, pageHeight - 5);
+
+
         doc.save('Factura ' + 'BioPal ' + 'N°' + facturaData.numero_factura + '.pdf');
 
 
       }
+
+
+
 );
 }
 }
