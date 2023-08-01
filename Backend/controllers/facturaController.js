@@ -1,27 +1,87 @@
 var Factura = require('../models/factura');
+const productos = require('../models/productos');
+var Producto = require("../models/productos");
+const usuario = require('../models/usuario');
 
+let contador = 0;
 
 const insert = (req, res) => {
+    try {
+      Factura.find({})
+        .count()
+        .then((count) => {
+          if (count) {
+            contador = count;
+            let productos = req.body.productos;
+            let totalVenta = 0;
+  
+            for (const producto of productos) {
+              const productoEnDB = Producto.findById(producto.productoId).exec();
+              if (productoEnDB) {
+                totalVenta += Number(producto.precio) * Number(producto.cantidad);
+              }
+            }
+  
+            //const neto = totalVenta - totalVenta * 0.19; 
+            const neto = totalVenta;
+            const iva = totalVenta * 0.19;
+            const total = totalVenta + iva;
+  
+            const factura = new Factura({
+              productos: req.body.productos,
+              numero_factura: contador + 1,
+              fecha_emision: req.body.fecha_emision,
+              pedido: req.body.pedido,
+              total: total,
+              cliente: req.body.cliente,
+              usuario: req.body.usuario,
+              neto: neto.toFixed(0), // Redondeado
+              iva: iva.toFixed(0), // Redondeado
+              estado: req.body.estado,
+            });
+  
+            console.log("factura del backend: ", factura);
 
-       let factura = new Factura();
-       factura.numero = req.body.numero;
-       factura.neto = req.body.neto;
-       factura.iva = req.body.iva;
-       factura.fecha_emision = req.body.fecha_emision;
-       factura.modo_pago = req.body.modo_pago;
-       factura.total = req.body.total;
-       factura.cliente = req.body.cliente;
-       factura.usuario = req.body.usuario;
-       factura
-       .save()
-       .then((facturaNueva)=>{
-        res.status(200).send({facturaNueva});
-       })
-       .catch((err)=>{
-        res.status(500).send({mensaje: "Error al inserta factura" + err});
-       });
-
-};
+            const createFactura = factura.save();
+            res.status(200).json({ createFactura });
+          } else {
+            let productos = req.body.productos;
+            let totalVenta = 0;
+  
+            for (const producto of productos) {
+              const productoEnDB = Producto.findById(producto.productoId).exec();
+              if (productoEnDB) {
+                totalVenta += Number(producto.precio) * Number(producto.cantidad);
+              }
+            }
+  
+            const neto = totalVenta;
+            const iva = totalVenta * 0.19;
+            const total = totalVenta + iva;
+  
+            const factura = new Factura({
+              productos: req.body.productos,
+              numero_factura: 1,
+              fecha_emision: req.body.fecha_emision,
+              total: total,
+              pedido: req.body.pedido,
+              cliente: req.body.cliente,
+              usuario: req.body.usuario,
+              neto: neto.toFixed(0), // Redondeado
+              iva: iva.toFixed(0), // Redondeado
+              estado: req.body.estado,
+            });
+            const createFactura = factura.save();
+            res.status(200).json({ createFactura });
+          }
+        })
+        .catch((error) => {
+          console.log(error, "error interno");
+        });
+    } catch (err) {
+      res.status(500).json({ message: "Error al crear la factura: " + err });
+    }
+  };
 
 
 const eliminar = (req, res) =>{
@@ -33,32 +93,36 @@ const eliminar = (req, res) =>{
     .catch((err)=>{
         return res
         .status(500)
-        .send({mensaje: "Error al eliminar factura"});
+        .send({mensaje: "Error al eliminar la factura"});
     });
 };
 
 
 const actualizar = (req, res) =>{
     let facturaId = req.params._id;
-    numero = req.body.numero;
+    numero_factura = req.body.numero_factura;
+    productos = req.body.productos;
     neto = req.body.neto;
     iva = req.body.iva;
     fecha_emision = req.body.fecha_emision;
-    modo_pago = req.body.modo_pago;
+    pedido = req.body.pedido;
+    usuario=req.body.usuario;
     total = req.body.total;
     cliente = req.body.cliente;
-    usuario = req.body.usuario;
+    estado = req.body.estado;
     Factura.findByIdAndUpdate(
     facturaId,
     {
-      numero: numero,
+      numero_factura: numero_factura,
+      productos:productos,
       neto: neto,
       iva: iva,
       fecha_emision: fecha_emision,
-      modo_pago: modo_pago,
+      pedido: pedido,
       total: total,
       cliente: cliente,
       usuario: usuario,
+      estado: estado,
     },
     {new: true}
     )
@@ -84,15 +148,16 @@ const actualizar = (req, res) =>{
 
 const listar = (req, res)=>{
     Factura.find({})
-    .populate("cliente")
-    .populate("usuario")
+    //.populate("cliente")
+    //.populate("usuario")
+    .populate({ path: "pedido", populate: { path: "cliente" }, populate: { path: "usuario" } })
     .exec()
     .then((factura)=>{
         res.status(200).send({factura});
     })
     .catch((err)=>{
         return res
-        .status({mensaje: "Error al listar facturas"})
+        .status({mensaje: "Error al listar facturas"});
     });
 };
 
@@ -100,8 +165,9 @@ const listar = (req, res)=>{
 const buscar = (req, res) => {
     let facturaId = req.params._id;
     Factura.findById(facturaId)
-    .populate("cliente")
-    .populate("usuario")
+    //.populate("cliente")
+    //.populate("usuario")
+    .populate({ path: "pedido", populate: { path: "cliente" }, populate: { path: "usuario" } })
     .exec()
     .then((factura)=>{
         res.status(200).send({factura});
@@ -112,10 +178,27 @@ const buscar = (req, res) => {
         .send({mensaje: "Error al buscar factura"});
     });
 };
+
+const buscarPorNumeroFactura = (req, res) => {
+    let facturaNumero = req.params.numero_factura;
+    Factura.find({ numero_factura: facturaNumero })
+      //.populate("cliente")
+      .populate({ path: "pedido", populate: { path: "cliente" }, populate: { path: "usuario" } })
+      .exec()
+      .then((factura) => {
+        res.status(200).send({ factura });
+      })
+      .catch((err) => {
+        return res
+          .status(500)
+          .send({ message: "Error al buscar este número de factura" });
+      });
+  };
 module.exports = {
     insert, 
     eliminar, 
     actualizar, 
     listar, 
-    buscar
+    buscar,
+    buscarPorNumeroFactura,
 };

@@ -45,7 +45,6 @@ const boletaSchema = schema({
     type: schema.ObjectId,
     ref: "cliente"
   },
-
   total: {
     type: Number,
     require: true,

@@ -37,7 +37,9 @@ const insert = (req, res) => {
             estado: req.body.estado,
           });
 
-          console.log("boleta del backend: ", boleta)
+          //console.log("boleta del backend: ", boleta);
+
+          
           const createBoleta = boleta.save();
           res.status(200).json({ createBoleta });
         } else {

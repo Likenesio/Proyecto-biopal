@@ -127,7 +127,7 @@ export class BoletasComponent {
           16,
           50
         );
-        doc.text('Medio de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
+        doc.text('Forma de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
 
         // Detalles de la boleta
         doc.setFillColor('white'); // Fondo blanco
@@ -205,7 +205,7 @@ export class BoletasComponent {
           16,
           50
         );
-        doc.text('Medio de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
+        doc.text('Forma de Pago: ' + boletaData.pedido.modo_pago, 16, 55);
         console.log("Datos de boleta: ", boletaData);
 
         // Detalles de la boleta
@@ -244,7 +244,7 @@ export class BoletasComponent {
         doc.text('Copia empresa', pageWidth - 120, pageHeight - 5);
 
         // Guardar el PDF con un nombre específico
-        doc.save('boleta' + boletaData.numero_boleta + '.pdf');
+        doc.save('Boleta ' + 'BioPal ' + 'N°' + boletaData.numero_boleta + '.pdf');
       },
       (err) => {
         alert('Error al generar boleta');
