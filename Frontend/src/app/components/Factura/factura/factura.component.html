@@ -1,0 +1,40 @@
+<div class="container card mt-5 m-lg-5">
+  <p-table [value]="listaFacturaAPI" [paginator]="true" [rows]="6" [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Mostrando del {first} al {last} de las {totalRecords} facturas">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>N° Factura</th>
+              <th>Fecha emisión</th>
+              <th>Nombre usuario</th>
+              <th>Medio pago</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-factura>
+          <tr>
+              <td>{{ factura.numero_factura}}</td>
+              <td>{{ factura.fecha_emision | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
+              <td>{{factura.pedido.usuario[0].nombre_usuario}}</td>
+              <td>{{factura.pedido.modo_pago}}</td>
+              <td>${{factura.total}}</td>
+              <td>{{ factura.estado }}</td>
+              <td>
+                  <p-button (onClick)="generarFacturaPDF(factura._id)" icon="pi pi-file-pdf"
+                      styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+                      class="button"></p-button>
+              </td>
+          </tr>
+
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+          <p-button type="button" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+          <p-button type="button" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+</div>

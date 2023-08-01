@@ -19,7 +19,7 @@ import { HomeComponent } from './components/home/home/home.component';
 import { HistorialPedidoComponent } from './components/historial-pedido/historial-pedido/historial-pedido.component';
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
 import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
-
+import { FacturaComponent } from './components/Factura/factura/factura.component';
 
 
 
@@ -42,6 +42,7 @@ const routes: Routes = [
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/modificarUsuario', component: ActualizarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'documentos/boletas', component: BoletasComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
+  {path:'documentos/facturas', component: FacturaComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'denegate', component : DenegateComponent}
 
 

@@ -60,7 +60,7 @@ import { HomeComponent } from './components/home/home/home.component';
 import { HistorialPedidoComponent } from './components/historial-pedido/historial-pedido/historial-pedido.component';
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
 import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
-
+import { FacturaComponent } from './components/Factura/factura/factura.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +83,8 @@ import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/venta
     ActualizarUsuarioComponent,
     HomeComponent,
     BoletasComponent,
-    VentasAnualesComponent
+    VentasAnualesComponent,
+    FacturaComponent,
 
   ],
   imports: [

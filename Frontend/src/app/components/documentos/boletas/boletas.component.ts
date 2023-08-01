@@ -68,7 +68,7 @@ export class BoletasComponent {
       (data) => {
         let boletaData = data.boleta;
 
-        console.log("Datos Boleta Dataaa:", boletaData);
+        //console.log("Datos Boleta Dataaa:", boletaData);
 
         const doc = new jsPDF({
           orientation: 'portrait',
