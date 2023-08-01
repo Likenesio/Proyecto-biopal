@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { PedidoProductoService } from 'src/app/service/pedido_producto/pedidoproducto.service';
 import { ClienteService } from '../../../service/cliente-service/cliente.service';
-import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
 import { ProductosService } from 'src/app/service/productos-service/productos.service';
 import { AuthService } from '../../../service/auth-service/auth.service';
 import { formatDate } from '@angular/common';
 import { BoletaService } from 'src/app/service/boleta-service/boleta.service';
-import { timeout } from 'rxjs';
+import{FacturaService} from 'src/app/service/factura-service/factura.service';
+
 
 
 interface PedidoProducto {
@@ -22,6 +22,14 @@ interface ProductoBoleta{
   nombre_producto: string;
   codigo_barras: String;
 }
+interface ProductoFactura{
+  productoId: String;
+  cantidad: Number;
+  precio: Number;
+  nombre_producto: string;
+  codigo_barras: String;
+}
+
 interface Producto {
   nombre_producto: string;
   precio_unitario: number;
@@ -94,7 +102,8 @@ export class PedidoComponent implements OnInit {
     private clienteService: ClienteService,
     private productosService: ProductosService,
     private boletaService: BoletaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private facturaService: FacturaService,
   ) {}
   //cliente formulario
   ngOnInit(): void {
@@ -104,7 +113,7 @@ export class PedidoComponent implements OnInit {
       //console.log("Respuesta: ", this.respuesta)
       //console.log("Respuesta Cliente Listar: ", this.clientesListar)
       this.clienteSelect = this.clientesListar.filter((cliente:any)=>cliente.nombre_cliente == "n/n")[0];
-      console.log("Cliente Select: ", this.clienteSelect)
+      //console.log("Cliente Select: ", this.clienteSelect)
 
     });
 
@@ -258,10 +267,10 @@ realizarBoleta(){
       codigo_barras: productoP.codigo_barras,
 
     };
-    console.log("productop//////////", productoP)
+    //console.log("ProductosP: ", productoP)
     productos.push(productoBoleta);
   });
- console.log("Datos Boleta1: ", this.listaTabla)
+ //console.log("Datos Boleta 1: ", this.listaTabla)
   let boleta = {
     productos: productos,
     fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
@@ -270,7 +279,7 @@ realizarBoleta(){
     total: this.total,
     estado: 'En proceso'
   }
-  console.log("Datos Boleta2: ", boleta)
+  //console.log("Datos Boleta 2: ", boleta)
 
 
   this.boletaService.crearBoleta(boleta).subscribe(data => {
@@ -287,6 +296,41 @@ realizarBoleta(){
   this.visible = false;
 }
 
+realizarFactura(){
+  let productos: ProductoFactura[] = [];
+  //Insertar productos para que se muestren en la boleta con su precio
+  this.listaTabla.forEach((productoP) => {
+    let productoFactura  = {
+      productoId: productoP.id,
+      cantidad: productoP.cantidad,
+      precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
+      nombre_producto: productoP.nombre_producto,
+      codigo_barras: productoP.codigo_barras,
+
+    };
+    productos.push(productoFactura);
+  });
+  let factura = {
+    productos: productos,
+    fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+    pedido: this.idPedido, //medio_pago seleccionado antes de realizar pedido
+    cliente: this.clienteSelect._id,
+    total: this.total,
+    estado: 'En proceso'
+  }
+  this.facturaService.crearFactura(factura).subscribe(data => {
+    alert('Factura emitida exitosamente');
+  }, err => {
+    alert('Error al emitir la factura');
+    console.log("error al emitir la factura ",err);
+
+  })
+  this.limpiezaForm() //llama a la funcion limpiezaForm() para vaciar el formulario
+
+  this.pedidoNuevo=[];
+  this.visible = false;
+}
+
 emitirBoleta() {
   setTimeout(()=>{
     this.realizarPedido()
@@ -296,6 +340,17 @@ emitirBoleta() {
  },1000)
 
 }
+
+emitirFactura() {
+    setTimeout(()=>{
+      this.realizarPedido()
+    }, 500)
+    setTimeout(()=>{
+      this.realizarFactura()
+   },1000)
+
+  }
+
 
   //Mostrar modal
   showDialog() {
@@ -360,6 +415,7 @@ emitirBoleta() {
       alert('Debe ingresar al menos un producto para crear el pedido.');
     }
   }
+  //Limpiar formulario
   limpiezaForm(){
     // Limpieza datos del formulario y variables
     this.listarProductos = [];
