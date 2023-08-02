@@ -95,7 +95,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
-        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
+        doc.text('Folio N° ' + facturaData.numero_factura, pageWidth - 35, 16);
 
         // Datos de la boleta
         doc.setDrawColor('black');
@@ -177,7 +177,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
-        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
+        doc.text('Folio N° ' + facturaData.numero_factura, pageWidth - 35, 16);
 
         // Datos de la boleta
         doc.setDrawColor('black');
@@ -199,7 +199,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
           50
         );
         doc.text('Forma de Pago: ' + facturaData.pedido.modo_pago, 16, 55);
-        console.log("Datos de boleta: ", facturaData);
+        console.log("Datos de factura: ", facturaData);
 
         // Detalles de la boleta
         doc.setFillColor('white'); // Fondo blanco
@@ -255,7 +255,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
         doc.setFontSize(11);
         doc.setFont('helvetica', 'bold');
         doc.text('FACTURA ELECTRÓNICA', pageWidth - 56.5, 12);
-        doc.text('N° ' + facturaData.numero_factura, pageWidth - 35, 16);
+        doc.text('Folio N° ' + facturaData.numero_factura, pageWidth - 35, 16);
 
         // Datos de la boleta
         doc.setDrawColor('black');
@@ -277,7 +277,7 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
           50
         );
         doc.text('Forma de Pago: ' + facturaData.pedido.modo_pago, 16, 55);
-        console.log("Datos de boleta: ", facturaData);
+        console.log("Datos de factura: ", facturaData);
 
         // Detalles de la boleta
         doc.setFillColor('white'); // Fondo blanco
