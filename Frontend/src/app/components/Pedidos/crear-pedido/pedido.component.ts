@@ -261,7 +261,7 @@ realizarBoleta(){
   this.listaTabla.forEach((productoP) => {
     let productoBoleta = {
       productoId: productoP.id,
-      cantidad: productoP.cantidad,
+      cantidad: productoP.cantidad,     //llamar como documentacion
       precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
       nombre_producto: productoP.nombre_producto,
       codigo_barras: productoP.codigo_barras,

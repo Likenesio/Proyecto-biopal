@@ -24,6 +24,7 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+  //validarToken(): boolean {this.getToken()let validar = "false"}
 
 
   // Método para comprobar si el usuario ha iniciado sesión

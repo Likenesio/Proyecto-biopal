@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { DatePipe, formatDate } from '@angular/common';
 import { FacturaService } from 'src/app/service/factura-service/factura.service';
+import { DteService } from 'src/app/service/DTE/dte.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -25,7 +26,7 @@ export class FacturaComponent{
   first = 0;
   rows = 10;
 
-  constructor(private facturaService: FacturaService) { }
+  constructor(private facturaService: FacturaService, private dteService: DteService) { }
 
   ngOnInit() {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -321,7 +322,12 @@ const pageHeight = doc.internal.pageSize.getHeight();//Variable que considera la
       }
 
 
+      );
+    }
+    emitirDteFactura(dte: any){
+      this.dteService.emitirFacturaDTE(dte).subscribe((date)=>{ 
+        console.log(date);
+      })
 
-);
-}
-}
+    }
+  }

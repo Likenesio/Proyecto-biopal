@@ -7,6 +7,7 @@ import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
 import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,6 +28,10 @@ export class DashboardComponent implements OnInit {
   items: MenuItem[] = [];
   panelAbierto: number | null = null;
 
+  itemss: MenuItem[] | any;
+
+  home: MenuItem | any;
+
   constructor(private _location: Location, private observer: BreakpointObserver, private cd: ChangeDetectorRef, public authService: AuthService,
      private router: Router, private usuarioService: UsuarioService) {
 
@@ -35,6 +40,11 @@ export class DashboardComponent implements OnInit {
 
 
     ngOnInit() {
+        this.itemss= [{ label: 'Facturas', routerLink: 'documentos/facturas'}];
+
+        this.home = { icon: 'pi pi-home', routerLink: '/home' };
+
+
       this.idUsuario = this.authService.obtenerIdUsuario();
       this.usuarioService.buscarUsuario(this.idUsuario)
       .subscribe((data)=>{
@@ -47,6 +57,13 @@ export class DashboardComponent implements OnInit {
         this.obtenerRol = this.authService.obtenerRol();
 
       });
+    }
+    agregarBreadcrumb(items: MenuItem) {
+      this.itemss.push(items);
+    }
+
+    eliminarUltimoBreadcrumb() {
+      this.itemss.pop();
     }
 
     @ViewChild(MatSidenav)

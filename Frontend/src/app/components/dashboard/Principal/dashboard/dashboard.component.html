@@ -159,7 +159,7 @@
         </mat-expansion-panel-header >
         <mat-nav-list>
           <a mat-list-item class="menu-button " [routerLink]="['/documentos/boletas']">Visualizar Boletas</a>
-          <a mat-list-item class="menu-button " [routerLink]="['documentos/facturas']">Visualizar Facturas</a>
+          <a mat-list-item class="menu-button "[routerLink]="['documentos/facturas']">Visualizar Facturas</a>
         </mat-nav-list>
       </mat-expansion-panel>
     </mat-accordion>
@@ -182,6 +182,10 @@
       <div class="content mat-elevation-z8 row w-100 h-100" style="height: 100%; overflow: hidden;">
         <!-- Agregar las columnas dentro del div con clase "row" -->
         <div class="col-md-8">
+          <!--<div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items"></p-breadcrumb>
+            <p-breadcrumb class="max-w-full" [model]="itemss" [home]="home"></p-breadcrumb>
+          </div>-->
           <router-outlet></router-outlet>
         </div>
       </div>

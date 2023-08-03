@@ -14,5 +14,7 @@ export class AppComponent {
   ngOnInit(): void {
     //Verifica si hay sesión abierta
     this.isLoggedIn = this.authService.isLoggedIn()
+    //llamar service para identificar la expiracion del token
   }
+
 }
