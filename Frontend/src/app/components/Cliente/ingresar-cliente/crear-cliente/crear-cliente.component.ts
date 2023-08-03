@@ -17,6 +17,7 @@ export class CrearClienteComponent {
     direccion: any;
     comuna: any;
     contacto:any;
+    giroemis:any;
     email:any;
     comunas: Comuna [] = [];
     selectedComuna: any;
@@ -35,7 +36,7 @@ export class CrearClienteComponent {
           ];
       }
       validarCamposCompletos() {
-        this.camposCompletos = !!this.rut && !!this.nombre_cliente && !!this.contacto && !!this.email && !!this.direccion && !!this.selectedComuna;
+        this.camposCompletos = !!this.rut && !!this.nombre_cliente && !!this.giroemis&& !!this.contacto && !!this.email && !!this.direccion && !!this.selectedComuna;
       }
       validarTelefonoChileno(telefono: string): boolean {
         const regex = /^\+?56(?:9\d{8}|\d{8})$/;
@@ -58,6 +59,7 @@ export class CrearClienteComponent {
             rut: this.rut,
             nombre_cliente: this.nombre_cliente,
             contacto: this.contacto,
+            giroemis: this.giroemis,
             email: this.email,
             direccion: this.direccion,
             comuna: this.selectedComuna.comuna

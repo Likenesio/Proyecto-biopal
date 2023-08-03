@@ -5,6 +5,7 @@ const insert = (req, res) => {
   cliente.rut = req.body.rut;
   cliente.nombre_cliente = req.body.nombre_cliente;
   cliente.contacto = req.body.contacto;
+  cliente.giroemis=req.body.giroemis;
   cliente.email = req.body.email;
   cliente.direccion = req.body.direccion;
   cliente.comuna = req.body.comuna;
@@ -36,6 +37,7 @@ const actualizar = (req, res) => {
   rut = req.body.rut;
   nombre_cliente = req.body.nombre_cliente;
   contacto = req.body.contacto;
+  giroemis=req.body.giroemis;
   email = req.body.email;
   direccion = req.body.direccion;
   comuna = req.body.comuna;
@@ -46,6 +48,7 @@ const actualizar = (req, res) => {
       rut: rut,
       nombre_cliente: nombre_cliente,
       contacto: contacto,
+      giroemis:giroemis,
       email: email,
       direccion: direccion,
       comuna: comuna,

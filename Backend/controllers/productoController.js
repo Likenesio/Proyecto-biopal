@@ -90,7 +90,7 @@ const buscarPorID= (req, res) => {
         return res
         .status(500)
         .send({
-            message: "Error al buscar producto"
+            message: "Error al buscar producto por ID"
         });
     });
 };
@@ -106,7 +106,7 @@ const obtenerPorCodigoBarras = (req, res) => {
         }
       })
       .catch((err) => {
-        res.status(500).send({ message: "Error al buscar producto" });
+        res.status(500).send({ message: "Error al buscar producto por codigo de barras" });
       });
   };
 
@@ -135,7 +135,26 @@ const obtenerPorCodigoBarras = (req, res) => {
       res.status(500).json({ error: 'Error al restar cantidades de productos' });
     }
   };
+
+  const verificarStock = async (req, res) => {
+    try {
+      let productos = await Producto.find({}).exec();
+       
+    if (!productos || productos.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron productos' });
+      }
   
+      let lowStockProducts = productos.filter(producto => producto.stock < 10);
+  
+      res.json({ lowStock: lowStockProducts });
+
+    } catch (error) {
+      console.error('Error al verificar el stock:', error);
+
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  };
+
 module.exports = {
     insert,
     eliminar,
@@ -143,5 +162,6 @@ module.exports = {
     listar, 
     buscarPorID,
     obtenerPorCodigoBarras,
-    restarCantidadProducto
+    restarCantidadProducto,
+    verificarStock,
 };

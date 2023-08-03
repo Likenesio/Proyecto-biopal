@@ -15,6 +15,10 @@ const clientSchema = schema(
                 type: String,
                 require:true
             },
+            giroemis:{
+                type: String,
+                require:true
+            },
             email:{
                 type: String,
                 require:true

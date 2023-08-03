@@ -45,6 +45,15 @@
 
       <div class="col-md-6">
         <div class="form-group mt-3">
+          <label htmlFor="giroemis">Giro</label>
+          <span class="p-float-label">
+            <input pInputText id="giroemis" [(ngModel)]="giroemis" [ngModelOptions]="{standalone: true}"required/>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mt-3">
           <label htmlFor="direccion">Dirección</label>
           <span class="p-float-label">
             <input pInputText id="direccion" placeholder="Los carrera #999" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}"required/>

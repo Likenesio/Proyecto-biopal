@@ -37,5 +37,8 @@ export class ProductosService {
     console.log(`ID del producto: ${id}, Cantidad a restar: ${cantidadARestar}`);
     return this.http.patch<any>(`${this.apiUrl}/${id}/restar-cantidad`, { cantidad_producto: cantidadARestar });
   }
+  verificarStock(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/verificarstock`);
+  }
 }
 

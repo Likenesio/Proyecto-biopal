@@ -34,7 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgChartsModule } from 'ng2-charts';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-
+import { MessagesModule } from 'primeng/messages';
 import { DialogModule } from 'primeng/dialog';
 
 
@@ -122,6 +122,7 @@ import { FacturaComponent } from './components/Factura/factura/factura.component
     MatNativeDateModule,
     NgChartsModule,
     BreadcrumbModule,
+    MessagesModule,
 
 
 
