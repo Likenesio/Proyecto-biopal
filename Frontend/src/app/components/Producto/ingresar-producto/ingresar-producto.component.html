@@ -6,7 +6,7 @@
         <div class="form-group mt-3">
           <label htmlFor="codigo_barras">Código de barras</label>
           <span class="p-float-label">
-            <input pattern="[0-9]+" pInputText id="codigo_barras" [(ngModel)]="codigo_barra" [ngModelOptions]="{standalone: true}" required />
+            <input pInputText pattern="[0-9]{4}" placeholder="XXXX" id="codigo_barras" [(ngModel)]="codigo_barra" [ngModelOptions]="{standalone: true}" required />
           </span>
         </div>
       </div>
@@ -42,7 +42,7 @@
         <div class="form-group mt-3">
           <label htmlFor="unidad">Unidad de medida:</label>
           <span class="p-float-label">
-            <p-dropdown [style]="{'width': '35%'}" id="unidad" [options]="unidades" [(ngModel)]="selectedUnidad" optionLabel="unidad" [ngModelOptions]="{standalone: true}"></p-dropdown>
+            <p-dropdown [style]="{'width': '43%'}" id="unidad" [options]="unidades" [(ngModel)]="selectedUnidad" optionLabel="unidad" [ngModelOptions]="{standalone: true}"></p-dropdown>
           </span>
         </div>
       </div>

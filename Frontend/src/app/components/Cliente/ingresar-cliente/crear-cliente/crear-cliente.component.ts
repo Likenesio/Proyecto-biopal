@@ -77,7 +77,7 @@ export class CrearClienteComponent {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Cliente guardado exitosamente!',
+            title: 'Cliente ingresado exitosamente!',
             showConfirmButton: false,
             timer: 1500,
           });
@@ -89,14 +89,14 @@ export class CrearClienteComponent {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Error al guardar el cliente!',
+            text: 'Error al ingresar el cliente!',
           });
         }
       );
     } else {
       Swal.fire({
         icon: 'info',
-        text: 'Debe llenar todos los campos antes de guardar.',
+        text: 'Debe llenar todos los campos antes de ingresar un cliente.',
       });
     }
   }

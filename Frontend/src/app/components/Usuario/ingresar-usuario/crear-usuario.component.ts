@@ -126,7 +126,7 @@ export class CrearUsuarioComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Usuario guardado exitosamente!',
+          title: 'Usuario ingresado exitosamente!',
           showConfirmButton: false,
           timer: 1500
         })
@@ -138,14 +138,14 @@ export class CrearUsuarioComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Error al guardar el usuario!',
+          text: 'Error al ingresar al usuario!',
         })
       }
     );
    } else {
     Swal.fire({
       icon: 'info',
-      text: 'Debe llenar todos los campos antes de guardar.',
+      text: 'Debe llenar todos los campos antes de ingresar usuario.',
     })
   }
  }
