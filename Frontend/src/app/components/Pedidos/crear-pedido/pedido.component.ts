@@ -107,12 +107,9 @@ export class PedidoComponent implements OnInit {
     this.clienteService.listarClientes().subscribe((data) => {
       this.respuesta = data;
       this.clientesListar = this.respuesta.client;
-      //console.log("Respuesta: ", this.respuesta)
-      //console.log("Respuesta Cliente Listar: ", this.clientesListar)
       this.clienteSelect = this.clientesListar.filter(
         (cliente: any) => cliente.nombre_cliente == 'n/n'
       )[0];
-      //console.log("Cliente Select: ", this.clienteSelect)
     });
 
     this.cantidad_producto = 1;
@@ -131,8 +128,6 @@ export class PedidoComponent implements OnInit {
       });
   }
 
-  //fin cliente formulario
-
   //Insertar Producto en la tabla de formulario de pedidos y lista productos en la tabla
   productoInsert() {
     this.productosService.obtenerPorCodigoBarras(this.codigo_barra).subscribe(
@@ -145,10 +140,11 @@ export class PedidoComponent implements OnInit {
         ) {
           // Verificar si hay suficiente stock para el producto
           if (this.productoEncontrado.stock < this.cantidad_producto) {
-            alert(
-              'No hay suficiente stock para el producto: ' +
-                this.productoEncontrado.nombre_producto
-            );
+            Swal.fire({
+              icon: 'info',
+              text: 'No hay suficiente stock para el producto: ' +
+              this.productoEncontrado.nombre_producto,
+            });
             this.codigo_barra = null;
             return;
           }
@@ -180,10 +176,12 @@ export class PedidoComponent implements OnInit {
             this.cantidad_producto +
               this.listarProductos[indice].cantidad_producto
           ) {
-            alert(
-              'No hay suficiente stock para el producto: ' +
-                this.productoEncontrado.nombre_producto
-            );
+
+            Swal.fire({
+              icon: 'info',
+              text: 'No hay suficiente stock para el producto: ' +
+              this.productoEncontrado.nombre_producto,
+            });
             this.codigo_barra = null;
             return;
           }
@@ -215,61 +213,6 @@ export class PedidoComponent implements OnInit {
       }
     );
   }
-
-  /*
-  realizarPedido() {
-    if (this.listarProductos.length > 0) {
-      let total = this.listarProductos
-        .filter((producto) => producto.subtotal)
-        .reduce((sum: any, producto) => sum + producto.subtotal, 0);
-      let idUser = this.authService.obtenerIdUsuario();
-      let pedido = {
-        cliente: this.clienteSelect._id,
-        usuario: idUser, // rescatar usuario logeado en el sistema token
-        fecha: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-        estado: 'En proceso',
-        total: total,
-      };
-      //console.log(pedido);
-      this.pedidoService.insertPedido(pedido).subscribe(
-        (data) => {
-          alert('Pedido creado exitosamente');
-          //console.log(data);
-          this.idPedido = data.p._id;
-          this.listarProductos.forEach((productoP) => {
-            let productoPedido = {
-              producto: productoP.producto,
-              pedido: this.idPedido,
-              cantidad_producto: productoP.cantidad_producto,
-              subtotal: productoP.subtotal,
-            };
-            //operación restar stock --------------------->
-            //falta implementar
-            this.pedidoProductoService
-              .insertPedidoProducto(productoPedido)
-              .subscribe((data) => {
-                console.log('producto insertado a pedido');
-              });
-
-          });
-          //limpieza datos del formulario
-          this.listarProductos = [];
-          this.codigo_barra = null;
-          this.cantidad_producto = 1;
-          this.clienteSelect = [];
-          this.listaTabla = [];
-          this.total = 0;
-        },
-        (error) => {
-          console.log(error);
-          alert('error al crear pedido');
-        }
-      );
-    } else {
-      alert('Debe ingresar al menos un producto para crear el pedido.');
-    }
-  }
-*/
   realizarBoleta() {
       Swal.fire({
         icon: 'error',
@@ -350,7 +293,6 @@ export class PedidoComponent implements OnInit {
           text: 'Error al emitir la factura',
           footer: err,
         });
-        //console.log("error al emitir la factura ",err);
       }
     );
     this.limpiezaForm(); //llama a la funcion limpiezaForm() para vaciar el formulario

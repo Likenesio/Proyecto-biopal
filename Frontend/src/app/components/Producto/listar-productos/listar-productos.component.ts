@@ -52,19 +52,25 @@ export class ListarProductosComponent {
 
  eliminar(id: string) {
   Swal.fire({
-    title: '¿Seguro desea eliminar al cliente?',
-    showDenyButton: true,
+    title: 'Estas seguro de eliminar el producto?',
+    text: "No podras revertirlo!",
+    icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Confirmar',
-    denyButtonText: 'Denegar',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Eliminar!'
   }).then((result) => {
     if (result.isConfirmed) {
       this.productosService.eliminarProductos(id).subscribe(data => {
-        Swal.fire('¡Realizado!', '', 'success');
+      Swal.fire(
+        'Eliminado!',
+        'El producto ha sido eliminado.',
+        'success'
+      )
+      setTimeout(() => {
         window.location.reload();
-      });
-    } else if (result.isDenied) {
-      Swal.fire('No se ha eliminado producto', '', 'info');
+      }, 800);
+     });
     }
   });
 }
