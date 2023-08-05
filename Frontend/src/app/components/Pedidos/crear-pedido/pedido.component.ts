@@ -132,7 +132,7 @@ export class PedidoComponent implements OnInit {
     if (this.listarProductos.length === 0) {
       Swal.fire({
         icon: 'info',
-        text: 'Debe ingresar al menos un producto para realizar el pedido',
+        text: 'Debe ingresar al menos un producto para realizar el pedido y documento',
       });
       return false;
     }
