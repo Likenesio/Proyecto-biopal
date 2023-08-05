@@ -351,6 +351,7 @@ export class FacturaComponent {
       );
     });
   }
+
   emitirDteFactura(id: string) {
     this.facturaService.buscarFacturaID(id).subscribe((data) => {
       this.factura = data.factura;
@@ -366,6 +367,13 @@ export class FacturaComponent {
       });
 
       let dte = {
+        auth:{
+          cert: {
+            ["cert-data"] : "",
+            ["pkey-data"] : "",
+          }
+        },
+        dte: {
         Encabezado: {
           IdDoc: {
             TipoDTE: 33,
@@ -390,7 +398,7 @@ export class FacturaComponent {
         },
 
         Detalle: detalles,
-
+      },
         resolucion: {
           fecha: this.factura.fecha_emision,
           numero: this.factura.numero_factura,
