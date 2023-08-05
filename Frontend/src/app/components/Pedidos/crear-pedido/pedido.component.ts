@@ -128,6 +128,17 @@ export class PedidoComponent implements OnInit {
       });
   }
 
+  validarProductos(): boolean {
+    if (this.listarProductos.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        text: 'Debe ingresar al menos un producto para realizar el pedido',
+      });
+      return false;
+    }
+    return true;
+  }
+
   //Insertar Producto en la tabla de formulario de pedidos y lista productos en la tabla
   productoInsert() {
     this.productosService.obtenerPorCodigoBarras(this.codigo_barra).subscribe(
@@ -219,6 +230,7 @@ export class PedidoComponent implements OnInit {
         title: 'Oops...',
         text: 'Error al emitir la boleta',
       });
+    this.validarProductos()
     let productos: ProductoBoleta[] = [];
     //Insertar productos para que se muestren en la boleta con su precio
     this.listaTabla.forEach((productoP) => {
@@ -262,6 +274,7 @@ export class PedidoComponent implements OnInit {
     this.visible = false;
 }
   realizarFactura() {
+    this.validarProductos()
     let productos: ProductoFactura[] = [];
     //Insertar productos para que se muestren en la boleta con su precio
     this.listaTabla.forEach((productoP) => {
@@ -327,7 +340,6 @@ export class PedidoComponent implements OnInit {
   realizarPedido() {
     if (this.listarProductos.length > 0) {
       let total = this.listarProductos
-
         .filter((producto) => producto.subtotal)
         .reduce((sum: any, producto) => sum + producto.subtotal, 0);
       let idUser = this.authService.obtenerIdUsuario();
@@ -339,7 +351,9 @@ export class PedidoComponent implements OnInit {
         estado: 'En proceso',
         total: total,
       };
+      this.validarProductos()
 
+      if(this.validarProductos()){
       this.pedidoService.insertPedido(pedido).subscribe(
         (data) => {
           Swal.fire({ icon: 'success', text: 'Pedido creado exitosamente' });
@@ -387,6 +401,7 @@ export class PedidoComponent implements OnInit {
           });
         }
       );
+      }
     } else {
       Swal.fire({
         icon: 'info',
