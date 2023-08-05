@@ -1,39 +1,47 @@
-<div class="container-fluid justify-content-center align-items mt-5">
-  <div class="container-fluid d-flex justify-content-center align-items-center mt-5">
+<div class="container-fluid justify-content-center align-items">
+  <div class="container-fluid d-flex justify-content-center align-items-center mt-2">
     <div class="row">
       <div class="col-12 text-center">
         <h1 style="font-size: 30px; color: black;">Actualizar Usuario</h1>
-        <div class="p-card-title mt-5" style="font-size: 16px; color: black;">Elija Usuario:</div>
-        <p-dropdown placeholder="Seleccione producto" (onChange)="cargarDatos()" [options]="usuariosListar" [style]="{'width': '100%'}" [(ngModel)]="usuarioSelect" optionLabel="nombre_usuario"></p-dropdown>
+        <div class="p-card-title mt-2" style="font-size: 16px; color: black;">Elija Usuario:</div>
+        <p-dropdown placeholder="Seleccione usuario" (onChange)="cargarDatos()" [options]="usuariosListar" [style]="{'width': '100%'}" [(ngModel)]="usuarioSelect" optionLabel="nombre_usuario"></p-dropdown>
       </div>
     </div>
   </div>
 
   <ng-container *ngIf="seleccion">
-  <div class="container mt-5 text-center">
-      <p-card class="m-lg-5" header="Usuario:">
+  <div class="container text-center">
+      <p-card class="m-lg-5 mt-2" header="Usuario:">
         <form (submit)="actualizar()" class="row">
 
           <div class="col-md-6">
             <div class="form-group mt-3">
-              <label htmlFor="rut">Rut</label>
+              <label htmlFor="rut_usuario">Rut</label>
               <span class="p-float-label">
-                <input pattern="[0-9]+" pInputText id="rut" [(ngModel)]="rut" readonly disabled [ngModelOptions]="{standalone: true}" />
+                <input pattern="[0-9]{8}-[0-9kK]{1}" pInputText id="rut_usuario" [(ngModel)]="rut_usuario" readonly disabled [ngModelOptions]="{standalone: true}" />
               </span>
             </div>
           </div>
 
           <div class="col-md-6">
-            <div class="form-group mt-3">
-              <label htmlFor="nombre_usuario">Nombre del Usuario</label>
+            <div class="form-group mt-1">
+              <label htmlFor="nombre_usuario">Nombre</label>
               <span class="p-float-label">
                 <input pInputText id="nombre_usuario" [(ngModel)]="nombre_usuario" [ngModelOptions]="{standalone: true}" />
               </span>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group mt-1">
+              <label htmlFor="apellido">Apellido</label>
+              <span class="p-float-label">
+                <input pInputText id="apellido" [(ngModel)]="apellido" [ngModelOptions]="{standalone: true}" />
+              </span>
+            </div>
+          </div>
 
           <div class="col-md-6">
-            <div class="form-group mt-3">
+            <div class="form-group mt-1">
               <label htmlFor="fono">Contacto</label>
               <span class="p-float-label">
                 <input pInputText id="fono"pattern="^\+\d{11}$"  [(ngModel)]="fono" [ngModelOptions]="{standalone: true}" />
@@ -42,7 +50,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="form-group mt-3">
+            <div class="form-group mt-1">
               <label htmlFor="correo">Correo</label>
               <span class="p-float-label">
                 <input pInputText id="correo" [(ngModel)]="correo" [ngModelOptions]="{standalone: true}" />
@@ -51,7 +59,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="form-group mt-3">
+            <div class="form-group mt-1">
               <label htmlFor="rol">Roles:</label>
               <span class="p-float-label">
                 <p-dropdown [style]="{'width': '35%'}" id="rol" [options]="roles" [(ngModel)]="selectedRoles" optionLabel="rol" [ngModelOptions]="{standalone: true}"></p-dropdown>
@@ -60,7 +68,7 @@
           </div>
 
           <div class="col-12">
-            <div class="form-group mt-3">
+            <div class="form-group mt-1">
               <p-button type="submit" label="Actualizar"></p-button>
             </div>
           </div>

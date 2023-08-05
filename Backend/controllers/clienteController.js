@@ -5,7 +5,7 @@ const insert = (req, res) => {
   cliente.rut = req.body.rut;
   cliente.nombre_cliente = req.body.nombre_cliente;
   cliente.contacto = req.body.contacto;
-  cliente.giroemis=req.body.giroemis;
+  cliente.giroemis = req.body.giroemis;
   cliente.email = req.body.email;
   cliente.direccion = req.body.direccion;
   cliente.comuna = req.body.comuna;
@@ -33,11 +33,11 @@ const eliminar = (req, res) => {
 };
 
 const actualizar = (req, res) => {
-  let idcliente = req.params.id;
+  let idcliente = req.params._id;
   rut = req.body.rut;
   nombre_cliente = req.body.nombre_cliente;
   contacto = req.body.contacto;
-  giroemis=req.body.giroemis;
+  giroemis = req.body.giroemis;
   email = req.body.email;
   direccion = req.body.direccion;
   comuna = req.body.comuna;
@@ -48,7 +48,7 @@ const actualizar = (req, res) => {
       rut: rut,
       nombre_cliente: nombre_cliente,
       contacto: contacto,
-      giroemis:giroemis,
+      giroemis: giroemis,
       email: email,
       direccion: direccion,
       comuna: comuna,
@@ -84,7 +84,7 @@ const buscarPorID = (req, res) => {
   let idCliente = req.params._id;
   Cliente.findById(idCliente)
     .then((client) => {
-      res.status(200).send({client})
+      res.status(200).send({ client });
     })
     .catch((err) => {
       return res

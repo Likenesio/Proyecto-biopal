@@ -49,11 +49,9 @@ this.productosService.listarProductos().subscribe((date)=>{
 
 //funciones
 cargarDatos(){
-     this.seleccion = true; //una vez se llama a la funcion a traves de la busqueda el valor cambia a true y muestra la seccion formulario para actualizar
-     //se llama a la funcion buscarProductos() que se encuentra en el productService y seleciona la id del producto para luego guarda la busqueda en la variable data
+     this.seleccion = true;
      this.productosService.buscarProductos(this.productoSelect._id).subscribe((data)=>{
      this.respuestaBusqueda = data;
-     //se llama a cada atributo del modelo y extrae el producto del backend
      this.codigo_barra = this.respuestaBusqueda.product.codigo_barra;
      this.nombre_producto = this.respuestaBusqueda.product.nombre_producto;
      this.precio_unitario = this.respuestaBusqueda.product.precio_unitario;

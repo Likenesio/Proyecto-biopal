@@ -31,7 +31,7 @@ export class ListarClienteComponent {
      this.clienteService.listarClientes().subscribe(data=>{
       this.respuesta = data;
       this.clientes = this.respuesta.client;
-     })
+     });
 
      this.clienteService.listarClientes().subscribe((data)=>{
       this.respuesta = data.client;
@@ -52,19 +52,25 @@ export class ListarClienteComponent {
 
   eliminar(id: string) {
     Swal.fire({
-      title: '¿Seguro desea eliminar al cliente?',
-      showDenyButton: true,
+      title: 'Estas seguro de eliminar al cliente?',
+      text: "No podras revertirlo!",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Confirmar',
-      denyButtonText: 'Denegar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.clienteService.eliminarCliente(id).subscribe(data => {
-          Swal.fire('¡Realizado!', '', 'success');
+        Swal.fire(
+          'Eliminado!',
+          'El cliente ha sido eliminado.',
+          'success'
+        )
+        setTimeout(() => {
           window.location.reload();
-        });
-      } else if (result.isDenied) {
-        Swal.fire('No se ha podido eliminado cliente', '', 'info');
+        }, 800);
+       });
       }
     });
   }
