@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/service/cliente-service/cliente.service';
-
+import Swal from 'sweetalert2';
 interface Comuna {
   comuna: string;
 }
@@ -39,18 +39,21 @@ export class CrearClienteComponent {
         this.camposCompletos = !!this.rut && !!this.nombre_cliente && !!this.giroemis&& !!this.contacto && !!this.email && !!this.direccion && !!this.selectedComuna;
       }
       validarTelefonoChileno(telefono: string): boolean {
-        const regex = /^\+?56(?:9\d{8}|\d{8})$/;
+        const regex = /^\+569\d{8}$/;
         return regex.test(telefono);
       }
 
       guardar() {
         this.validarRut();
         if (!this.validarRut()) {
-          alert("El RUT no es válido.");
+          //alert("El RUT no es válido.");
           return;
         }
         if (!this.validarTelefonoChileno(this.contacto)) {
-          alert("El número de teléfono no es válido.");
+          Swal.fire({
+            icon: 'info',
+            text: 'El número de teléfono no es válido.',
+          })
           return;
         }
         this.validarCamposCompletos();
@@ -67,29 +70,51 @@ export class CrearClienteComponent {
 
           this.clienteService.insertarCliente(cliente).subscribe(
             data => {
-              alert("Cliente insertado");
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Cliente guardado exitosamente!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            setTimeout(()=>{
+              window.location.reload();
+            }, 800);
             },
             err => {
-              alert("Error al insertar cliente");
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error al guardar el cliente!',
+              })
             }
           );
         } else {
-          alert("Debe llenar todos los campos antes de guardar.");
+          Swal.fire({
+            icon: 'info',
+            text: 'Debe llenar todos los campos antes de guardar.',
+          })
         }
       }
 
 
 
-      validarRut(): boolean {
+      validarRut():boolean {
         if (!this.rut || this.rut.trim() === "") {
-          console.log("El RUT es requerido");
+          Swal.fire({
+            icon: 'info',
+            text: 'El número rut es requerido',
+          })
           return false;
         }
 
-        const regex = /^[0-9]{8}-[0-9kK]{1}$/;
+        const regex = /^[0-9]{8}-(?:[0-9-kK])$/;
 
         if (!regex.test(this.rut)) {
-          console.log("Formato de RUT inválido");
+          Swal.fire({
+            icon: 'info',
+            text: 'El formato del rut no es válido',
+          })
           return false;
         }
 
@@ -106,15 +131,19 @@ export class CrearClienteComponent {
         }
 
         const resto = suma % 11;
-        const digitoCalculado = String(11 - resto);
+        const digitoCalculado = resto === 0 ? "0" : resto === 1 ? "k" : String(11 - resto);
         const digitoEsK = digitoCalculado === "10" ? "k" : digitoCalculado;
 
         if (digitoEsK !== digitoVerificador.toLowerCase()) {
-          console.log("RUT inválido");
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El RUT es inválido o no existe',
+          })
+          //alert("RUT inválido");
           return false;
         }
-
-        console.log("RUT válido");
+        //alert("RUT válido");
         return true;
       }
 

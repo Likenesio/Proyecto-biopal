@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ClienteService } from 'src/app/service/cliente-service/cliente.service';
-
+import Swal from 'sweetalert2';
 interface Comuna {
   comuna: string;
 }
@@ -50,7 +50,7 @@ export class UpdateClienteComponent{
     }
 
     validarTelefonoChileno(telefono: string): boolean {
-      const regex = /^\+?56(?:9\d{8}|\d{8})$/;
+      const regex = /^\+569\d{8}$/;
       return regex.test(telefono);
     }
 
@@ -89,14 +89,35 @@ export class UpdateClienteComponent{
   }
 
   if (!this.validarTelefonoChileno(this.contacto)) {
-    alert("El número de teléfono no es válido.");
+    Swal.fire({
+      icon: 'info',
+      text: 'El número de teléfono no es válido',
+    })
     return;
   }
   this.clienteService.actualizarCliente(this.clienteSelect._id, cliente).subscribe((date)=>{
-    alert("cliente actualizado");
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Cliente actualizado exitosamente!',
+      showConfirmButton: false,
+      timer: 1500
+    })
   },
-  err =>{alert("Error al actualizar cliente")
+
+  err =>{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Error al actualizar cliente',
+    })
 });
-} else{alert("Debe llenar todos los campos antes de guardar.");}
+} else{
+  Swal.fire({
+    icon: 'info',
+    text: 'Debe llenar todos los campos antes de guardar.',
+  })
+}
 }
 }

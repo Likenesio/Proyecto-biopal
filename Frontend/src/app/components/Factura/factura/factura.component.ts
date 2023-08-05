@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Swal from 'sweetalert2';
 
+//cómo crear variables de entorno en Angular;
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
@@ -21,7 +22,6 @@ export class FacturaComponent {
   todayWithPipe: any;
 
   visible: boolean = false;
-
   idSeleccionado: any;
 
   first = 0;
@@ -381,8 +381,7 @@ export class FacturaComponent {
           },
           Emisor: {
             RUTEmisor: '76.226.932-5',
-            RznSoc:
-              'Comercializadora De Productos De Rotiseria Abarrotes Frutas Y Verduras Bio Pal',
+            RznSoc:'Comercializadora De Productos De Rotiseria Abarrotes Frutas Y Verduras Bio Pal',
             GiroEmis: 'MAYORISTA DE FRUTAS Y VERDURAS',
             Acteco: '463011',
             DirOrigen: 'Concepción',
@@ -406,7 +405,7 @@ export class FacturaComponent {
         caf: '',
       };
 
-      console.log(dte);
+      //console.log(dte);
       //Calcular total de items
       /*let totalItems = this.factura.productos.filter((item:any) => item.cantidad > 0).reduce((a:any, b:any) => a + b.cantidad, 0);
       console.log(totalItems);
