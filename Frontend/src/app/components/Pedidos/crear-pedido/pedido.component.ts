@@ -6,23 +6,22 @@ import { ProductosService } from 'src/app/service/productos-service/productos.se
 import { AuthService } from '../../../service/auth-service/auth.service';
 import { formatDate } from '@angular/common';
 import { BoletaService } from 'src/app/service/boleta-service/boleta.service';
-import{FacturaService} from 'src/app/service/factura-service/factura.service';
-
-
+import { FacturaService } from 'src/app/service/factura-service/factura.service';
+import Swal from 'sweetalert2';
 
 interface PedidoProducto {
   producto: string;
   cantidad_producto: Number;
   subtotal: Number;
 }
-interface ProductoBoleta{
+interface ProductoBoleta {
   productoId: String;
   cantidad: Number;
   precio: Number;
   nombre_producto: string;
   codigo_barras: String;
 }
-interface ProductoFactura{
+interface ProductoFactura {
   productoId: String;
   cantidad: Number;
   precio: Number;
@@ -84,14 +83,12 @@ export class PedidoComponent implements OnInit {
 
   total: number = 0;
 
-  modo_pagos: Modo_pago[] =[];
+  boolean:boolean = false;
+  modo_pagos: Modo_pago[] = [];
   modo_pago: any;
   selectedMedioPago: any;
 
-  pedidoNuevo: any[]=[];
-
-
-
+  pedidoNuevo: any[] = [];
 
   //Modal
   visible: boolean = false;
@@ -103,7 +100,7 @@ export class PedidoComponent implements OnInit {
     private productosService: ProductosService,
     private boletaService: BoletaService,
     private authService: AuthService,
-    private facturaService: FacturaService,
+    private facturaService: FacturaService
   ) {}
   //cliente formulario
   ngOnInit(): void {
@@ -112,18 +109,19 @@ export class PedidoComponent implements OnInit {
       this.clientesListar = this.respuesta.client;
       //console.log("Respuesta: ", this.respuesta)
       //console.log("Respuesta Cliente Listar: ", this.clientesListar)
-      this.clienteSelect = this.clientesListar.filter((cliente:any)=>cliente.nombre_cliente == "n/n")[0];
+      this.clienteSelect = this.clientesListar.filter(
+        (cliente: any) => cliente.nombre_cliente == 'n/n'
+      )[0];
       //console.log("Cliente Select: ", this.clienteSelect)
-
     });
 
     this.cantidad_producto = 1;
 
     this.modo_pagos = [
-      {modo_pago: "Efectivo"},
-      {modo_pago: "Crédito"},
-      {modo_pago: "Débito"},
-    ]
+      { modo_pago: 'Efectivo' },
+      { modo_pago: 'Crédito' },
+      { modo_pago: 'Débito' },
+    ];
   }
   cargarCliente() {
     this.clienteService
@@ -132,7 +130,6 @@ export class PedidoComponent implements OnInit {
         this.respuestaBusqueda = data;
       });
   }
-
 
   //fin cliente formulario
 
@@ -148,7 +145,10 @@ export class PedidoComponent implements OnInit {
         ) {
           // Verificar si hay suficiente stock para el producto
           if (this.productoEncontrado.stock < this.cantidad_producto) {
-            alert('No hay suficiente stock para el producto: ' + this.productoEncontrado.nombre_producto);
+            alert(
+              'No hay suficiente stock para el producto: ' +
+                this.productoEncontrado.nombre_producto
+            );
             this.codigo_barra = null;
             return;
           }
@@ -157,13 +157,15 @@ export class PedidoComponent implements OnInit {
           this.listarProductos.push({
             producto: this.productoEncontrado._id,
             cantidad_producto: this.cantidad_producto,
-            subtotal: this.cantidad_producto * this.productoEncontrado.precio_unitario,
+            subtotal:
+              this.cantidad_producto * this.productoEncontrado.precio_unitario,
           });
           this.listaTabla.push({
             nombre_producto: this.productoEncontrado.nombre_producto,
             precio_unitario: this.productoEncontrado.precio_unitario,
             unidad: this.productoEncontrado.unidad,
-            subtotal: this.cantidad_producto * this.productoEncontrado.precio_unitario,
+            subtotal:
+              this.cantidad_producto * this.productoEncontrado.precio_unitario,
             cantidad: this.cantidad_producto,
             id: this.productoEncontrado._id,
             codigo_barras: this.productoEncontrado.codigo_barra,
@@ -173,22 +175,35 @@ export class PedidoComponent implements OnInit {
           let indice = this.listarProductos.findIndex(
             (item) => item.producto === this.productoEncontrado._id
           );
-          if (this.productoEncontrado.stock < this.cantidad_producto + this.listarProductos[indice].cantidad_producto) {
-            alert('No hay suficiente stock para el producto: ' + this.productoEncontrado.nombre_producto);
+          if (
+            this.productoEncontrado.stock <
+            this.cantidad_producto +
+              this.listarProductos[indice].cantidad_producto
+          ) {
+            alert(
+              'No hay suficiente stock para el producto: ' +
+                this.productoEncontrado.nombre_producto
+            );
             this.codigo_barra = null;
             return;
           }
 
           // Actualizar la cantidad y subtotal del producto en la lista de productos del pedido
-          this.listarProductos[indice].cantidad_producto += this.cantidad_producto;
-          this.listarProductos[indice].subtotal = Number(this.listarProductos[indice].cantidad_producto) * this.productoEncontrado.precio_unitario;
+          this.listarProductos[indice].cantidad_producto +=
+            this.cantidad_producto;
+          this.listarProductos[indice].subtotal =
+            Number(this.listarProductos[indice].cantidad_producto) *
+            this.productoEncontrado.precio_unitario;
 
           // Actualizar la cantidad y subtotal del producto en la lista de la tabla
           indice = this.listaTabla.findIndex(
-            (item) => item.nombre_producto === this.productoEncontrado.nombre_producto
+            (item) =>
+              item.nombre_producto === this.productoEncontrado.nombre_producto
           );
           this.listaTabla[indice].cantidad += this.cantidad_producto;
-          this.listaTabla[indice].subtotal = this.listaTabla[indice].cantidad * this.productoEncontrado.precio_unitario;
+          this.listaTabla[indice].subtotal =
+            this.listaTabla[indice].cantidad *
+            this.productoEncontrado.precio_unitario;
         }
         this.total = this.listarProductos
           .filter((producto) => producto.subtotal)
@@ -201,7 +216,7 @@ export class PedidoComponent implements OnInit {
     );
   }
 
-/*
+  /*
   realizarPedido() {
     if (this.listarProductos.length > 0) {
       let total = this.listarProductos
@@ -255,102 +270,112 @@ export class PedidoComponent implements OnInit {
     }
   }
 */
-realizarBoleta(){
-  let productos: ProductoBoleta[] = [];
-  //Insertar productos para que se muestren en la boleta con su precio
-  this.listaTabla.forEach((productoP) => {
-    let productoBoleta = {
-      productoId: productoP.id,
-      cantidad: productoP.cantidad,     //llamar como documentacion
-      precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
-      nombre_producto: productoP.nombre_producto,
-      codigo_barras: productoP.codigo_barras,
-
+  realizarBoleta() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al emitir la boleta',
+      });
+    let productos: ProductoBoleta[] = [];
+    //Insertar productos para que se muestren en la boleta con su precio
+    this.listaTabla.forEach((productoP) => {
+      let productoBoleta = {
+        productoId: productoP.id,
+        cantidad: productoP.cantidad, //llamar como documentacion
+        precio: Number(productoP.subtotal) / Number(productoP.cantidad),
+        nombre_producto: productoP.nombre_producto,
+        codigo_barras: productoP.codigo_barras,
+      };
+      //console.log("ProductosP: ", productoP)
+      productos.push(productoBoleta);
+    });
+    //console.log("Datos Boleta 1: ", this.listaTabla)
+    let boleta = {
+      productos: productos,
+      fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+      pedido: this.idPedido, //cambiar por --------------------------> medio de pago seleccionado antes de realizar pedido
+      cliente: this.clienteSelect._id,
+      total: this.total,
+      estado: 'En proceso',
     };
-    //console.log("ProductosP: ", productoP)
-    productos.push(productoBoleta);
-  });
- //console.log("Datos Boleta 1: ", this.listaTabla)
-  let boleta = {
-    productos: productos,
-    fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-    pedido: this.idPedido, //cambiar por --------------------------> medio de pago seleccionado antes de realizar pedido
-    cliente: this.clienteSelect._id,
-    total: this.total,
-    estado: 'En proceso'
-  }
-  //console.log("Datos Boleta 2: ", boleta)
+    //console.log("Datos Boleta 2: ", boleta)
 
+    this.boletaService.crearBoleta(boleta).subscribe(
+      (data) => {
+        Swal.fire({ icon: 'success', text: 'Boleta emitida exitosamente' });
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al emitir la boleta',
+          footer: err,
+        });
+      }
+    );
+    this.limpiezaForm();
 
-  this.boletaService.crearBoleta(boleta).subscribe(data => {
-    alert('Boleta emitida exitosamente');
-  }, err => {
-    alert('Error al emitir boleta');
-    console.log("error al emitir boleta ",err);
-
-  }
-  )
-  this.limpiezaForm()
-
-  this.pedidoNuevo=[];
-  this.visible = false;
+    this.pedidoNuevo = [];
+    this.visible = false;
 }
-
-realizarFactura(){
-  let productos: ProductoFactura[] = [];
-  //Insertar productos para que se muestren en la boleta con su precio
-  this.listaTabla.forEach((productoP) => {
-    let productoFactura  = {
-      productoId: productoP.id,
-      cantidad: productoP.cantidad,
-      precio: (Number(productoP.subtotal)/Number(productoP.cantidad)),
-      nombre_producto: productoP.nombre_producto,
-      codigo_barras: productoP.codigo_barras,
-
+  realizarFactura() {
+    let productos: ProductoFactura[] = [];
+    //Insertar productos para que se muestren en la boleta con su precio
+    this.listaTabla.forEach((productoP) => {
+      let productoFactura = {
+        productoId: productoP.id,
+        cantidad: productoP.cantidad,
+        precio: Number(productoP.subtotal) / Number(productoP.cantidad),
+        nombre_producto: productoP.nombre_producto,
+        codigo_barras: productoP.codigo_barras,
+      };
+      productos.push(productoFactura);
+    });
+    let factura = {
+      productos: productos,
+      fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+      pedido: this.idPedido, //medio_pago seleccionado antes de realizar pedido
+      cliente: this.clienteSelect._id,
+      total: this.total,
+      estado: 'En proceso',
     };
-    productos.push(productoFactura);
-  });
-  let factura = {
-    productos: productos,
-    fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-    pedido: this.idPedido, //medio_pago seleccionado antes de realizar pedido
-    cliente: this.clienteSelect._id,
-    total: this.total,
-    estado: 'En proceso'
-  }
-  this.facturaService.crearFactura(factura).subscribe(data => {
-    alert('Factura emitida exitosamente');
-  }, err => {
-    alert('Error al emitir la factura');
-    console.log("error al emitir la factura ",err);
+    this.facturaService.crearFactura(factura).subscribe(
+      (data) => {
+        Swal.fire({ icon: 'success', text: 'Factura emitida exitosamente' });
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al emitir la factura',
+          footer: err,
+        });
+        //console.log("error al emitir la factura ",err);
+      }
+    );
+    this.limpiezaForm(); //llama a la funcion limpiezaForm() para vaciar el formulario
 
-  })
-  this.limpiezaForm() //llama a la funcion limpiezaForm() para vaciar el formulario
-
-  this.pedidoNuevo=[];
-  this.visible = false;
-}
-
-emitirBoleta() {
-  setTimeout(()=>{
-    this.realizarPedido()
-  }, 500)
-  setTimeout(()=>{
-    this.realizarBoleta()
- },1000)
-
-}
-
-emitirFactura() {
-    setTimeout(()=>{
-      this.realizarPedido()
-    }, 500)
-    setTimeout(()=>{
-      this.realizarFactura()
-   },1000)
-
+    this.pedidoNuevo = [];
+    this.visible = false;
   }
 
+  emitirBoleta() {
+    setTimeout(() => {
+      this.realizarPedido();
+    }, 100);
+    setTimeout(() => {
+      this.realizarBoleta();
+    }, 1500);
+  }
+
+  emitirFactura() {
+    setTimeout(() => {
+      this.realizarPedido();
+    }, 100);
+    setTimeout(() => {
+      this.realizarFactura();
+    }, 1500);
+  }
 
   //Mostrar modal
   showDialog() {
@@ -361,8 +386,8 @@ emitirFactura() {
     if (this.listarProductos.length > 0) {
       let total = this.listarProductos
 
-      .filter((producto) => producto.subtotal)
-      .reduce((sum: any, producto) => sum + producto.subtotal, 0);
+        .filter((producto) => producto.subtotal)
+        .reduce((sum: any, producto) => sum + producto.subtotal, 0);
       let idUser = this.authService.obtenerIdUsuario();
       let pedido = {
         cliente: this.clienteSelect._id,
@@ -375,10 +400,10 @@ emitirFactura() {
 
       this.pedidoService.insertPedido(pedido).subscribe(
         (data) => {
-          alert('Pedido creado exitosamente');
+          Swal.fire({ icon: 'success', text: 'Pedido creado exitosamente' });
           this.idPedido = data.p._id;
-          this.pedidoNuevo.push(data.p)
-          console.log("Push pedido nuevo: ", this.pedidoNuevo)
+          this.pedidoNuevo.push(data.p);
+          //console.log('Push pedido nuevo: ', this.pedidoNuevo);
           // Iterar por los productos del pedido para restar cantidades
           this.listarProductos.forEach((productoP) => {
             let productoPedido = {
@@ -392,41 +417,50 @@ emitirFactura() {
             this.pedidoProductoService
               .insertPedidoProducto(productoPedido)
               .subscribe((data) => {
-                console.log('producto insertado a pedido');
+                // console.log('producto insertado a pedido');
               });
 
             // Restar cantidades del producto en la base de datos
-            this.productosService.restarCantidadesProductos(productoP.producto, Number(productoP.cantidad_producto))
-              .subscribe(() => {
-
-                console.log('Cantidad restada del producto en la base de datos', productoP.producto,productoP.cantidad_producto);
-              }, (error) => {
-                console.log('Error al restar cantidades del producto en la base de datos', error);
-              });
+            this.productosService
+              .restarCantidadesProductos(
+                productoP.producto,
+                Number(productoP.cantidad_producto)
+              )
+              .subscribe(
+                () => {
+                  //console.log('Cantidad restada del producto en la base de datos', productoP.producto,productoP.cantidad_producto);
+                },
+                (error) => {
+                  //console.log('Error al restar cantidades del producto en la base de datos', error);
+                }
+              );
           });
-
         },
         (error) => {
-          console.log(error);
-          alert('error al crear pedido');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al emitir la boleta',
+            footer: error,
+          });
         }
       );
     } else {
-      alert('Debe ingresar al menos un producto para crear el pedido.');
+      Swal.fire({
+        icon: 'info',
+        text: 'Debe ingresar al menos un producto para realizar el pedido'
+      });
     }
   }
   //Limpiar formulario
-  limpiezaForm(){
+  limpiezaForm() {
     // Limpieza datos del formulario y variables
     this.listarProductos = [];
     this.codigo_barra = null;
     this.cantidad_producto = 1;
     this.clienteSelect = [];
-    this.selectedMedioPago=[];
+    this.selectedMedioPago = [];
     this.listaTabla = [];
     this.total = 0;
-
   }
 }
-
-

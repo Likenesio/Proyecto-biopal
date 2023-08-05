@@ -30,7 +30,7 @@ const factSchema = schema({
       ],
 
             numero_factura : {
-                type: String,
+                type: Number,
                 required: true
             },
             neto: {
