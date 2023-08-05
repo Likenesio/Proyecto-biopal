@@ -19,175 +19,285 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-6 d-flex align-items-center">
-        <button mat-icon-button *ngIf="sidenav.mode==='over'" (click)="sidenav.toggle()">
+        <button
+          mat-icon-button
+          *ngIf="sidenav.mode === 'over'"
+          (click)="sidenav.toggle()"
+        >
           <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
           <mat-icon *ngIf="sidenav.opened">close</mat-icon>
         </button>
         <span>Biopal</span>
       </div>
-      <div class="col-lg-6 col-md-4 d-none d-md-flex justify-content-center">
-      </div>
-      <div class="col-lg-3 col-md-4 col-6 d-none d-sm-flex justify-content-end align-items-center">
+      <div
+        class="col-lg-6 col-md-4 d-none d-md-flex justify-content-center"
+      ></div>
+      <div
+        class="col-lg-3 col-md-4 col-6 d-none d-sm-flex justify-content-end align-items-center"
+      >
         <mat-icon>account_circle</mat-icon>
-        <span class="email " style="font-size: 15px;">{{ email }}</span>
+        <span class="email" style="font-size: 15px">{{ email }}</span>
       </div>
-
     </div>
   </div>
 </mat-toolbar>
 
-
 <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav="matSidenav" class ="mat-elevation-z24" style="width: 13%; height: absolute;"  mode="side" opened>
-    <img class ="avatar mat-elevation-z24 img" src="https://us.123rf.com/450wm/imagevectors/imagevectors1606/imagevectors160600380/59162629-icono-de-perfil-blanco-en-el-bot%C3%B3n-negro-aislado-en-blanco.jpg?ver=6" alt="">
+  <mat-sidenav
+    #sidenav="matSidenav"
+    class="mat-elevation-z24 align-items-center"
+    mode="side"
+    opened
+  >
+    <img
+      class="avatar mat-elevation-z24 img"
+      src="https://us.123rf.com/450wm/imagevectors/imagevectors1606/imagevectors160600380/59162629-icono-de-perfil-blanco-en-el-bot%C3%B3n-negro-aislado-en-blanco.jpg?ver=6"
+      alt=""
+    />
 
-    <h4 class="name">{{usuario}} {{apellido}}</h4>
-    <p class="">{{obtenerRol}}</p>
-
-
+    <h4 class="name">{{ usuario }} {{ apellido }}</h4>
+    <p class="">{{ obtenerRol }}</p>
 
     <mat-divider></mat-divider>
 
+    <button mat-button class="menu-button" [routerLink]="['/home']">
+      <mat-icon>home</mat-icon>
+      <span> Home </span>
+    </button>
 
-      <button mat-button class="menu-button" [routerLink]="['/home']">
-        <mat-icon>home</mat-icon>
-          <span> Home </span>
-        </button>
+    <ng-container *ngIf="authService.obtenerRol() === 'Administrador'">
+      <mat-accordion>
+        <mat-expansion-panel
+          style="width: 100%"
+          (click)="cambiarPanel(1)"
+          [expanded]="panelAbierto === 1"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-button class="menu-button">
+                <mat-icon>person</mat-icon>
+                <span>Usuarios</span>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/usuario/crear']"
+              >Ingresar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/usuario/listarUsuario']"
+              >Listar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/usuario/modificarUsuario']"
+              >Modificar</a
+            >
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
 
+    <ng-container
+      *ngIf="authService.obtenerRol() === 'Administrador' || 'Vendedor'"
+    >
+      <mat-accordion>
+        <mat-expansion-panel
+          style="width: 100%"
+          (click)="cambiarPanel(2)"
+          [expanded]="panelAbierto === 2"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-button class="menu-button">
+                <mat-icon>people</mat-icon>
+                <span>Clientes</span>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/cliente/crear']"
+              >Ingresar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/cliente/listar']"
+              >Listar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/cliente/update']"
+              >Modificar</a
+            >
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
 
-    <ng-container *ngIf="authService.obtenerRol() === 'Administrador'" >
-    <mat-accordion>
-      <mat-expansion-panel style="width: 100%;"  (click)="cambiarPanel(1)" [expanded]="panelAbierto === 1" >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
+    <ng-container
+      *ngIf="
+        authService.obtenerRol() === 'Administrador' ||
+        'Vendedor' ||
+        'Bodeguero'
+      "
+    >
+      <mat-accordion>
+        <mat-expansion-panel
+          style="width: 100%"
+          (click)="cambiarPanel(3)"
+          [expanded]="panelAbierto === 3"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-button class="menu-button">
+                <mat-icon>inventory</mat-icon>
+                <span>Inventario</span>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <mat-list-item
+              class="menu-button"
+              [routerLink]="['/productos/ingresar']"
+              >Ingresar</mat-list-item
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/productos/listar']"
+              >Inventario</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/productos/actualizar']"
+              >Modificar</a
+            >
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
 
-            <button mat-button class="menu-button">
-              <mat-icon>person</mat-icon>
-              <span>Usuarios</span>
-            </button>
+    <ng-container
+      *ngIf="
+        authService.obtenerRol() === 'Administrador' ||
+        'Vendedor' ||
+        'Bodeguero'
+      "
+    >
+      <mat-accordion>
+        <mat-expansion-panel
+          style="width: 100%"
+          (click)="cambiarPanel(4)"
+          [expanded]="panelAbierto === 4"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-button class="menu-button">
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Pedidos</span>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/pedidos/crear']"
+              >Realizar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/pedidos/listar']"
+              >Listar</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/pedidos/historialPedidos']"
+              >Historial</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/pedidos/ventasPorMes']"
+              >Gráfico</a
+            >
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
 
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-nav-list>
-          <a mat-list-item class="menu-button" [routerLink]="['/usuario/crear']">Ingresar Usuario</a>
-          <a mat-list-item class="menu-button" [routerLink]="['/usuario/listarUsuario']">Visualizar usuarios</a>
-          <a mat-list-item class="menu-button" [routerLink]="['/usuario/modificarUsuario']">Modificar usuario</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </ng-container>
-
-   <ng-container *ngIf="authService.obtenerRol() === 'Administrador' ||'Vendedor'" >
-    <mat-accordion>
-      <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(2)" [expanded]="panelAbierto === 2">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-
-            <button mat-button class="menu-button">
-              <mat-icon>people</mat-icon>
-              <span>Clientes</span>
-            </button>
-
-          </mat-panel-title>
-        </mat-expansion-panel-header >
-        <mat-nav-list >
-          <a mat-list-item class="menu-button " [routerLink]="['/cliente/crear']">Ingresar Cliente</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/cliente/listar']">Visualizar Clientes</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/cliente/update']">Modificar Cliente</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </ng-container>
-
-  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor' || 'Bodeguero'" >
-    <mat-accordion>
-      <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(3)" [expanded]="panelAbierto === 3">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-
-            <button mat-button class="menu-button">
-              <mat-icon>inventory</mat-icon>
-              <span>Inventario</span>
-            </button>
-
-          </mat-panel-title>
-        </mat-expansion-panel-header >
-        <mat-nav-list>
-          <mat-list-item class="menu-button " [routerLink]="['/productos/ingresar']">Ingresar producto</mat-list-item>
-          <a mat-list-item class="menu-button " [routerLink]="['/productos/listar']">Ver inventario</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/productos/actualizar']">Modificar producto</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </ng-container>
-
-  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Vendedor' || 'Bodeguero'" >
-    <mat-accordion >
-      <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(4)" [expanded]="panelAbierto === 4">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-
-            <button mat-button class="menu-button">
-              <mat-icon>shopping_basket</mat-icon>
-              <span>Pedidos</span>
-            </button>
-
-          </mat-panel-title>
-        </mat-expansion-panel-header >
-        <mat-nav-list>
-          <a mat-list-item class="menu-button " [routerLink]="['/pedidos/crear']">Realizar pedidos</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/pedidos/listar']">Listar Pedidos</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/pedidos/historialPedidos']">Historial Pedidos</a>
-          <a mat-list-item class="menu-button " [routerLink]="['/pedidos/ventasPorMes']">Gráfico</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </ng-container>
-
-  <ng-container *ngIf="authService.obtenerRol() === 'Administrador'||'Facturador'">
-    <mat-accordion >
-      <mat-expansion-panel style="width: 100%;" (click)="cambiarPanel(5)" [expanded]="panelAbierto === 5">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-
-            <button mat-button class="menu-button">
-              <mat-icon>folder</mat-icon>
-              <span>Documentos</span>
-            </button>
-
-          </mat-panel-title>
-        </mat-expansion-panel-header >
-        <mat-nav-list>
-          <a mat-list-item class="menu-button " [routerLink]="['/documentos/boletas']">Visualizar Boletas</a>
-          <a mat-list-item class="menu-button "[routerLink]="['documentos/facturas']">Visualizar Facturas</a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </ng-container>
+    <ng-container
+      *ngIf="authService.obtenerRol() === 'Administrador' || 'Facturador'"
+    >
+      <mat-accordion>
+        <mat-expansion-panel
+          style="width: 100%"
+          (click)="cambiarPanel(5)"
+          [expanded]="panelAbierto === 5"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <button mat-button class="menu-button">
+                <mat-icon>folder</mat-icon>
+                <span>Documentos</span>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['/documentos/boletas']"
+              >Boletas</a
+            >
+            <a
+              mat-list-item
+              class="menu-button"
+              [routerLink]="['documentos/facturas']"
+              >Facturas</a
+            >
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
 
     <div class="logout">
       <mat-divider></mat-divider>
-      <button (click)="logout()" mat-button >
-        <mat-icon >logout</mat-icon>
+      <button (click)="logout()" mat-button>
+        <mat-icon>logout</mat-icon>
         <span> Salir </span>
       </button>
     </div>
+  </mat-sidenav>
 
-
-
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-      <!--Aquí van las gráficas-->
-      <div class="content mat-elevation-z8 row w-100 h-100" style="height: 100%; overflow: hidden;">
-        <!-- Agregar las columnas dentro del div con clase "row" -->
-        <div class="col-md-8">
-          <!--<div class="card flex justify-content-center">
+  <mat-sidenav-content>
+    <!--Aquí van las gráficas-->
+    <div
+      class="content mat-elevation-z8 row w-100 h-100"
+      style="height: 100%; overflow: hidden"
+    >
+      <!-- Agregar las columnas dentro del div con clase "row" -->
+      <div class="col-md-8">
+        <!--<div class="card flex justify-content-center">
             <p-breadcrumb [model]="items"></p-breadcrumb>
             <p-breadcrumb class="max-w-full" [model]="itemss" [home]="home"></p-breadcrumb>
           </div>-->
-          <router-outlet></router-outlet>
-        </div>
+        <router-outlet></router-outlet>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

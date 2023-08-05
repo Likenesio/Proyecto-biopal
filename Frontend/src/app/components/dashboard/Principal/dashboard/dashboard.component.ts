@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.observer.observe(['(max-width:1500px)']).subscribe((resp:any)=>{
+    this.observer.observe(['(max-width:1300px)']).subscribe((resp:any)=>{
       if(resp.matches){
       this.sidenav.mode ='over';
       this.sidenav.close();
