@@ -398,24 +398,41 @@ export class FacturaComponent {
         caf: '',
       };
 
-
       console.log(dte);
       //Calcular total de items
       /*let totalItems = this.factura.productos.filter((item:any) => item.cantidad > 0).reduce((a:any, b:any) => a + b.cantidad, 0);
       console.log(totalItems);
       */
-      this.dteService.emitirFacturaDTE(dte).subscribe((date)=>{
-        Swal.fire({ icon: 'success', text: 'JSON enviado exitosamente' });
-       },
-       (err)=>{ Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Error al enviar JSON',
-        footer: err,
-      });
-      })
+      this.dteService.emitirFacturaDTE(dte).subscribe(
+        (data) => {
+          Swal.fire({ icon: 'success', text: 'JSON enviado exitosamente' });
+          //data recibe el XML (convertir json a string)
+          let xml64 = data.xml;
 
-      })
-    }
-
+          let xml = {
+            auth: {
+              cert: {
+                ['cert-data']: '',
+                ['pkey-data']: '',
+              },
+            },
+            emisor: '',
+            xml: xml64,
+          };
+          //servicio enviar DTE
+          this.dteService.enviarDTE(xml).subscribe((data: any) => {
+            console.log(data);
+            Swal.fire({ icon: 'success', text: 'DTE enviado exitosamente al SII' });
+          });
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al enviar DTE',
+          });
+        }
+      );
+    });
+  }
 }

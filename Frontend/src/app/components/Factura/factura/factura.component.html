@@ -1,7 +1,7 @@
-<div class="container card mt-5 m-lg-5">
-  <p-table [value]="listaFacturaAPI" [paginator]="true" [rows]="6" [showCurrentPageReport]="true"
+<div class="container card mt-2 m-lg-5">
+  <p-table [value]="listaFacturaAPI" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Mostrando del {first} al {last} de las {totalRecords} facturas">
+      currentPageReportTemplate="Facturas del {first} al {last} de las {totalRecords}">
       <ng-template pTemplate="header">
           <tr>
               <th>N° Factura</th>

@@ -64,7 +64,7 @@ export class ListarClienteComponent {
           window.location.reload();
         });
       } else if (result.isDenied) {
-        Swal.fire('No se ha eliminado cliente', '', 'info');
+        Swal.fire('No se ha podido eliminado cliente', '', 'info');
       }
     });
   }
