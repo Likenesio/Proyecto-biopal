@@ -116,14 +116,14 @@ export class UpdateClienteComponent {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Error al actualizar cliente',
+              text: 'Error al actualizar cliente!',
             });
           }
         );
     } else {
       Swal.fire({
         icon: 'info',
-        text: 'Debe llenar todos los campos antes de guardar.',
+        text: 'Debe llenar todos los campos antes de actualizar al cliente.',
       });
     }
   }
