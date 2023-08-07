@@ -32,7 +32,6 @@ export class BoletasComponent {
     this.boletaService.listarBoletas().subscribe((data) => {
       this.respuesta = data;
       this.listaBoletasAPI = this.respuesta.boleta;
-      console.log(this.listaBoletasAPI);
     });
   }
 

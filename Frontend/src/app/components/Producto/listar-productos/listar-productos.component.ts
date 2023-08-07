@@ -30,7 +30,6 @@ export class ListarProductosComponent {
   ngOnInit() {
        this.productosService.listarProductos().subscribe(data =>{
         this.respuesta = data;
-        console.log(this.respuesta)
         this.productosListar = this.respuesta.product;
        })
 
@@ -44,7 +43,6 @@ export class ListarProductosComponent {
             precio_unitario:producto.precio_unitario,
             unidad: producto.unidad,
           });
-          console.log(this.listarProductos);
        })
 
       })

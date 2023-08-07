@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Message } from 'primeng/api';
-import { ProductosService } from 'src/app/service/productos-service/productos.service';
+import { Component, OnInit } from "@angular/core";
+import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
+import { Message } from "primeng/api";
+import { ProductosService } from "src/app/service/productos-service/productos.service";
+
+interface ProductosLow {
+  nombre_producto: string;
+  stock: number;
+}
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
   messages: Message[] = [];
@@ -19,11 +24,11 @@ export class HomeComponent implements OnInit {
   productosLow: any;
 
   images = [
-    '/assets/1.png',
-    '/assets/2.png',
-    '/assets/3.png',
-    '/assets/4.png',
-    '/assets/5.png',
+    "/assets/1.png",
+    "/assets/2.png",
+    "/assets/3.png",
+    "/assets/4.png",
+    "/assets/5.png",
     // Agrega aquí más imágenes si es necesario
   ];
 
@@ -40,23 +45,45 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.productosService.verificarStock().subscribe((data) => {
       this.productosLow = data.lowStock;
-      this.messages = [
-        { severity: 'warn', summary: 'Atención: ', detail: 'Existen ' + this.productosLow.length + ' productos con bajo stock' },
-    ];
-
-      /*this.productosLow.map((producto: any, index:any) => {
-        this.messages= [{
-          severity: 'warn',
-          summary: 'Warning',
-          detail:'El producto: ' + this.productosLow[index].nombre_producto + ' tiene un stock bajo',
-        },
-        {
-          severity: 'warn',
-          summary: 'Warning',
-          detail:'El producto: ' + this.productosLow[index+1].nombre_producto + ' tiene un stock bajo',
-        }]
+      //crear un arreglo local en donde solo considere el nombre de producto y stock
+      let productos: ProductosLow[] = [];
+      //recorre el arreglo de la data recibida de productos
+      this.productosLow.map((producto: any, index: any) => {
+        //agrega el nombre de producto y stock al arreglo local
+        productos.push({
+          nombre_producto: producto.nombre_producto,
+          stock: producto.stock,
+        });
       });
-      console.log('messages:', this.messages);*/
+      //recorre el arreglo local para crear la alerta de productos con poco o sin stock
+      productos.map((producto: any, index: any) => {
+        //verifica si el stock es mayor a 0 para agregar una alerta de producto con stock, en caso de que sea igual a 0, se agrega una alerta roja de sin stock
+        if (producto.stock > 0) {
+          this.messages = [
+            ...this.messages,
+            {
+              severity: "warn",
+              summary: "Atención: ",
+              detail:
+                "El producto " +
+                producto.nombre_producto +
+                " tiene un stock de " +
+                producto.stock +
+                " unidades",
+            },
+          ];
+        } else {
+          this.messages = [
+            ...this.messages,
+            {
+              severity: "error",
+              summary: "Atención: ",
+              detail:
+                "El producto " + producto.nombre_producto + " no tiene stock",
+            },
+          ];
+        }
+      });
     });
   }
-  }
+}

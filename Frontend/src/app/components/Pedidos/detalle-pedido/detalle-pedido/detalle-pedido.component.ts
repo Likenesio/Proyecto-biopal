@@ -63,7 +63,7 @@ export class DetallePedidoComponent implements OnInit {
         precio_unitario: producto.producto[0].precio_unitario,
         subtotal: producto.subtotal
         });
-      console.log(this.listarProducto);
+      //console.log(this.listarProducto);
         })
 
   })

@@ -26,7 +26,7 @@ export class RoleGuard {
       }
     } else {
       // Redireccionar al componente de inicio de sesión o a la página de inicio de sesión
-      this.router.navigate(['/login']);
+      this.router.navigate(['login']);
       return false;
     }
   }

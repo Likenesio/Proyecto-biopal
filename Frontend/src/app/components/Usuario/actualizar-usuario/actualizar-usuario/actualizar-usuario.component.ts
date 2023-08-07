@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { UsuarioService } from 'src/app/service/usuario-service/usuario.service';
 import Swal from 'sweetalert2';
 interface Roles {
@@ -16,7 +17,6 @@ export class ActualizarUsuarioComponent implements OnInit {
   fono: any;
   correo: any;
   rol: any;
-  contrasenia:any;
 
   roles: Roles[] = [];
   selectedRoles: any;
@@ -27,7 +27,7 @@ export class ActualizarUsuarioComponent implements OnInit {
   seleccion: boolean = false;
   camposCompletos: boolean = false;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private authService: AuthService) {}
 
   ngOnInit() {
     this.roles = [
@@ -55,7 +55,6 @@ export class ActualizarUsuarioComponent implements OnInit {
           this.rut_usuario = this.respuestaBusqueda.usuario.rut_usuario;
           this.nombre_usuario = this.respuestaBusqueda.usuario.nombre_usuario;
           this.apellido = this.respuestaBusqueda.usuario.apellido;
-          this.contrasenia = this.respuestaBusqueda.usuario.contrasenia;
           this.fono = this.respuestaBusqueda.usuario.fono;
           this.correo = this.respuestaBusqueda.usuario.correo;
           this.rol = this.respuestaBusqueda.usuario.rol;
@@ -73,7 +72,6 @@ export class ActualizarUsuarioComponent implements OnInit {
       !!this.rut_usuario &&
       !!this.nombre_usuario &&
       !!this.apellido &&
-      !!this.contrasenia &&
       !!this.fono &&
       !!this.correo &&
       !!this.selectedRoles.rol;
@@ -88,7 +86,6 @@ export class ActualizarUsuarioComponent implements OnInit {
         nombre_usuario: this.nombre_usuario,
         apellido: this.apellido,
         fono: this.fono,
-        contrasenia:this.contrasenia,
         correo: this.correo,
         rol: this.selectedRoles.rol,
       };
@@ -101,7 +98,7 @@ export class ActualizarUsuarioComponent implements OnInit {
       }
 
       this.usuarioService
-        .actualizarUsuario(this.usuarioSelect._id, usuario)
+        .actualizarDatosUsuario(this.usuarioSelect._id, usuario)
         .subscribe(
           (date) => {
             Swal.fire({
@@ -114,7 +111,20 @@ export class ActualizarUsuarioComponent implements OnInit {
             setTimeout(() => {
               window.location.reload();
             }, 800);
-          },
+            //Verifica si el usuario actualizado es el mismo que se logueo
+            if(this.usuarioSelect._id == this.authService.obtenerIdUsuario()){
+              //si es el mismo, se elimina el token y se redirige al login
+              this.authService.logout();
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Para que los cambios sean reflejados, debe volver a ingresar',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          }
+          ,
           (err) => {
             Swal.fire({
               icon: 'error',

@@ -30,7 +30,7 @@ const insert = (req, res) => {
             numero_boleta: contador + 1,
             fecha_emision: req.body.fecha_emision,
             pedido: req.body.pedido,
-            total: total,
+            total: total.toFixed(0),
             cliente: req.body.cliente,
             neto: neto.toFixed(0), // Redondeado
             iva: iva.toFixed(0), // Redondeado
@@ -61,7 +61,7 @@ const insert = (req, res) => {
             productos: req.body.productos,
             numero_boleta: 1,
             fecha_emision: req.body.fecha_emision,
-            total: total,
+            total: total.toFixed(0),
             pedido: req.body.pedido,
             cliente: req.body.cliente,
             neto: neto.toFixed(0), // Redondeado
@@ -107,9 +107,9 @@ const actualizar = (req, res) => {
     {
       numero_boleta: numero_boleta,
       productos: productos,
-      neto: neto,
-      iva: iva,
-      total: total,
+      neto: neto.toFixed(0),
+      iva: iva.toFixed(0),
+      total: total.toFixed(0),
       fecha_emision: fecha_emision,
       estado: estado,
       pedido: pedido,

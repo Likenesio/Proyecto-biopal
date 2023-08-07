@@ -25,8 +25,9 @@ import { FacturaComponent } from './components/Factura/factura/factura.component
 
 
 const routes: Routes = [
-  {path:'', redirectTo:'/login', pathMatch: 'full'},
-  {path:'home', component : HomeComponent },
+  {path:'', redirectTo:'login', pathMatch: 'full'},
+  {path:'', redirectTo:'home', pathMatch: 'full'},
+  {path:'home', component : HomeComponent , canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'productos/listar', component: ListarProductosComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path: 'productos/ingresar', component: IngresarProductoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'productos/actualizar', component: ActualizarProductoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},

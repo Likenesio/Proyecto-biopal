@@ -62,7 +62,6 @@ export class ListarPedidoComponent implements OnInit {
        fecha: pedido.fecha,
        estado: pedido.estado
      });
-     console.log(this.listarPedido);
     })
 })
 

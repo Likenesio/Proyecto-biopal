@@ -97,6 +97,7 @@ background-color: white;
 .mat-expansion-panel-header {
   background-color: transparent !important;
   color: white !important;
+  padding: 0 10px;
 }
 
 .mat-expansion-panel-header.mat-expanded {

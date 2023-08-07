@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
       this.usuarioService.buscarUsuario(this.idUsuario)
       .subscribe((data)=>{
         this.respuestaIdUsuario = data;
-        console.log( "este:", this.respuestaIdUsuario)
+        //console.log( "este:", this.respuestaIdUsuario)
         this.usuario = this.respuestaIdUsuario.usuario.nombre_usuario;
         this.apellido = this.respuestaIdUsuario.usuario.apellido;
         this.email = this.respuestaIdUsuario.usuario.correo;

@@ -56,7 +56,7 @@ export class VentasAnualesComponent implements OnInit {
             { data: Object.values(this.totalVentasPorMes), label: 'Ventas Anuales' }
           ];
 
-          console.log('Total ventas por mes:', this.totalVentasPorMes);
+          //console.log('Total ventas por mes:', this.totalVentasPorMes);
       },
       (error) => {
         console.error('Error al obtener las ventas por mes:', error);

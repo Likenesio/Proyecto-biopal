@@ -32,7 +32,7 @@ const insert = (req, res) => {
               numero_factura: contador + 1,
               fecha_emision: req.body.fecha_emision,
               pedido: req.body.pedido,
-              total: total,
+              total: total.toFixed(0),
               cliente: req.body.cliente,
               usuario: req.body.usuario,
               neto: neto.toFixed(0), // Redondeado
@@ -40,7 +40,7 @@ const insert = (req, res) => {
               estado: req.body.estado,
             });
   
-            console.log("factura del backend: ", factura);
+            //console.log("factura del backend: ", factura);
 
             const createFactura = factura.save();
             res.status(200).json({ createFactura });
@@ -63,7 +63,7 @@ const insert = (req, res) => {
               productos: req.body.productos,
               numero_factura: 1,
               fecha_emision: req.body.fecha_emision,
-              total: total,
+              total: total.toFixed(0),
               pedido: req.body.pedido,
               cliente: req.body.cliente,
               usuario: req.body.usuario,

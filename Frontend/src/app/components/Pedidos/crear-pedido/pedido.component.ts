@@ -129,18 +129,24 @@ export class PedidoComponent implements OnInit {
   }
 
   validarProductos(): boolean {
-    if (this.listarProductos.length === 0) {
-      Swal.fire({
-        icon: 'info',
-        text: 'Debe ingresar al menos un producto para realizar el pedido y documento',
-      });
-      return false;
+    if (this.listarProductos.length!=0) {
+      return true;
     }
-    return true;
+    Swal.fire({
+      icon: 'info',
+      text: 'Debe ingresar al menos un producto para realizar el pedido y documento',
+    });
+    return false;
   }
 
   //Insertar Producto en la tabla de formulario de pedidos y lista productos en la tabla
   productoInsert() {
+    if(!this.codigo_barra){
+      Swal.fire({
+        icon: 'info',
+        text: 'Por favor, ingrese código de barras'
+      });
+    }else{
     this.productosService.obtenerPorCodigoBarras(this.codigo_barra).subscribe(
       (data) => {
         this.productoEncontrado = data.product;
@@ -224,94 +230,101 @@ export class PedidoComponent implements OnInit {
       }
     );
   }
+}
   realizarBoleta() {
+    if (this.validarProductos()) {
+      let productos: ProductoBoleta[] = [];
+      //Insertar productos para que se muestren en la boleta con su precio
+      this.listaTabla.forEach((productoP) => {
+        let productoBoleta = {
+          productoId: productoP.id,
+          cantidad: productoP.cantidad, //llamar como documentacion
+          precio: Number(productoP.subtotal) / Number(productoP.cantidad),
+          nombre_producto: productoP.nombre_producto,
+          codigo_barras: productoP.codigo_barras,
+        };
+        //console.log("ProductosP: ", productoP)
+        productos.push(productoBoleta);
+      });
+      //console.log("Datos Boleta 1: ", this.listaTabla)
+      let boleta = {
+        productos: productos,
+        fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+        pedido: this.idPedido, //cambiar por --------------------------> medio de pago seleccionado antes de realizar pedido
+        cliente: this.clienteSelect._id,
+        total: this.total,
+        estado: 'En proceso',
+      };
+      //console.log("Datos Boleta 2: ", boleta)
+  
+      this.boletaService.crearBoleta(boleta).subscribe(
+        (data) => {
+          Swal.fire({ icon: 'success', text: 'Boleta emitida exitosamente' });
+        },
+        (err) => {
+          console.log("Boleta recibida ",boleta)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al emitir la boleta',
+            footer: err,
+          });
+        }
+      );
+      this.limpiezaForm();
+  
+      this.pedidoNuevo = [];
+      this.visible = false;
+    }else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Error al emitir la boleta',
       });
-    this.validarProductos()
-    let productos: ProductoBoleta[] = [];
-    //Insertar productos para que se muestren en la boleta con su precio
-    this.listaTabla.forEach((productoP) => {
-      let productoBoleta = {
-        productoId: productoP.id,
-        cantidad: productoP.cantidad, //llamar como documentacion
-        precio: Number(productoP.subtotal) / Number(productoP.cantidad),
-        nombre_producto: productoP.nombre_producto,
-        codigo_barras: productoP.codigo_barras,
-      };
-      //console.log("ProductosP: ", productoP)
-      productos.push(productoBoleta);
-    });
-    //console.log("Datos Boleta 1: ", this.listaTabla)
-    let boleta = {
-      productos: productos,
-      fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-      pedido: this.idPedido, //cambiar por --------------------------> medio de pago seleccionado antes de realizar pedido
-      cliente: this.clienteSelect._id,
-      total: this.total,
-      estado: 'En proceso',
-    };
-    //console.log("Datos Boleta 2: ", boleta)
-
-    this.boletaService.crearBoleta(boleta).subscribe(
-      (data) => {
-        Swal.fire({ icon: 'success', text: 'Boleta emitida exitosamente' });
-      },
-      (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error al emitir la boleta',
-          footer: err,
-        });
-      }
-    );
-    this.limpiezaForm();
-
-    this.pedidoNuevo = [];
-    this.visible = false;
+    }
+    
 }
   realizarFactura() {
-    this.validarProductos()
-    let productos: ProductoFactura[] = [];
-    //Insertar productos para que se muestren en la boleta con su precio
-    this.listaTabla.forEach((productoP) => {
-      let productoFactura = {
-        productoId: productoP.id,
-        cantidad: productoP.cantidad,
-        precio: Number(productoP.subtotal) / Number(productoP.cantidad),
-        nombre_producto: productoP.nombre_producto,
-        codigo_barras: productoP.codigo_barras,
-      };
-      productos.push(productoFactura);
-    });
-    let factura = {
-      productos: productos,
-      fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
-      pedido: this.idPedido, //medio_pago seleccionado antes de realizar pedido
-      cliente: this.clienteSelect._id,
-      total: this.total,
-      estado: 'En proceso',
-    };
-    this.facturaService.crearFactura(factura).subscribe(
-      (data) => {
-        Swal.fire({ icon: 'success', text: 'Factura emitida exitosamente' });
-      },
-      (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error al emitir la factura',
-          footer: err,
-        });
-      }
-    );
-    this.limpiezaForm(); //llama a la funcion limpiezaForm() para vaciar el formulario
+    if(this.validarProductos()){
 
-    this.pedidoNuevo = [];
-    this.visible = false;
+      let productos: ProductoFactura[] = [];
+      //Insertar productos para que se muestren en la boleta con su precio
+      this.listaTabla.forEach((productoP) => {
+        let productoFactura = {
+          productoId: productoP.id,
+          cantidad: productoP.cantidad,
+          precio: Number(productoP.subtotal) / Number(productoP.cantidad),
+          nombre_producto: productoP.nombre_producto,
+          codigo_barras: productoP.codigo_barras,
+        };
+        productos.push(productoFactura);
+      });
+      let factura = {
+        productos: productos,
+        fecha_emision: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+        pedido: this.idPedido, //medio_pago seleccionado antes de realizar pedido
+        cliente: this.clienteSelect._id,
+        total: this.total,
+        estado: 'En proceso',
+      };
+      this.facturaService.crearFactura(factura).subscribe(
+        (data) => {
+          Swal.fire({ icon: 'success', text: 'Factura emitida exitosamente' });
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al emitir la factura',
+            footer: err,
+          });
+        }
+      );
+      this.limpiezaForm(); //llama a la funcion limpiezaForm() para vaciar el formulario
+  
+      this.pedidoNuevo = [];
+      this.visible = false;
+    }
   }
 
   emitirBoleta() {
@@ -396,7 +409,7 @@ export class PedidoComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Error al emitir la boleta',
+            text: 'Error al crear pedido',
             footer: error,
           });
         }

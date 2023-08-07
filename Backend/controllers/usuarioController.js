@@ -70,6 +70,40 @@ const actualizar = async (req, res) => {
       });
     });
 };
+//Función que actualiza los datos de un usuario, sin afectar la contraseña
+const actualizarDatos = async (req, res) => {
+
+  let usuarioId = req.params._id;
+  rut_usuario = req.body.rut_usuario;
+  nombre_usuario = req.body.nombre_usuario;
+  apellido = req.body.apellido;
+  fono = req.body.fono;
+  correo = req.body.correo;
+  rol = req.body.rol;
+  Usuario.findByIdAndUpdate(
+    usuarioId,
+    {
+      rut_usuario: rut_usuario,
+      nombre_usuario: nombre_usuario,
+      apellido: apellido,
+      fono: fono,
+      correo: correo,
+      rol: rol,
+    },
+    { new: true }
+  )
+    .then((usuario) => {
+      res.status(200).send({
+        message: "Se ha actualizado usuario exitosamente",
+        usuario: usuario,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        message: "Error al actualizar usuario",
+      });
+    });
+};
 
 const listar = (req, res) => {
   Usuario.find({})
@@ -122,4 +156,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { insert, eliminar, actualizar, listar, buscar, login };
+module.exports = { insert, eliminar, actualizar, listar, buscar, login, actualizarDatos };

@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/usuario'; // URL del servidor de autenticación
+  private apiUrl = environment.apiUrl+'/usuario'; // URL del servidor de autenticación
 
   constructor(private http: HttpClient) { }
 

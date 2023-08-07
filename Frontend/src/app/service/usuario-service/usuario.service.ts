@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000/api/usuario';
+  private apiUrl = environment.apiUrl+'/usuario';
   constructor(private http: HttpClient) {}
 
   listarUsuario(): Observable<any> {
@@ -23,6 +24,9 @@ export class UsuarioService {
 
   actualizarUsuario(id: string, usuario: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, usuario);
+  }
+  actualizarDatosUsuario(id: string, usuario: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/data/${id}`, usuario);
   }
 
   insertarUsuario(usuario: any): Observable<any> {

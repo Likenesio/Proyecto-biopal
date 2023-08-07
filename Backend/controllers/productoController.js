@@ -124,9 +124,10 @@ const obtenerPorCodigoBarras = (req, res) => {
       if (producto.stock < 1) {
         return res.status(400).json({ error: 'No hay suficiente cantidad para restar' });
       }
-  
+      const cantidad_producto = req.body.cantidad_producto;
+
       // Restar una unidad de la cantidad en stock y guardar el producto actualizado en la base de datos
-      producto.stock -= 1;
+      producto.stock -= cantidad_producto;
       await producto.save();
   
       res.json({ message: 'Cantidad restada exitosamente' });
