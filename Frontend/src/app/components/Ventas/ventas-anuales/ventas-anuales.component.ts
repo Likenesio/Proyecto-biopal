@@ -1,72 +1,104 @@
-import { Component, OnInit } from '@angular/core';
-import { PedidoService } from 'src/app/service/pedido/pedido.service';
-import { ChartDataset } from 'chart.js';
+import { Component, OnInit } from "@angular/core";
+import { PedidoService } from "src/app/service/pedido/pedido.service";
+import { ChartDataset } from "chart.js";
 
 interface TotalVentasPorMes {
   [key: number]: number;
 }
 @Component({
-  selector: 'app-ventas-anuales',
-  templateUrl: './ventas-anuales.component.html',
-  styleUrls: ['./ventas-anuales.component.css']
+  selector: "app-ventas-anuales",
+  templateUrl: "./ventas-anuales.component.html",
+  styleUrls: ["./ventas-anuales.component.css"],
 })
 export class VentasAnualesComponent implements OnInit {
-  ventasPorMes: any[] =[];
+  ventasPorMes: any[] = [];
   barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
   };
   barChartLabels: string[] = [];
-  barChartType = 'bar';
+  barChartType = "bar";
   barChartLegend = true;
   barChartData: ChartDataset[] = [];
-  resultado:any;
-  pedido:any
+  resultado: any;
+  pedido: any;
   totalVentasPorMes: TotalVentasPorMes = {};
+  color: any [] = [ 
+  '#FFB1C1', 
+  '#FFD700', 
+  '#90EE90', 
+  '#87CEEB', 
+  '#FFA07A', 
+  '#8A2BE2', 
+  '#3CB371', 
+  '#FF4500', 
+  '#9370DB', 
+  '#1E90FF', 
+  '#FF69B4', 
+  '#20B2AA', 
+];
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService) {}
 
   ngOnInit() {
     this.obtenerVentasPorMes();
+
   }
 
   obtenerVentasPorMes() {
     this.pedidoService.obtenerVentasPorMes().subscribe(
       (data) => {
-          this.ventasPorMes = data.pedido;
+        this.ventasPorMes = data.pedido;
 
-          // Loop through the ventasPorMes array and calculate total sales for each month
-          this.ventasPorMes.forEach((venta) => {
-            const fecha = new Date(venta.fecha);
-            const month = fecha.getMonth();
-            const total = venta.total;
+        // Loop through the ventasPorMes array and calculate total sales for each month
+        this.ventasPorMes.forEach((venta) => {
+          const fecha = new Date(venta.fecha);
+          const month = fecha.getMonth();
+          const total = venta.total;
 
+          // If the month already exists, add the total to the existing value, else initialize it
+          if (this.totalVentasPorMes.hasOwnProperty(month)) {
+            this.totalVentasPorMes[month] += total;
+          } else {
+            this.totalVentasPorMes[month] = total;
+          }
+        });
 
-            // If the month already exists, add the total to the existing value, else initialize it
-            if (this.totalVentasPorMes.hasOwnProperty(month)) {
-              this.totalVentasPorMes[month] += total;
-            } else {
-              this.totalVentasPorMes[month] = total;
-            }
-          });
+        // Extract the months and their corresponding total sales for the chart
+        this.barChartLabels = Object.keys(this.totalVentasPorMes).map((month) =>
+          this.obtenerNombreMes(Number(month))
+        );
+        this.barChartData = [
+          {
+            data: Object.values(this.totalVentasPorMes),
+            label: "Ventas Anuales",
+            backgroundColor: this.color,
+          },
+        ];
 
-          // Extract the months and their corresponding total sales for the chart
-          this.barChartLabels = Object.keys(this.totalVentasPorMes).map((month) => this.obtenerNombreMes(Number(month)));
-          this.barChartData = [
-            { data: Object.values(this.totalVentasPorMes), label: 'Ventas Anuales' }
-          ];
-
-          //console.log('Total ventas por mes:', this.totalVentasPorMes);
+        //console.log('Total ventas por mes:', this.totalVentasPorMes);
       },
       (error) => {
-        console.error('Error al obtener las ventas por mes:', error);
+        console.error("Error al obtener las ventas por mes:", error);
       }
     );
   }
 
   obtenerNombreMes(numeroMes: number) {
-    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const meses = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ];
     return meses[numeroMes];
   }
-
 }
