@@ -1,0 +1,43 @@
+<div class="container mt-5 text-center">
+  <p-card class="m-lg-5" header="Perfil Usuario">
+    <form (submit)="cambiarContrasenia()" class="row">
+
+      <div class="col-12">
+        <div class="form-group mt-5">
+          <label htmlFor="oldPassword">Contraseña actual</label>
+          <span class="p-float-label">
+            <input type="password"  pInputText id="oldPassword" [(ngModel)]="oldPassword"  [ngModelOptions]="{standalone: true} "required/>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="col-12">
+        <div class="form-group mt-4">
+          <label htmlFor="newPassword">Nueva contraseña</label>
+          <span class="p-float-label">
+            <input type="password" pInputText id="newPassword" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}"required/>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="col-12">
+        <div class="form-group mt-4">
+          <label htmlFor="confirmPassword">Confirmar contraseña</label>
+          <span class="p-float-label">
+            <input  type="password" pInputText id="confirmPassword" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}"required/>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="col-12">
+        <div class="form-group mt-5">
+          <p-button  type="submit" label="Cambiar Contraseña"></p-button>
+        </div>
+      </div>
+
+    </form>
+  </p-card>
+</div>

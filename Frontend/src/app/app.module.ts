@@ -62,6 +62,8 @@ import { HistorialPedidoComponent } from './components/historial-pedido/historia
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
 import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
 import { FacturaComponent } from './components/Factura/factura/factura.component';
+import { PerfilUsuarioComponent } from './components/Perfil/perfil-usuario/perfil-usuario.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +88,7 @@ import { FacturaComponent } from './components/Factura/factura/factura.component
     BoletasComponent,
     VentasAnualesComponent,
     FacturaComponent,
+    PerfilUsuarioComponent
 
   ],
   imports: [

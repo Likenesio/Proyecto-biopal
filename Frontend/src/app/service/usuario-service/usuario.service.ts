@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -36,5 +36,23 @@ export class UsuarioService {
   login(usuario: any): Observable<any> {
     const loginUrl = `${this.apiUrl}/login`; // Agrega /login a la URL base
     return this.http.post<any>(loginUrl, usuario);
+  }
+  saveToken(newToken: string): void {
+    localStorage.setItem('token', newToken);
+  }
+  cambiarContrasenia(id: string, oldPassword: string, newPassword: string): Observable<any> {
+    const cambioContraseniaUrl = `${this.apiUrl}/cambiar-contrasenia/${id}`;
+    return this.http.put<any>(cambioContraseniaUrl, { usuarioId: id, oldPassword, newPassword })
+      .pipe(
+        tap(response => {
+          if (response && response.message === "Contraseña cambiada exitosamente") {
+            // Actualizar el token después de cambiar la contraseña
+            const newToken = response.newToken; // Suponiendo que tu API devuelve un nuevo token
+            if (newToken) {
+              this.saveToken(newToken);
+            }
+          }
+        })
+      );
   }
 }

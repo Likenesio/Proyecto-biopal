@@ -156,4 +156,39 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { insert, eliminar, actualizar, listar, buscar, login, actualizarDatos };
+const cambiarContrasenia = async (req, res) => {
+  const { usuarioId, oldPassword, newPassword } = req.body;
+
+  try {
+    const usuario = await Usuario.findById(usuarioId);
+
+    if (!usuario) {
+      res.status(404).json({ message: "Usuario no encontrado" });
+      return;
+    }
+
+    const passMatch = await bcrypt.compare(oldPassword, usuario.contrasenia);
+
+    if (!passMatch) {
+      res.status(401).send({ message: "Contraseña actual incorrecta" });
+      return;
+    }
+
+    const salt = 12;
+    const newHashedPassword = await bcrypt.hash(newPassword, salt);
+
+    await Usuario.findByIdAndUpdate(
+      usuarioId,
+      { contrasenia: newHashedPassword },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Contraseña cambiada exitosamente" });
+  } catch (error) {
+    res.status(500).send({ message: "Error al cambiar la contraseña", error });
+    return;
+  }
+};
+
+
+module.exports = { insert, eliminar, actualizar, listar, buscar, login, actualizarDatos, cambiarContrasenia };

@@ -9,7 +9,6 @@ import { UpdateClienteComponent } from './components/Cliente/actualizar-cliente/
 import { CrearUsuarioComponent } from './components/Usuario/ingresar-usuario/crear-usuario.component';
 import { DenegateComponent } from './components/denegate/denegate/denegate.component';
 import { RoleGuard } from './role.guard';
-import { DashboardComponent } from './components/dashboard/Principal/dashboard/dashboard.component';
 import { PedidoComponent } from './components/Pedidos/crear-pedido/pedido.component';
 import { ListarPedidoComponent } from './components/Pedidos/listar-pedido/listar-pedido/listar-pedido.component';
 import { DetallePedidoComponent } from './components/Pedidos/detalle-pedido/detalle-pedido/detalle-pedido.component';
@@ -20,7 +19,7 @@ import { HistorialPedidoComponent } from './components/historial-pedido/historia
 import { BoletasComponent } from './components/documentos/boletas/boletas.component';
 import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
 import { FacturaComponent } from './components/Factura/factura/factura.component';
-
+import { PerfilUsuarioComponent } from './components/Perfil/perfil-usuario/perfil-usuario.component';
 
 
 
@@ -42,6 +41,7 @@ const routes: Routes = [
   {path:'usuario/listarUsuario', component: ListarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/modificarUsuario', component: ActualizarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
+  {path:'usuario/perfilUsuario', component: PerfilUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'documentos/boletas', component: BoletasComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'documentos/facturas', component: FacturaComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
   {path:'denegate', component : DenegateComponent}
