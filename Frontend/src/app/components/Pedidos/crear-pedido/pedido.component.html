@@ -100,8 +100,8 @@
             <tr class="row">
               <th class="col">Nombre Producto</th>
               <th class="col">Precio Unitario</th>
-              <th class="col">Unidad</th>
               <th class="col">Cantidad</th>
+              <th class="col">Unidad</th>
               <th class="col">Sub Total</th>
               <!--<th class="col">Acción</th> </td>-->
             </tr>
@@ -110,10 +110,10 @@
           <ng-template pTemplate="body" let-producto>
             <tr class="row">
               <td class="col">{{ producto.nombre_producto }}</td>
-              <td class="col">{{ producto.precio_unitario }}</td>
-              <td class="col">{{ producto.unidad }}</td>
+              <td class="col">${{ producto.precio_unitario }}</td>
               <td class="col">{{ producto.cantidad }}</td>
-              <td class="col">{{ producto.subtotal }}</td>
+              <td class="col">{{ producto.unidad }}</td>
+              <td class="col">${{ producto.subtotal }}</td>
                <!-- <td class="col">
                 <button class="btn btn-danger" (click)="removeProduct(producto)">Eliminar</button>
               </td>-->
