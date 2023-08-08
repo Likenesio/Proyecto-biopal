@@ -34,18 +34,25 @@ export class IngresarProductoComponent {
       !!this.selectedUnidad &&
       !!this.stock;
   }
-    validarCodigoBarras(codigo_barra: string): boolean {
+    validarCodigoBarras(codigo: number): boolean {
     const patron = /^[0-9]{4}$/;
-    return patron.test(codigo_barra);
+    return patron.test(codigo.toString());
+  }
+
+   validarCampoNumerico(precio: number): boolean {
+    const regex = /^[1-9]\d*$/;
+    return regex.test(precio.toString());
+  }
+  validarNombre(nombre: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
+  }
+   validarCampoCantidad(cantidad: number): boolean {
+    const regex = /^[1-9]\d*$/;
+    return regex.test(cantidad.toString());
   }
 
   guardar() {
-    if(!this.validarCodigoBarras(this.codigo_barra)){
-      Swal.fire({
-        icon: 'info',
-        text: 'Debe ingresar un codigo de barras con el siguiente formato XXXX.',
-      });
-    }
     this.validarCamposCompletos();
     if (this.camposCompletos) {
       let producto = {
@@ -55,6 +62,34 @@ export class IngresarProductoComponent {
         unidad: this.selectedUnidad.unidad,
         stock: this.stock,
       };
+      if(!this.validarCodigoBarras(this.codigo_barra)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un código de barras de 4 digitos númerico',
+        });
+        return;
+      }
+      if(!this.validarNombre(this.nombre_producto)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un nombre de producto sin carácteres númericos',
+        });
+        return;
+      }
+      if(!this.validarCampoNumerico(this.precio_unitario)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un precio unitario válido',
+        });
+        return;
+      }
+      if(!this.validarCampoCantidad(this.stock)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese una cantidad positiva y númerica',
+        });
+        return;
+      }
       this.productosService.insertarProductos(producto).subscribe(
         (data: any) => {
           Swal.fire({

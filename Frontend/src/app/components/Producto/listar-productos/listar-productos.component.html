@@ -9,7 +9,6 @@
   >
       <ng-template pTemplate="header">
           <tr>
-              <th>ID</th>
               <th>Codigo Barra</th>
               <th>Nombre Producto</th>
               <th>Precio Unitario</th>
@@ -20,10 +19,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-producto>
           <tr>
-              <td>{{ producto._id}}</td>
               <td>{{ producto.codigo_barra }}</td>
               <td>{{ producto.nombre_producto }}</td>
-              <td>{{ producto.precio_unitario }}</td>
+              <td>${{ producto.precio_unitario }}</td>
               <td>{{ producto.stock }}</td>
               <td>{{ producto.unidad }}</td>
               <td>
