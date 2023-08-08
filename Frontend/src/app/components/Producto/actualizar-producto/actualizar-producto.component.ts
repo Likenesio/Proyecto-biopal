@@ -64,6 +64,20 @@ export class ActualizarProductoComponent {
         this.stock = this.respuestaBusqueda.product.stock;
       });
   }
+  
+  validarCampoNumerico(precio: number): boolean {
+    const regex = /^[1-9]\d*$/;
+    return regex.test(precio.toString());
+  }
+  validarNombre(nombre: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
+  }
+   validarCampoCantidad(cantidad: number): boolean {
+    const regex = /^[1-9]\d*$/;
+    return regex.test(cantidad.toString());
+  }
+
 
   actualizar() {
     this.validarCamposCompletos();
@@ -76,7 +90,27 @@ export class ActualizarProductoComponent {
         unidad: this.selectedUnidad.unidad,
         stock: this.stock,
       };
-
+      if(!this.validarNombre(this.nombre_producto)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un nombre de producto sin carácteres númericos',
+        });
+        return;
+      }
+      if(!this.validarCampoNumerico(this.precio_unitario)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un precio unitario númerico, entero y positivo',
+        });
+        return;
+      }
+      if(!this.validarCampoCantidad(this.stock)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese una cantidad númerica, entera y positiva',
+        });
+        return;
+      }
       this.productosService
         .actualizarProductos(this.productoSelect._id, producto)
         .subscribe(

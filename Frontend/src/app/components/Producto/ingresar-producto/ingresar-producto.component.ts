@@ -79,14 +79,14 @@ export class IngresarProductoComponent {
       if(!this.validarCampoNumerico(this.precio_unitario)){
         Swal.fire({
           icon: 'info',
-          text: 'Ingrese un precio unitario válido',
+          text: 'Ingrese un precio unitario númerico, entero y positivo',
         });
         return;
       }
       if(!this.validarCampoCantidad(this.stock)){
         Swal.fire({
           icon: 'info',
-          text: 'Ingrese una cantidad positiva y númerica',
+          text: 'Ingrese una cantidad númerica, entera y positiva',
         });
         return;
       }
