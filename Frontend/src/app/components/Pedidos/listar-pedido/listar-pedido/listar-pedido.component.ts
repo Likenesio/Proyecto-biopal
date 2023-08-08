@@ -22,7 +22,7 @@ export class ListarPedidoComponent implements OnInit {
 
   respuesta: any;
   pedidosListar: []=[];
-  listarPedido: Detalle []=[]
+  listarPedido: Detalle []=[];
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;

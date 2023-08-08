@@ -12,24 +12,24 @@
       [rows]="5"
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} pedidos"
   >
       <ng-template pTemplate="header">
           <tr>
-              <th>ID</th>
-              <th>Vendedor</th>
-              <th>Nombre Cliente</th>
-              <th>Numero Pedido</th>
+
+              <th>Número Pedido</th>
               <th>Fecha Pedido</th>
+              <th>Vendedor</th>
+              <th>Cliente</th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-pedido>
           <tr>
-              <td>{{ pedido._id}}</td>
+
+              <td>{{ pedido.numero_pedido}}</td>
+              <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td>
               <td>{{pedido.usuario[0].nombre_usuario}}</td>
               <td>{{pedido.cliente[0].nombre_cliente}}</td>
-              <td>{{ pedido.numero_pedido}}</td>
-              <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
           </tr>
 
       </ng-template>

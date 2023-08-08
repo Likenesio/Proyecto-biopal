@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { DatePipe } from '@angular/common';
 
-
+export interface Detalle{
+  nombre_usuario: string;
+  nombre_cliente:string;
+  fecha: Date;
+  numero_pedido:number;
+  }
 
 @Component({
   selector: 'app-historial-pedido',
@@ -17,6 +22,10 @@ export class HistorialPedidoComponent implements OnInit {
   todayWithPipe: any;
   startDate = new Date();
   maxDate = new Date()
+  listarPedido: Detalle []=[]
+
+  first = 0;
+  rows = 10;
 
 
 
@@ -41,7 +50,18 @@ export class HistorialPedidoComponent implements OnInit {
           this.respuesta =data;
           this.pedidosListar = this.respuesta.pedido;
         })
-      }
+        this.pedidoService.listarP().subscribe((data)=>{
+          this.respuesta =data.pedido;
+          this.respuesta.map((pedido:any) => {
+           this.listarPedido.push({
+             numero_pedido: pedido.numero_pedido,
+             nombre_usuario:pedido.usuario[0].nombre_usuario,
+             nombre_cliente:pedido.cliente[0].nombre_cliente,
+             fecha: pedido.fecha,
+           });
+          })
+        })
+  }
 
 
       buscarPedidosPorMesYAnio() {
@@ -56,5 +76,25 @@ export class HistorialPedidoComponent implements OnInit {
           return fechaPedido.getFullYear() === selectedYear && fechaPedido.getMonth() === selectedMonth;
         });
       }
+      next() {
+        this.first = this.first + this.rows;
+      }
+      
+      prev() {
+        this.first = this.first - this.rows;
+      }
+      
+      reset() {
+        this.first = 0;
+      }
+      
+      isLastPage(): boolean {
+        return this.listarPedido ? this.first === this.listarPedido.length - this.rows : true;
+      }
+      
+      isFirstPage(): boolean {
+        return this.listarPedido ? this.first === 0 : true;
+      }
+
 
 }

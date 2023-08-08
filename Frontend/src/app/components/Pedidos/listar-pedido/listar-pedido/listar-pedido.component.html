@@ -9,29 +9,27 @@
   >
       <ng-template pTemplate="header">
           <tr>
-              <th>ID</th>
+            <th>Número Pedido</th>
+            <th>Fecha Pedido</th>
               <th>Vendedor</th>
-              <th>Nombre Cliente</th>
-              <th>Numero Pedido</th>
-              <th>Fecha Pedido</th>
+              <th>Cliente</th>
               <th>Estado</th>
               <th>Acciones</th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-pedido>
-          <tr>
-              <td>{{ pedido._id}}</td>
+        <tr>
+            <td>{{ pedido.numero_pedido}}</td>
+            <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td> 
               <td>{{pedido.usuario[0].nombre_usuario + " " + pedido.usuario[0].apellido}}</td>
               <td>{{pedido.cliente[0].nombre_cliente}}</td>
-              <td>{{ pedido.numero_pedido}}</td>
-              <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
               <td>{{ pedido.estado }}</td>
               <td>
                 <div class="d-flex justify-content-between">
-                  <div class="mr-2">
+                  <div>
                     <p-button icon="pi pi-arrow-right-arrow-left" (click)="showDialog(pedido._id)" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
                   </div>
-                  <div class="mr-2">
+                  <div>
                     <p-button [routerLink]="['/pedidos/detalle/', pedido._id]" icon="pi pi-eye" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"></p-button>
                   </div>
                   <div>
