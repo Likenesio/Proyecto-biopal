@@ -75,15 +75,24 @@ export class ListarPedidoComponent implements OnInit {
   }
 
   actualizarEstadoPedido(){
-    console.log(this.estadoSelect)
-    console.log(this.idSeleccionado)
     let pedido = {
       estado : this.estadoSelect.estado
     }
     this.pedidoService.actualizarPedido(this.idSeleccionado, pedido).subscribe((data)=>{
-      alert("Actualización de estado del pedido exitosa");
-    }, err=>{alert("Error al actualizar estado del pedido")})
-    console.log(this.estadoSelect.estado)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Estado del pedido actualizado exitosamente!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }, err=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar estado del pedido',
+      });
+    })
     this.visible = false;
     window.location.reload();
   }
