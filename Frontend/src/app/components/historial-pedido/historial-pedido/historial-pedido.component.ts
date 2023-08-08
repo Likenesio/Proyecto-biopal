@@ -35,7 +35,7 @@ export class HistorialPedidoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+    this.todayWithPipe = this.pipe.transform(Date.now(), 'MM/yyyy');
 
     this.pedidoService.listarP().subscribe((data)=>{
           this.respuesta =data;

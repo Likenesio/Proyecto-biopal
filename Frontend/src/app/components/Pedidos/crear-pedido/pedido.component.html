@@ -103,6 +103,7 @@
               <th class="col">Unidad</th>
               <th class="col">Cantidad</th>
               <th class="col">Sub Total</th>
+              <th class="col">Acción</th>
             </tr>
           </ng-template>
 
@@ -113,7 +114,10 @@
               <td class="col">{{ producto.unidad }}</td>
               <td class="col">{{ producto.cantidad }}</td>
               <td class="col">{{ producto.subtotal }}</td>
-            </tr>
+              <td class="col">
+                <button class="btn btn-danger" (click)="removeProduct(producto)">Eliminar</button>
+              </td>
+              </tr>
           </ng-template>
           <!-- Contenido de la tabla -->
         </p-table>

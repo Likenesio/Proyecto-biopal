@@ -1,4 +1,23 @@
-<div class="container-fluid card mt-5">
+<div class="filtro mt-2">
+  <mat-form-field>
+    <mat-label>Month and Year</mat-label>
+    <input matInput [matDatepicker]="dp" [formControl]="date" (click)="dp.open()">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp
+                    (monthSelected)="setMonthAndYear($event, dp)"
+                    startView="multi-year"
+                    [startAt]="startData"
+                    panelClass="month-picker">
+      <mat-multi-year-view>
+        <ng-template matMultiYearViewMonth="{date}" let-month>
+          {{ month | date:'MMM yyyy' }}
+        </ng-template>
+      </mat-multi-year-view>
+    </mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="container mt-1">
   <div class="row">
     <div class="col-md-12">
         <canvas style="height: 500px; width: 100%;" baseChart
@@ -6,7 +25,7 @@
                 [labels]="barChartLabels"
                 [options]="barChartOptions"
                 [legend]="barChartLegend"
-                chartType="horizontalBar">
+                Type="line">
         </canvas>
       </div>
     </div>

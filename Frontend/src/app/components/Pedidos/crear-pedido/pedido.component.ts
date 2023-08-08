@@ -119,7 +119,22 @@ export class PedidoComponent implements OnInit {
       { modo_pago: 'Crédito' },
       { modo_pago: 'Débito' },
     ];
+
   }
+  removeProduct(producto: Tabla) {
+    const index = this.listaTabla.indexOf(producto);
+    
+    if (index !== -1) {
+      if (this.listaTabla[index].cantidad > 1) {
+        this.listaTabla[index].cantidad -= 1;
+        this.listaTabla[index].subtotal -= this.listaTabla[index].precio_unitario;
+      } else {
+        this.listaTabla.splice(index, 1);
+      }
+      this.total = this.listaTabla.reduce((sum, producto) => sum + Number(producto.subtotal || 0), 0);
+    }
+  }
+
   cargarCliente() {
     this.clienteService
       .buscarCliente(this.clienteSelect._id)
@@ -138,6 +153,7 @@ export class PedidoComponent implements OnInit {
     });
     return false;
   }
+
 
   //Insertar Producto en la tabla de formulario de pedidos y lista productos en la tabla
   productoInsert() {
@@ -178,7 +194,7 @@ export class PedidoComponent implements OnInit {
             precio_unitario: this.productoEncontrado.precio_unitario,
             unidad: this.productoEncontrado.unidad,
             subtotal:
-              this.cantidad_producto * this.productoEncontrado.precio_unitario,
+            this.cantidad_producto * this.productoEncontrado.precio_unitario,
             cantidad: this.cantidad_producto,
             id: this.productoEncontrado._id,
             codigo_barras: this.productoEncontrado.codigo_barra,
@@ -433,4 +449,7 @@ export class PedidoComponent implements OnInit {
     this.listaTabla = [];
     this.total = 0;
   }
+
+
+  
 }
