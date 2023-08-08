@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BoletaService } from 'src/app/service/boleta-service/boleta.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-boletas',
@@ -246,7 +247,11 @@ export class BoletasComponent {
         doc.save('Boleta ' + 'BioPal ' + 'N°' + boletaData.numero_boleta + '.pdf');
       },
       (err) => {
-        alert('Error al generar boleta');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al generar boleta',
+        });
       }
     );
   }
