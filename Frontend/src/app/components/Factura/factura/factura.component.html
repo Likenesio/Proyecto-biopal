@@ -2,7 +2,7 @@
   <p-table
     [value]="listaFacturaAPI"
     [paginator]="true"
-    [rows]="5"
+    [rows]="6"
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
     currentPageReportTemplate="Facturas del {first} al {last} de las {totalRecords}"
@@ -31,48 +31,56 @@
         <td>${{ factura.total }}</td>
         <td>{{ factura.estado }}</td>
         <td>
+          <div class="d-flex justify-content-between">
             <div>
-            <p-button
-              (onClick)="generarFacturaPDF(factura._id)"
-              icon="pi pi-file-pdf"
-              styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-              class="button"
-            ></p-button>
- 
+              <p-button
+                (onClick)="generarFacturaPDF(factura._id)"
+                icon="pi pi-file-pdf"
+                styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+                class="button"
+              ></p-button>
 
-            <p-button
-              (onClick)="emitirDteFactura(factura._id)"
-              icon="pi pi-file-pdf"
-              styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-              class="button"
-            ></p-button>
-           </div>
-            <p-dialog
-              header="Actualizar estado del documento"
-              [(visible)]="visible"
-              [modal]="true"
-              [style]="{ width: '25vw', height: '25vw' }"
-              [draggable]="false"
-              [resizable]="false"
-            >
-              <div class="text-center w-100 h-100">
-                <p-dropdown
-                  placeholder="Seleccione estado del documento"
-                  [options]="estados"
-                  [(ngModel)]="estadoSelect"
-                  optionLabel="estado"
-                ></p-dropdown>
-              </div>
-              <ng-template pTemplate="footer">
-                <p-button
-                  type="submit"
-                  icon="pi pi-check"
-                  (click)="actualizarEstadoDoc()"
-                  label="Ok"
-                  styleClass="p-button-text"
-                ></p-button>
-              </ng-template>
-            </p-dialog>
+              <p-button
+                (onClick)="emitirDteFactura(factura._id)"
+                icon="pi pi-file-pdf"
+                styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+                class="button"
+              ></p-button>
+            </div>
+            <div>
+              <p-button
+                icon="pi pi-arrow-right-arrow-left"
+                (click)="showDialog(factura._id)"
+                styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"
+              ></p-button>
+            </div>
+          </div>
+          <p-dialog
+            header="Actualizar estado del documento"
+            [(visible)]="visible"
+            [modal]="true"
+            [style]="{ width: '25vw', height: '25vw' }"
+            [draggable]="false"
+            [resizable]="false"
+          >
+            <div class="text-center w-100 h-100">
+              <p-dropdown
+                placeholder="Seleccione estado del documento"
+                [options]="estados"
+                [(ngModel)]="estadoSelect"
+                optionLabel="estado"
+              ></p-dropdown>
+            </div>
+            <ng-template pTemplate="footer">
+              <p-button
+                type="submit"
+                icon="pi pi-check"
+                (click)="actualizarDocumento()"
+                label="Ok"
+                styleClass="p-button-text"
+              ></p-button>
+            </ng-template>
+          </p-dialog>
         </td>
       </tr>
     </ng-template>

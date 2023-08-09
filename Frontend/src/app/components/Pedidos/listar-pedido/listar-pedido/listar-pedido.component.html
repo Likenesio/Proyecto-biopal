@@ -1,64 +1,92 @@
 <div class="card container mt-5 m-lg-5">
   <p-table
-      [value]="pedidosListar"
-      [paginator]="true"
-      [rows]="8"
-      [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} pedidos"
+    [value]="pedidosListar"
+    [paginator]="true"
+    [rows]="6"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Mostrando del {first} al {last} de los {totalRecords} pedidos"
   >
-      <ng-template pTemplate="header">
-          <tr>
-            <th>Número Pedido</th>
-            <th>Fecha Pedido</th>
-              <th>Vendedor</th>
-              <th>Cliente</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-pedido>
-        <tr>
-            <td>{{ pedido.numero_pedido}}</td>
-            <td>{{ pedido.fecha | date: 'dd/MM/yyyy'}}</td> 
-              <td>{{pedido.usuario[0].nombre_usuario + " " + pedido.usuario[0].apellido}}</td>
-              <td>{{pedido.cliente[0].nombre_cliente}}</td>
-              <td>{{ pedido.estado }}</td>
-              <td>
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <p-button icon="pi pi-arrow-right-arrow-left" (click)="showDialog(pedido._id)" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
-                  </div>
-                  <div>
-                    <p-button [routerLink]="['/pedidos/detalle/', pedido._id]" icon="pi pi-eye" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"></p-button>
-                  </div>
-                  <div>
-                    <p-button (onClick)="eliminar(pedido._id)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"></p-button>
-                  </div>
-                </div>
-                <p-dialog header="Actualizar estado del pedido" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw', height:'25vw' }" [draggable]="false" [resizable]="false">
-                  <div class="text-center w-100 h-100">
-                    <p-dropdown placeholder="Seleccione estado del pedido" [options]="estados" [(ngModel)]="estadoSelect" optionLabel="estado"></p-dropdown>
-                  </div>
-                  <ng-template pTemplate="footer">
-                    <p-button type="submit" icon="pi pi-check" (click)="actualizarEstadoPedido()" label="Ok" styleClass="p-button-text"></p-button>
-                  </ng-template>
-                </p-dialog>
-              </td>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Número Pedido</th>
+        <th>Fecha Pedido</th>
+        <th>Vendedor</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedido>
+      <tr>
+        <td>{{ pedido.numero_pedido }}</td>
+        <td>{{ pedido.fecha | date : "dd/MM/yyyy" }}</td>
+        <td>
+          {{
+            pedido.usuario[0].nombre_usuario + " " + pedido.usuario[0].apellido
+          }}
+        </td>
+        <td>{{ pedido.cliente[0].nombre_cliente }}</td>
+        <td>{{ pedido.estado }}</td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <div>
+              <p-button
+                icon="pi pi-arrow-right-arrow-left"
+                (click)="showDialog(pedido._id)"
+                styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"
+              ></p-button>
+            </div>
+            <div>
+              <p-button
+                [routerLink]="['/pedidos/detalle/', pedido._id]"
+                icon="pi pi-eye"
+                styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"
+              ></p-button>
+            </div>
+            <div>
+              <p-button
+                (onClick)="eliminar(pedido._id)"
+                icon="pi pi-trash"
+                styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+              ></p-button>
+            </div>
+          </div>
+          <p-dialog
+            header="Actualizar estado del pedido"
+            [(visible)]="visible"
+            [modal]="true"
+            [style]="{ width: '25vw', height: '25vw' }"
+            [draggable]="false"
+            [resizable]="false"
+          >
+            <div class="text-center w-100 h-100">
+              <p-dropdown
+                placeholder="Seleccione estado del pedido"
+                [options]="estados"
+                [(ngModel)]="estadoSelect"
+                optionLabel="estado"
+              ></p-dropdown>
+            </div>
+            <ng-template pTemplate="footer">
+              <p-button
+                type="submit"
+                icon="pi pi-check"
+                (click)="actualizarEstadoPedido()"
+                label="Ok"
+                styleClass="p-button-text"
+              ></p-button>
+            </ng-template>
+          </p-dialog>
+        </td>
+      </tr>
+    </ng-template>
 
-
-
-          </tr>
-
-      </ng-template>
-
-      <ng-template pTemplate="paginatorleft">
-          <p-button type="button" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-          <p-button type="button" styleClass="p-button-text"></p-button>
-      </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" styleClass="p-button-text"></p-button>
+    </ng-template>
   </p-table>
 </div>
-
-

@@ -28,7 +28,7 @@ export class FacturaComponent {
   idSeleccionado: any;
 
   estados: Estados[] =[];
-  estadoPedidoListar: any[] =[];
+  estadoFacturasListar: any[] =[];
   estadoSelect: any;
 
   first = 0;
@@ -45,11 +45,13 @@ export class FacturaComponent {
     this.facturaService.listarFacturas().subscribe((data) => {
       this.respuesta = data;
       this.listaFacturaAPI = this.respuesta.factura;
+      this.estadoFacturasListar=this.respuesta.factura;
+
       //console.log(this.listaFacturaAPI);
     });
 
     this.estados=[
-      {estado: 'Esperando ser preparado'},
+      {estado: 'En proceso'},
       {estado: 'Preparando'},
       {estado:'En camino'},
       {estado: 'Entregado'},
@@ -58,12 +60,14 @@ export class FacturaComponent {
     
   }
 
-  actualizarEstadoDoc(){
-    let documento = {
+  actualizarDocumento(){
+    let factura = {
       estado : this.estadoSelect.estado
     }
-    this.facturaService.actualizarFactura(this.idSeleccionado, documento).subscribe((data)=>{
- 
+    console.log("ID: ", this.idSeleccionado)
+    console.log("Factura: ",factura)
+    this.facturaService.actualizarFactura(this.idSeleccionado, factura).subscribe((data)=>{
+     console.log("Factura: ",factura)
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -79,8 +83,9 @@ export class FacturaComponent {
       });
     })
     this.visible = false;
-    window.location.reload();
+   // window.location.reload();
   }
+
   //Funcion de tabla de listado de facturas
   showDialog(id: String) {
     this.visible = true;

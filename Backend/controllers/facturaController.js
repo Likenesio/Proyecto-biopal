@@ -110,6 +110,7 @@ const actualizar = (req, res) =>{
     total = req.body.total;
     cliente = req.body.cliente;
     estado = req.body.estado;
+    
     Factura.findByIdAndUpdate(
     facturaId,
     {
