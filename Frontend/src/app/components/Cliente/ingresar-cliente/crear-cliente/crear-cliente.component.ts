@@ -46,18 +46,20 @@ export class CrearClienteComponent {
     const regex = /^\+569\d{8}$/;
     return regex.test(telefono);
   }
+    validarCorreoElectronico(correo: string) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(correo);
+  }
+
+  validarNombre(nombre: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
+  }
 
   guardar() {
     this.validarRut();
     if (!this.validarRut()) {
       //alert("El RUT no es válido.");
-      return;
-    }
-    if (!this.validarTelefonoChileno(this.contacto)) {
-      Swal.fire({
-        icon: 'info',
-        text: 'El número de teléfono no es válido.',
-      });
       return;
     }
     this.validarCamposCompletos();
@@ -71,6 +73,28 @@ export class CrearClienteComponent {
         direccion: this.direccion,
         comuna: this.selectedComuna.comuna,
       };
+      
+      if(!this.validarNombre(this.nombre_cliente)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un nombre sin carácteres númericos',
+        });
+        return;
+      }
+      if (!this.validarTelefonoChileno(this.contacto)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'El número de teléfono no es válido.',
+        });
+        return;
+      }
+      if (!this.validarCorreoElectronico(this.email)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'El email no es válido.',
+        });
+        return;
+      }
 
       this.clienteService.insertarCliente(cliente).subscribe(
         (data) => {
