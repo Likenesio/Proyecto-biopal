@@ -47,7 +47,6 @@ export class CrearUsuarioComponent implements OnInit {
     const regex = /^\+569\d{8}$/;
     return regex.test(telefono);
   }
-
   validarRut():boolean {
     if (!this.rut_usuario || this.rut_usuario.trim() === "") {
       Swal.fire({
@@ -95,7 +94,20 @@ export class CrearUsuarioComponent implements OnInit {
     //alert("RUT válido");
     return true;
   }
+  validarCorreoElectronico(correo: string) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
 
+    return regex.test(correo);
+  }
+
+  validarNombre(nombre: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
+  }
+  validarApellido(apellido: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(apellido);
+  }
 
   ingresar() {
     this.validarRut();
@@ -121,6 +133,30 @@ export class CrearUsuarioComponent implements OnInit {
       correo: this.correo,
       rol: this.selectedRol.rol,
     };
+
+    if(!this.validarNombre(this.nombre_usuario)){
+      Swal.fire({
+        icon: 'info',
+        text: 'Ingrese un nombre sin carácteres númericos',
+      });
+      return;
+    }
+    if(!this.validarNombre(this.apellido)){
+      Swal.fire({
+        icon: 'info',
+        text: 'Ingrese un apellido sin carácteres númericos',
+      });
+      return;
+    }
+
+
+    if (!this.validarCorreoElectronico(this.correo)) {
+      Swal.fire({
+        icon: 'info',
+        text: 'El email no es válido.',
+      });
+      return;
+    }
     this.usuarioService.insertarUsuario(usuario).subscribe(
       (data) => {
         Swal.fire({
