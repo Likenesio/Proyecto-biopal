@@ -99,6 +99,7 @@ const eliminar = (req, res) =>{
 
 
 const actualizar = (req, res) =>{
+  
     let facturaId = req.params._id;
     numero_factura = req.body.numero_factura;
     productos = req.body.productos;
@@ -110,7 +111,7 @@ const actualizar = (req, res) =>{
     total = req.body.total;
     cliente = req.body.cliente;
     estado = req.body.estado;
-    
+
     Factura.findByIdAndUpdate(
     facturaId,
     {
@@ -197,6 +198,35 @@ const buscarPorNumeroFactura = (req, res) => {
           .send({ message: "Error al buscar este número de factura" });
       });
   };
+
+  const actualizarEstado = (req, res) => {
+    let facturaId = req.params._id;
+    estado = req.body.estado;
+
+    Factura.findByIdAndUpdate(
+    facturaId,
+    {
+      estado: estado,
+    },
+    {new: true}
+    )
+    .then((factura)=>{
+        res
+        .status(200)
+        .send({
+            mensaje: "Estado de la factura actualizado exitosamente",
+            factura:factura,
+        });
+    })
+    .catch((err)=>{
+        return res
+        .status(500)
+        .send({
+            mensaje: "Error al actualizar el estado de la factura"
+        });
+
+    });
+  }
 module.exports = {
     insert, 
     eliminar, 
@@ -204,4 +234,5 @@ module.exports = {
     listar, 
     buscar,
     buscarPorNumeroFactura,
+    actualizarEstado
 };

@@ -30,4 +30,8 @@ export class FacturaService {
   actualizarFactura(id: string, factura: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, factura);
   }
+
+  actualizarEstadoFactura(id: string, factura: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/actualizar/${id}`, factura);
+  }
 }

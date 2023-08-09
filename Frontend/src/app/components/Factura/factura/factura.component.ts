@@ -66,14 +66,14 @@ export class FacturaComponent {
     }
     console.log("ID: ", this.idSeleccionado)
     console.log("Factura: ",factura)
-    this.facturaService.actualizarFactura(this.idSeleccionado, factura).subscribe((data)=>{
+    this.facturaService.actualizarEstadoFactura(this.idSeleccionado, factura).subscribe((data)=>{
      console.log("Factura: ",factura)
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Estado del documento actualizado exitosamente!',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }, err=>{
       Swal.fire({
@@ -83,7 +83,9 @@ export class FacturaComponent {
       });
     })
     this.visible = false;
-   // window.location.reload();
+    setTimeout(() =>{
+      window.location.reload();
+    }, 1000)
   }
 
   //Funcion de tabla de listado de facturas

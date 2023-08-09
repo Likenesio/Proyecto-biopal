@@ -32,24 +32,27 @@
         <td>{{ factura.estado }}</td>
         <td>
           <div class="d-flex justify-content-between">
-            <div>
+            <div class="m-lg-1 d-flex align-items-center">
               <p-button
                 (onClick)="generarFacturaPDF(factura._id)"
                 icon="pi pi-file-pdf"
-                styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-                class="button"
-              ></p-button>
-
-              <p-button
-                (onClick)="emitirDteFactura(factura._id)"
-                icon="pi pi-file-pdf"
-                styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+                styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                 class="button"
               ></p-button>
             </div>
-            <div>
+            <div class="m-lg-1 d-flex align-items-center">
               <p-button
-                icon="pi pi-arrow-right-arrow-left"
+                (onClick)="emitirDteFactura(factura._id)"
+                styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                class="button"
+                [disabled]="true"
+              >
+                <img src="assets/SII.svg" alt="sii" width="15px" />
+              </p-button>
+            </div>
+            <div class="d-flex align-items-center">
+              <p-button
+                icon="pi pi-pencil"
                 (click)="showDialog(factura._id)"
                 styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"
               ></p-button>
@@ -59,14 +62,15 @@
             header="Actualizar estado del documento"
             [(visible)]="visible"
             [modal]="true"
-            [style]="{ width: '25vw', height: '25vw' }"
+            [style]="{ minWidth: '25vw', minHeight: '400px' }"
             [draggable]="false"
             [resizable]="false"
           >
-            <div class="text-center w-100 h-100">
+            <div class="text-center w-80 h-100">
               <p-dropdown
                 placeholder="Seleccione estado del documento"
                 [options]="estados"
+                [style]="{ width: '250px'}"
                 [(ngModel)]="estadoSelect"
                 optionLabel="estado"
               ></p-dropdown>
