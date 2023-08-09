@@ -141,14 +141,13 @@ export class CrearUsuarioComponent implements OnInit {
       });
       return;
     }
-    if(!this.validarNombre(this.apellido)){
+    if(!this.validarApellido(this.apellido)){
       Swal.fire({
         icon: 'info',
         text: 'Ingrese un apellido sin carácteres númericos',
       });
       return;
     }
-
 
     if (!this.validarCorreoElectronico(this.correo)) {
       Swal.fire({

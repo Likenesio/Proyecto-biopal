@@ -66,6 +66,20 @@ export class ActualizarUsuarioComponent implements OnInit {
     const regex = /^\+569\d{8}$/;
     return regex.test(telefono);
   }
+  validarCorreoElectronico(correo: string) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$/;
+
+    return regex.test(correo);
+  }
+
+  validarNombre(nombre: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
+  }
+  validarApellido(apellido: string): boolean {
+    const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(apellido);
+  }
 
   validarCamposCompletos() {
     this.camposCompletos =
@@ -89,10 +103,34 @@ export class ActualizarUsuarioComponent implements OnInit {
         correo: this.correo,
         rol: this.selectedRoles.rol,
       };
+
+      if(!this.validarNombre(this.nombre_usuario)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un nombre sin carácteres númericos',
+        });
+        return;
+      }
+      if(!this.validarApellido(this.apellido)){
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un apellido sin carácteres númericos',
+        });
+        return;
+      }
+      
       if (!this.validarTelefonoChileno(this.fono)) {
         Swal.fire({
           icon: 'info',
           text: 'El número de teléfono no es válido',
+        });
+        return;
+      }
+  
+      if (!this.validarCorreoElectronico(this.correo)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'El email no es válido.',
         });
         return;
       }
