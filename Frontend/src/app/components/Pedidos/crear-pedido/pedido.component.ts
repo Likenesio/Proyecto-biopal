@@ -300,7 +300,6 @@ export class PedidoComponent implements OnInit {
           Swal.fire({ icon: "success", text: "Boleta emitida exitosamente" });
         },
         (err) => {
-          console.log("Boleta recibida ", boleta);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -317,7 +316,7 @@ export class PedidoComponent implements OnInit {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Error al emitir la boleta",
+        text: "Faltan ingresar datos para realizar el pedido",
       });
     }
   }

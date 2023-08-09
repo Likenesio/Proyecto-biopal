@@ -1,44 +1,87 @@
 <div class="container card mt-2 m-lg-5">
-  <p-table [value]="listaFacturaAPI" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Facturas del {first} al {last} de las {totalRecords}">
-      <ng-template pTemplate="header">
-          <tr>
-              <th>N° Factura</th>
-              <th>Fecha emisión</th>
-              <th>Vendedor</th>
-              <th>Forma pago</th>
-              <th>Total</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-factura>
-          <tr>
-              <td>{{ factura.numero_factura}}</td>
-              <td>{{ factura.fecha_emision | date: 'dd/MM/yyyy'}}</td> <!--pipe-->
-              <td>{{factura.pedido.usuario[0].nombre_usuario}} {{factura.pedido.usuario[0].apellido}}</td>
-              <td>{{factura.pedido.modo_pago}}</td>
-              <td>${{factura.total}}</td>
-              <td>{{ factura.estado }}</td>
-              <td>
-                  <p-button (onClick)="generarFacturaPDF(factura._id)" icon="pi pi-file-pdf"
-                      styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-                      class="button"></p-button>
+  <p-table
+    [value]="listaFacturaAPI"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Facturas del {first} al {last} de las {totalRecords}"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>N° Factura</th>
+        <th>Fecha emisión</th>
+        <th>Vendedor</th>
+        <th>Forma pago</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-factura>
+      <tr>
+        <td>{{ factura.numero_factura }}</td>
+        <td>{{ factura.fecha_emision | date : "dd/MM/yyyy" }}</td>
+        <!--pipe-->
+        <td>
+          {{ factura.pedido.usuario[0].nombre_usuario }}
+          {{ factura.pedido.usuario[0].apellido }}
+        </td>
+        <td>{{ factura.pedido.modo_pago }}</td>
+        <td>${{ factura.total }}</td>
+        <td>{{ factura.estado }}</td>
+        <td>
+            <div>
+            <p-button
+              (onClick)="generarFacturaPDF(factura._id)"
+              icon="pi pi-file-pdf"
+              styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+              class="button"
+            ></p-button>
+ 
 
-                      <p-button (onClick)="emitirDteFactura(factura._id)" icon="pi pi-file-pdf"
-                      styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-                      class="button"></p-button>
-              </td>
-          </tr>
+            <p-button
+              (onClick)="emitirDteFactura(factura._id)"
+              icon="pi pi-file-pdf"
+              styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
+              class="button"
+            ></p-button>
+           </div>
+            <p-dialog
+              header="Actualizar estado del documento"
+              [(visible)]="visible"
+              [modal]="true"
+              [style]="{ width: '25vw', height: '25vw' }"
+              [draggable]="false"
+              [resizable]="false"
+            >
+              <div class="text-center w-100 h-100">
+                <p-dropdown
+                  placeholder="Seleccione estado del documento"
+                  [options]="estados"
+                  [(ngModel)]="estadoSelect"
+                  optionLabel="estado"
+                ></p-dropdown>
+              </div>
+              <ng-template pTemplate="footer">
+                <p-button
+                  type="submit"
+                  icon="pi pi-check"
+                  (click)="actualizarEstadoDoc()"
+                  label="Ok"
+                  styleClass="p-button-text"
+                ></p-button>
+              </ng-template>
+            </p-dialog>
+        </td>
+      </tr>
+    </ng-template>
 
-      </ng-template>
-
-      <ng-template pTemplate="paginatorleft">
-          <p-button type="button" styleClass="p-button-text"></p-button>
-      </ng-template>
-      <ng-template pTemplate="paginatorright">
-          <p-button type="button" styleClass="p-button-text"></p-button>
-      </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" styleClass="p-button-text"></p-button>
+    </ng-template>
   </p-table>
 </div>

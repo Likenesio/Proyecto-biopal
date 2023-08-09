@@ -79,6 +79,7 @@ export class ListarPedidoComponent implements OnInit {
       estado : this.estadoSelect.estado
     }
     this.pedidoService.actualizarPedido(this.idSeleccionado, pedido).subscribe((data)=>{
+ 
       Swal.fire({
         position: 'center',
         icon: 'success',

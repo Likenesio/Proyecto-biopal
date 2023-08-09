@@ -6,6 +6,9 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Swal from 'sweetalert2';
 
+interface Estados{
+  estado:string;
+}
 //cómo crear variables de entorno en Angular;
 @Component({
   selector: 'app-factura',
@@ -24,6 +27,10 @@ export class FacturaComponent {
   visible: boolean = false;
   idSeleccionado: any;
 
+  estados: Estados[] =[];
+  estadoPedidoListar: any[] =[];
+  estadoSelect: any;
+
   first = 0;
   rows = 10;
 
@@ -40,8 +47,40 @@ export class FacturaComponent {
       this.listaFacturaAPI = this.respuesta.factura;
       //console.log(this.listaFacturaAPI);
     });
+
+    this.estados=[
+      {estado: 'Esperando ser preparado'},
+      {estado: 'Preparando'},
+      {estado:'En camino'},
+      {estado: 'Entregado'},
+      {estado: 'Anulado'},
+      {estado:'Finalizada'}];
+    
   }
 
+  actualizarEstadoDoc(){
+    let documento = {
+      estado : this.estadoSelect.estado
+    }
+    this.facturaService.actualizarFactura(this.idSeleccionado, documento).subscribe((data)=>{
+ 
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Estado del documento actualizado exitosamente!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }, err=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar estado del documento',
+      });
+    })
+    this.visible = false;
+    window.location.reload();
+  }
   //Funcion de tabla de listado de facturas
   showDialog(id: String) {
     this.visible = true;
