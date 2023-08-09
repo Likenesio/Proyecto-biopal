@@ -52,9 +52,9 @@ export class FacturaComponent {
 
     this.estados=[
       {estado: 'En proceso'},
-      {estado: 'Preparando'},
-      {estado:'En camino'},
-      {estado: 'Entregado'},
+      {estado: 'Enviado'},
+      {estado:'Impreso'},
+      {estado: 'En espera'},
       {estado: 'Anulado'},
       {estado:'Finalizada'}];
     
@@ -64,10 +64,9 @@ export class FacturaComponent {
     let factura = {
       estado : this.estadoSelect.estado
     }
-    console.log("ID: ", this.idSeleccionado)
-    console.log("Factura: ",factura)
+
     this.facturaService.actualizarEstadoFactura(this.idSeleccionado, factura).subscribe((data)=>{
-     console.log("Factura: ",factura)
+   
       Swal.fire({
         position: 'center',
         icon: 'success',

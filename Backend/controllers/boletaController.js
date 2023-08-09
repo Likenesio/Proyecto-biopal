@@ -171,6 +171,35 @@ const buscarPorNumero = (req, res) => {
         .send({ message: "Error al buscar este número de boleta" });
     });
 };
+
+const actualizarEstado = (req, res) => {
+  let boletaId = req.params._id;
+  estado = req.body.estado;
+
+  Boleta.findByIdAndUpdate(
+  boletaId,
+  {
+    estado: estado,
+  },
+  {new: true}
+  )
+  .then((boleta)=>{
+      res
+      .status(200)
+      .send({
+          mensaje: "Estado de la boleta actualizado exitosamente",
+          boleta:boleta,
+      });
+  })
+  .catch((err)=>{
+      return res
+      .status(500)
+      .send({
+          mensaje: "Error al actualizar el estado de la boleta"
+      });
+
+  });
+}
 module.exports = {
   insert,
   eliminar,
@@ -178,4 +207,5 @@ module.exports = {
   listar,
   buscar,
   buscarPorNumero,
+  actualizarEstado
 };

@@ -31,4 +31,7 @@ export class BoletaService {
   actualizarBoleta(id: string, boleta: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, boleta);
   }
+  actualizarEstadoBoleta(id: string, boleta: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/actualizar/${id}`, boleta);
+  }
 }

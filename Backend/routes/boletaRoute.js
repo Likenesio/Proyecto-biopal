@@ -10,5 +10,6 @@ api.get('/boleta/:_id',boletaController.buscar);
 api.put('/boleta/:_id',boletaController.actualizar);
 api.delete('/boleta/:_id',boletaController.eliminar);
 api.get('/boleta/buscar/:numero_boleta',boletaController.buscarPorNumero);
+api.put('/boleta/actualizar/:_id', boletaController.actualizarEstado)
 
 module.exports = api;

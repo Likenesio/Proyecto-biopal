@@ -5,6 +5,9 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Swal from 'sweetalert2';
 
+interface Estados{
+  estado:string;
+}
 @Component({
   selector: 'app-boletas',
   templateUrl: './boletas.component.html',
@@ -20,6 +23,10 @@ export class BoletasComponent {
 
   visible: boolean = false;
 
+  estados: Estados[] =[];
+  estadoFacturasListar: any[] =[];
+  estadoSelect: any;
+
   idSeleccionado: any;
 
   first = 0;
@@ -34,7 +41,41 @@ export class BoletasComponent {
       this.respuesta = data;
       this.listaBoletasAPI = this.respuesta.boleta;
     });
+    this.estados=[
+      {estado: 'En proceso'},
+      {estado: 'Enviado'},
+      {estado:'Impreso'},
+      {estado: 'En espera'},
+      {estado: 'Anulado'},
+      {estado:'Finalizada'}];
+    
   }
+  actualizarDocumento(){
+    let boleta = {
+      estado : this.estadoSelect.estado
+    }
+    this.boletaService.actualizarEstadoBoleta(this.idSeleccionado, boleta).subscribe((data)=>{
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Estado del documento actualizado exitosamente!',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }, err=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar estado del documento',
+      });
+    })
+    this.visible = false;
+    setTimeout(() =>{
+      window.location.reload();
+    }, 1000)
+  }
+
 
   showDialog(id: String) {
     this.visible = true;

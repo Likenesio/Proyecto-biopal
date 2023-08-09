@@ -22,9 +22,48 @@
                 <td>${{ boleta.total}}</td>
                 <td>{{ boleta.estado }}</td>
                 <td>
-                    <p-button (onClick)="generarBoletaPDF(boleta._id)" icon="pi pi-file-pdf"
-                        styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised "
-                        class="button"></p-button>
+                    <div class="d-flex justify-content-between">
+                        <div class="m-lg-1 d-flex align-items-center">
+                          <p-button
+                            (onClick)="generarBoletaPDF(boleta._id)"
+                            icon="pi pi-file-pdf"
+                            styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                            class="button"
+                          ></p-button>
+                          <p-button
+                            icon="pi pi-pencil"
+                            (click)="showDialog(boleta._id)"
+                            styleClass="p-button-rounded p-button-warning p-button-text p-button-raised  me-2 m-lg-1"
+                          ></p-button>
+                        </div>
+                      </div>
+                      <p-dialog
+                        header="Actualizar estado del documento"
+                        [(visible)]="visible"
+                        [modal]="true"
+                        [style]="{ minWidth: '25vw', minHeight: '400px' }"
+                        [draggable]="false"
+                        [resizable]="false"
+                      >
+                        <div class="text-center w-80 h-100">
+                          <p-dropdown
+                            placeholder="Seleccione estado del documento"
+                            [options]="estados"
+                            [style]="{ width: '250px'}"
+                            [(ngModel)]="estadoSelect"
+                            optionLabel="estado"
+                          ></p-dropdown>
+                        </div>
+                        <ng-template pTemplate="footer">
+                          <p-button
+                            type="submit"
+                            icon="pi pi-check"
+                            (click)="actualizarDocumento()"
+                            label="Ok"
+                            styleClass="p-button-text"
+                          ></p-button>
+                        </ng-template>
+                      </p-dialog>
                 </td>
             </tr>
 
