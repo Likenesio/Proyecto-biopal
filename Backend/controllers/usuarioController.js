@@ -3,24 +3,34 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const insert = async (req, res) => {
-  let usuario = new Usuario();
-  const salt = 12;
-  const pass = req.body.contrasenia;
-  usuario.rut_usuario = req.body.rut_usuario;
-  usuario.nombre_usuario = req.body.nombre_usuario;
-  usuario.apellido = req.body.apellido;
-  usuario.contrasenia = await bcrypt.hash(pass, salt);
-  usuario.fono = req.body.fono;
-  usuario.correo = req.body.correo;
-  usuario.rol = req.body.rol;
-  usuario
-    .save()
-    .then((createUsuario) => {
-      res.status(200).send({ createUsuario });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "Error al crear usuario" + err });
-    });
+  try {
+    const existingUser = await Usuario.findOne({ correo: req.body.correo });
+    
+    if (existingUser) {
+      return res.status(400).send({ message: "El correo electrónico ya está en uso" });
+    }
+    
+    let usuario = new Usuario();
+    const salt = 12;
+    const pass = req.body.contrasenia;
+    usuario.rut_usuario = req.body.rut_usuario;
+    usuario.nombre_usuario = req.body.nombre_usuario;
+    usuario.apellido = req.body.apellido;
+    usuario.contrasenia = await bcrypt.hash(pass, salt);
+    usuario.fono = req.body.fono;
+    usuario.correo = req.body.correo;
+    usuario.rol = req.body.rol;
+    
+    usuario.save()
+      .then((createUsuario) => {
+        res.status(200).send({ createUsuario });
+      })
+      .catch((err) => {
+        res.status(500).send({ message: "Error al crear usuario: " + err });
+      });
+  } catch (err) {
+    res.status(500).send({ message: "Error al crear usuario: " + err });
+  }
 };
 
 const eliminar = (req, res) => {

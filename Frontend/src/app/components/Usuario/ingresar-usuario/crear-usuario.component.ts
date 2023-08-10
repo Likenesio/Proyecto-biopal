@@ -115,73 +115,88 @@ export class CrearUsuarioComponent implements OnInit {
       //alert('El RUT no es válido.');
       return;
     }
-    if (!this.validarTelefonoChileno(this.fono)) {
-      Swal.fire({
-        icon: 'info',
-        text: 'El número de teléfono no es válido.',
-      })
-      return;
-    }
     this.validarCamposCompletos();
     if (this.camposCompletos) {
-    let usuario = {
-      rut_usuario: this.rut_usuario,
-      nombre_usuario: this.nombre_usuario,
-      apellido: this.apellido,
-      contrasenia: this.contrasenia,
-      fono: this.fono,
-      correo: this.correo,
-      rol: this.selectedRol.rol,
-    };
-
-    if(!this.validarNombre(this.nombre_usuario)){
-      Swal.fire({
-        icon: 'info',
-        text: 'Ingrese un nombre sin carácteres númericos',
-      });
-      return;
-    }
-    if(!this.validarApellido(this.apellido)){
-      Swal.fire({
-        icon: 'info',
-        text: 'Ingrese un apellido sin carácteres númericos',
-      });
-      return;
-    }
-
-    if (!this.validarCorreoElectronico(this.correo)) {
-      Swal.fire({
-        icon: 'info',
-        text: 'El email no es válido.',
-      });
-      return;
-    }
-    this.usuarioService.insertarUsuario(usuario).subscribe(
-      (data) => {
+      let usuario = {
+        rut_usuario: this.rut_usuario,
+        nombre_usuario: this.nombre_usuario,
+        apellido: this.apellido,
+        contrasenia: this.contrasenia,
+        fono: this.fono,
+        correo: this.correo,
+        rol: this.selectedRol.rol,
+      };
+      
+      if (!this.validarNombre(this.nombre_usuario)) {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Usuario ingresado exitosamente!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        setTimeout(()=>{
-          window.location.reload();
-        }, 800);
-      },
-      (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error al ingresar al usuario!',
-        })
+          icon: 'info',
+          text: 'Ingrese un nombre sin carácteres númericos',
+        });
+        return;
       }
-    );
-   } else {
-    Swal.fire({
-      icon: 'info',
-      text: 'Debe llenar todos los campos antes de ingresar usuario.',
-    })
+      if (!this.validarApellido(this.apellido)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'Ingrese un apellido sin carácteres númericos',
+        });
+        return;
+      }
+      if (!this.validarTelefonoChileno(this.fono)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'El número de teléfono no es válido.',
+        });
+        return;
+      }
+      
+      if (!this.validarCorreoElectronico(this.correo)) {
+        Swal.fire({
+          icon: 'info',
+          text: 'El email no es válido.',
+        });
+        return;
+      }
+  
+      this.usuarioService.insertarUsuario(usuario).subscribe(
+        (data) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Usuario ingresado exitosamente!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 800);
+        },
+        (err) => {
+          if (err.error && err.error.message === "El correo electrónico ya está en uso") {
+            Swal.fire({
+              icon: 'info',
+              text: 'El correo electrónico ya está en uso.',
+            });
+          } else if (err.status === 400) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Dato incorrecto o correo electrónico duplicado.',
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error al ingresar al usuario!',
+            });
+          }
+        }
+      );
+    } else {
+      Swal.fire({
+        icon: 'info',
+        text: 'Debe llenar todos los campos antes de ingresar usuario.',
+      });
+    }
   }
- }
+  
 }
