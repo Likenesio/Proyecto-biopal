@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const insert = async (req, res) => {
   try {
     const existingUser = await Usuario.findOne({ correo: req.body.correo });
-    
     if (existingUser) {
       return res.status(400).send({ message: "El correo electrónico ya está en uso" });
     }
