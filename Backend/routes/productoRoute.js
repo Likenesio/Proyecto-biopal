@@ -12,5 +12,6 @@ api.put('/productos/:_id', productoController.actualizar);
 api.delete('/productos/:_id', productoController.eliminar);
 api.get('/productos/buscar/:codigo_barra', productoController.obtenerPorCodigoBarras);
 api.patch('/productos/:_id/restar-cantidad', productoController.restarCantidadProducto);
+api.get('/productos/buscarproducto/:nombre_producto', productoController.buscarPorNombreProducto);
 
 module.exports = api;

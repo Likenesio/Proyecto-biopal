@@ -156,6 +156,23 @@ const obtenerPorCodigoBarras = (req, res) => {
     }
   };
 
+  const buscarPorNombreProducto = async (req, res) => {
+    try {
+      const nombreProducto = req.params.nombre_producto;
+      console.log(nombreProducto)
+  
+      const product = await Producto.find({ nombre_producto: { $regex: nombreProducto, $options: 'i' } });
+  
+      if (product && product.length > 0) {
+        res.status(200).send({ product: product });
+      } else {
+        res.status(404).send({ message: "Productos no encontrados" });
+      }
+    } catch (err) {
+      res.status(500).send({ message: "Error al buscar productos por nombre" });
+    }
+  };
+
 module.exports = {
     insert,
     eliminar,
@@ -165,4 +182,6 @@ module.exports = {
     obtenerPorCodigoBarras,
     restarCantidadProducto,
     verificarStock,
+    buscarPorNombreProducto,
+
 };

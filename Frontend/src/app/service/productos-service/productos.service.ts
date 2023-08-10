@@ -35,11 +35,14 @@ export class ProductosService {
     return this.http.get<any>(`${this.apiUrl}/buscar/${codigoBarra}`);
   }
   restarCantidadesProductos(id: string, cantidadARestar: number): Observable<any> {
-    console.log(`ID del producto: ${id}, Cantidad a restar: ${cantidadARestar}`);
+    //console.log(`ID del producto: ${id}, Cantidad a restar: ${cantidadARestar}`);
     return this.http.patch<any>(`${this.apiUrl}/${id}/restar-cantidad`, { cantidad_producto: cantidadARestar });
   }
   verificarStock(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/verificarstock`);
+  }
+  buscarProducto(nombre: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/buscarproducto/${nombre}`);
   }
 }
 

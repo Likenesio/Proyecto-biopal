@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ProductosService } from 'src/app/service/productos-service/productos.service';
 import Swal from 'sweetalert2';
 
@@ -21,13 +21,17 @@ export class ListarProductosComponent {
   respuesta: any;
   productosListar: any[] = [];
   listarProductos: Producto[] = [];
+  listarProductosFiltrados: Producto[] = [];
+  nombreProductoFiltro: string = '';
 
   first = 0;
   rows = 10;
-
-  constructor(private productosService: ProductosService) {}
-
+  nameProduct:any;
+  
+  constructor(private productosService: ProductosService,   private cdr: ChangeDetectorRef) {}
+  
   ngOnInit() {
+    this.nameProduct = this.productosListar;
        this.productosService.listarProductos().subscribe(data =>{
         this.respuesta = data;
         this.productosListar = this.respuesta.product;
@@ -72,6 +76,43 @@ export class ListarProductosComponent {
     }
   });
 }
+
+
+buscarProductosPorNombre() {
+  if (this.nombreProductoFiltro) {
+    this.productosService.buscarProducto(this.nombreProductoFiltro)
+      .subscribe(
+        (response) => {
+          this.listarProductosFiltrados = response.product.map((producto: any) => {
+            return {
+              codigo_barra: producto.codigo_barra,
+              nombre_producto: producto.nombre_producto,
+              stock: producto.stock,
+              precio_unitario: producto.precio_unitario,
+              unidad: producto.unidad,
+            };
+          });
+          console.log(this.listarProductosFiltrados);
+        },
+        (error) => {
+          console.error('Error al buscar productos por nombre', error);
+        }
+      );
+  }
+}
+
+buscarProductos() {
+  this.nameProduct = this.productosListar;
+  if (this.nombreProductoFiltro) {
+    this.nameProduct = this.productosListar.filter(producto =>
+      producto.nombre_producto.toLowerCase().includes(this.nombreProductoFiltro.toLowerCase())
+    );
+    } else {
+    this.nameProduct = this.productosListar;
+  }
+}
+
+
 
 next() {
   this.first = this.first + this.rows;
