@@ -34,7 +34,7 @@ const routes: Routes = [
   {path:'cliente/crear', component: CrearClienteComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'pedidos/crear', component: PedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
-  {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
+  {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero', 'Facturador'] }},
   {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero', 'Facturador'] }},
   {path:'pedidos/historialPedidos', component: HistorialPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'pedidos/ventasPorMes', component: VentasAnualesComponent, canActivate: [RoleGuard], data: { requiredRoles: [ 'Administrador'] }},
