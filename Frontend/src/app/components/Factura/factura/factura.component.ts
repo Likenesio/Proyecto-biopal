@@ -24,6 +24,10 @@ export class FacturaComponent {
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
 
+  selectedDate: Date = new Date();
+
+  facturas: any[] = [];
+
   visible: boolean = false;
   idSeleccionado: any;
 
@@ -31,8 +35,12 @@ export class FacturaComponent {
   estadoFacturasListar: any[] =[];
   estadoSelect: any;
 
+
   first = 0;
   rows = 10;
+  listaFacturaFiltrada: any[] = [];
+  fechaResultado: any;
+  fechaInicioFormatted:any;
 
   constructor(
     private facturaService: FacturaService,
@@ -59,6 +67,44 @@ export class FacturaComponent {
       {estado:'Finalizada'}];
     
   }
+  buscarFacturasPorFecha() {
+    console.log(this.selectedDate)
+
+    if (this.selectedDate) {
+      
+      this.fechaInicioFormatted = this.pipe.transform(this.selectedDate, 'dd/MM/yyyy');
+      console.log(this.fechaInicioFormatted)
+      this.facturaService.filtrarFacturasPorFecha(this.fechaInicioFormatted)
+        .subscribe(
+          (response) => {
+            this.listaFacturaFiltrada = response.facturas.map((factura: any) => {
+              return {
+                numero_factura: factura.numero_factura,
+                fecha_emision: factura.fecha_emision,
+                nombre_usuario: factura.pedido.usuario[0].nombre_usuario,
+                modo_pago:  factura.pedido.modo_pago,
+                total: factura.total,
+                estado: factura.estado
+              };
+            });
+            console.log(this.listaFacturaFiltrada);
+          },
+          (error) => {
+            console.error('Error al buscar facturas por fecha', error);
+          }
+        );
+    }
+  }
+  buscarFactura(){
+ this.fechaResultado = this.listaFacturaAPI;
+ if(this.fechaInicioFormatted){
+  this.fechaResultado = this.listaFacturaAPI.filter(factura => factura.fecha_emision.toLowerCase().includes(this.fechaInicioFormatted.toLowerCase())
+  );
+ }else{
+  this.fechaResultado = this.listaFacturaAPI;
+ }
+  }
+  
 
   actualizarDocumento(){
     let factura = {
@@ -86,6 +132,7 @@ export class FacturaComponent {
       window.location.reload();
     }, 1000)
   }
+  
 
   //Funcion de tabla de listado de facturas
   showDialog(id: String) {

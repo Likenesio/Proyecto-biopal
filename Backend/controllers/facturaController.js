@@ -226,7 +226,24 @@ const buscarPorNumeroFactura = (req, res) => {
         });
 
     });
-  }
+  };
+
+  const filtrarPorFecha = async (req, res) => {
+    try {
+        const fechaEmision = req.params.fecha_emision;
+
+        // Convertir la fecha en formato 'dd/mm/yyyy' a un objeto Date
+        const [day, month, year] = fechaEmision.split('/');
+        const fechaEmisionDate = new Date(`${year}-${month}-${day}`);
+
+        const invoices = await Factura.find({ fecha_emision: fechaEmisionDate }).exec();
+
+        res.status(200).json({ invoices });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener facturas por fecha de emisión: ' + error });
+    }
+};
+
 module.exports = {
     insert, 
     eliminar, 
@@ -234,5 +251,6 @@ module.exports = {
     listar, 
     buscar,
     buscarPorNumeroFactura,
-    actualizarEstado
+    actualizarEstado,
+    filtrarPorFecha
 };

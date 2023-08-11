@@ -128,6 +128,38 @@
         </mat-expansion-panel>
       </mat-accordion>
     </ng-container>
+    <ng-container
+    *ngIf="
+      authService.obtenerRol() === 'Administrador' ||
+      'Vendedor' ||
+      'Bodeguero'
+    "
+  >
+    <mat-accordion>
+      <mat-expansion-panel
+        style="width: 100%"
+        (click)="cambiarPanel(3)"
+        [expanded]="panelAbierto === 3"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <button mat-button class="menu-button">
+              <mat-icon> show_chart</mat-icon>
+              <span>Gráfico</span>
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item
+            class="menu-button"
+            [routerLink]="['/pedidos/ventasPorMes']"
+            >Ventas</mat-list-item
+          >
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+
 
     <ng-container
       *ngIf="
@@ -139,8 +171,8 @@
       <mat-accordion>
         <mat-expansion-panel
           style="width: 100%"
-          (click)="cambiarPanel(3)"
-          [expanded]="panelAbierto === 3"
+          (click)="cambiarPanel(4)"
+          [expanded]="panelAbierto === 4"
         >
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -183,8 +215,8 @@
       <mat-accordion>
         <mat-expansion-panel
           style="width: 100%"
-          (click)="cambiarPanel(4)"
-          [expanded]="panelAbierto === 4"
+          (click)="cambiarPanel(5)"
+          [expanded]="panelAbierto === 5"
         >
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -230,8 +262,8 @@
       <mat-accordion>
         <mat-expansion-panel
           style="width: 100%"
-          (click)="cambiarPanel(5)"
-          [expanded]="panelAbierto === 5"
+          (click)="cambiarPanel(6)"
+          [expanded]="panelAbierto === 6"
         >
           <mat-expansion-panel-header>
             <mat-panel-title>

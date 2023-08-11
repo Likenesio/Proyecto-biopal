@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../../../service/usuario-service/usuario.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
 
 export interface Usuario{
   rut_usuario: String;
@@ -20,8 +21,11 @@ export class ListarUsuarioComponent implements OnInit {
   first = 0;
   rows = 10;
   listarUsuarios: Usuario[] = [];
+  usuarioLogeado:any;
+  idUsuario : any;
+  usuarioDatos: any;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private authService: AuthService) {}
 
   ngOnInit() {
     this.usuarioService.listarUsuario().subscribe((data) => {
@@ -40,12 +44,30 @@ export class ListarUsuarioComponent implements OnInit {
         });
       })
      })
+this.usuarioLogeado = this.authService.isLoggedIn()
+console.log(this.usuarioLogeado)
+this.idUsuario = this.authService.obtenerIdUsuario();
+this.usuarioService.buscarUsuario(this.idUsuario)
+.subscribe((data)=>{
+  this.usuarioDatos= data.usuario
+});
+
   }
 
   eliminar(id: string) {
+    if (this.usuarioDatos && this.usuarioLogeado && this.usuarioDatos._id === id) {
+      Swal.fire({
+        title: 'No puedes eliminar al usuario logeado',
+        text: 'El usuario logeado no puede ser eliminado.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+  
     Swal.fire({
-      title: 'Estas seguro de eliminar al usuario?',
-      text: "No podras revertirlo!",
+      title: 'Estás seguro de eliminar al usuario?',
+      text: 'No podrás revertirlo!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -54,18 +76,17 @@ export class ListarUsuarioComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.eliminarUsuario(id).subscribe(data => {
-        Swal.fire(
-          'Eliminado!',
-          'El usuario ha sido eliminado.',
-          'success'
-        )
-        setTimeout(() => {
-          window.location.reload();
-        }, 800);
-       });
+          Swal.fire(
+            'Eliminado!',
+            'El usuario ha sido eliminado.',
+            'success'
+          );
+          setTimeout(() => {
+            window.location.reload();
+          }, 800);
+        });
       }
     });
-
   }
   next() {
     this.first = this.first + this.rows;

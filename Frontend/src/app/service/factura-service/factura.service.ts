@@ -34,4 +34,7 @@ export class FacturaService {
   actualizarEstadoFactura(id: string, factura: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/actualizar/${id}`, factura);
   }
+  filtrarFacturasPorFecha(fecha: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/filtrar-por-fecha/${fecha}`);
+  }
 }

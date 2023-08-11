@@ -1,6 +1,11 @@
-<div class="container card mt-2 m-lg-5">
+
+<div class="mt-4 mb-2">
+  <p-calendar [(ngModel)]="selectedDate"   dateFormat="dd/mm/yy"></p-calendar>
+  <button pButton type="button" label="Buscar" (click)="buscarFactura()"  class="p-button-rounded m-lg-1"></button>
+</div>
+<div class="container card">
   <p-table
-    [value]="listaFacturaAPI"
+  [value]="fechaResultado"
     [paginator]="true"
     [rows]="6"
     [showCurrentPageReport]="true"

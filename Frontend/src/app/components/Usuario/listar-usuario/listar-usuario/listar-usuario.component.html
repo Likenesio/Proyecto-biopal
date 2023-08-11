@@ -12,7 +12,6 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th class="col-2 col-sm-1">ID</th>
             <th class="col-3 col-sm-2">RUT</th>
             <th class="col-4 col-sm-3">Nombre Usuario</th>
             <th class="col-4 col-sm-3">Apellido</th>
@@ -24,7 +23,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-usuario>
           <tr>
-            <td class="col-2 col-sm-1">{{ usuario._id }}</td>
             <td class="col-3 col-sm-2">{{ usuario.rut_usuario }}</td>
             <td class="col-4 col-sm-3">{{ usuario.nombre_usuario }}</td>
             <td class="col-4 col-sm-3">{{ usuario.apellido }}</td>
