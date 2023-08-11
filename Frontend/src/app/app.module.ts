@@ -63,7 +63,7 @@ import { BoletasComponent } from './components/documentos/boletas/boletas.compon
 import { VentasAnualesComponent } from './components/Ventas/ventas-anuales/ventas-anuales.component';
 import { FacturaComponent } from './components/Factura/factura/factura.component';
 import { PerfilUsuarioComponent } from './components/Perfil/perfil-usuario/perfil-usuario.component';
-
+import { VentasMesComponent } from './components/ventas-mes/ventas-mes/ventas-mes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +88,8 @@ import { PerfilUsuarioComponent } from './components/Perfil/perfil-usuario/perfi
     BoletasComponent,
     VentasAnualesComponent,
     FacturaComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    VentasMesComponent
 
   ],
   imports: [
