@@ -16,7 +16,7 @@ export interface Detalle{
 })
 export class HistorialPedidoComponent implements OnInit {
   respuesta:any;
-  pedidosListar: [] = [];
+  pedidosListar: any [] = [];
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
@@ -26,6 +26,8 @@ export class HistorialPedidoComponent implements OnInit {
 
   first = 0;
   rows = 10;
+  fechaInicio: Date = new Date();
+  fechaFin: Date = new Date();
 
 
 
@@ -39,7 +41,7 @@ export class HistorialPedidoComponent implements OnInit {
 
     // Establecer el máximo rango de fecha permitido
     this.maxDate = new Date(currentYear, currentMonth);
-
+    
   }
 
   ngOnInit() {
@@ -63,6 +65,19 @@ export class HistorialPedidoComponent implements OnInit {
         })
   }
 
+  buscarPorFecha() {
+    this.pedidosListar = this.pedidosListar.filter((pedido) => new Date(pedido.fecha) >= this.fechaInicio && new Date(pedido.fecha) <= this.fechaFin)
+
+  }
+
+  reestablecerFiltro(){
+    this.pedidoService.listarP().subscribe((data) => {
+      this.respuesta = data;
+      this.pedidosListar = this.respuesta.pedido;
+    });
+    this.fechaInicio = new Date();
+    this.fechaFin = new Date();
+  }
 
       buscarPedidosPorMesYAnio() {
         // Obtener el mes y año seleccionados

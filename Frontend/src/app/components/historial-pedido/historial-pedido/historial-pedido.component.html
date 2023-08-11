@@ -1,11 +1,22 @@
-<div class="m-lg-5 mt-5">
-  <p-card>
-    <div  class="mb-2">
 
-       <mat-icon>search</mat-icon>
-      <p-calendar  [(ngModel)]="startDate" dateFormat="mm/yy" view="month" [maxDate]="maxDate"></p-calendar>
-      <button pButton type="button" label="Buscar" class="p-button-rounded" (click)="buscarPedidosPorMesYAnio()"></button>
+<div class="p-d-flex p-ai-center mb-3 mt-4 container">
+    <div class="row align-items-center">
+    <div class="col col-4 ">
+      <label for="fechaInicio" style="font-size: 16px; margin-left: 10px; color: black;">Fecha Inicio:</label>
+    <p-calendar class="ms-1" id="fechaInicio" [(ngModel)]="fechaInicio"></p-calendar>
     </div>
+    <div class="col col-4 ">
+    <label  class="ms-2" for="fechaFin" class="p-ml-3" style="font-size: 16px; margin-left: 10px; color: black;">Fecha Fin:</label>
+    <p-calendar class="ms-1" id="fechaFin" [(ngModel)]="fechaFin"></p-calendar>
+    </div>
+    <div class="col col-4  ms-0">
+    <button class="ms-2 mb-1" pButton type="button" label="Buscar" (click)="buscarPorFecha()"></button>
+    <button class="ms-2 mb-1 mt-1" pButton type="button" label="Limpiar" (click)="reestablecerFiltro()"></button>
+    <div>
+    </div>
+  </div>
+
+<div class="container card">
    <p-table
       [value]="pedidosListar"
       [paginator]="true"
@@ -41,6 +52,5 @@
           <p-button  styleClass="p-button-text"></p-button>
       </ng-template>
   </p-table>
-</p-card>
 </div>
 

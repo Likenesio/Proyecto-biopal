@@ -94,6 +94,7 @@ export class PedidoComponent implements OnInit {
 
   //Modal
   visible: boolean = false;
+ 
 
   constructor(
     private pedidoService: PedidoService,
@@ -480,4 +481,31 @@ export class PedidoComponent implements OnInit {
     this.listaTabla = [];
     this.total = 0;
   }
+
+  eliminarProducto(id:string){
+
+    //Encontrar indice de la lista de prodictos a pedido
+    const indiceP = this.listarProductos.findIndex(elemento => elemento.producto === id);
+    //Encontrar indice de la lista de productos en tabla
+    const indiceT = this.listaTabla.findIndex(elemento => elemento.id === id);
+
+    //Setea el total restando el subtotal del producto eliminado
+    this.total = this.total - this.listaTabla[indiceT].subtotal;
+
+    //Elimina el producto de la lista de productos a pedido
+    if (indiceP !== -1) {
+      this.listarProductos.splice(indiceP, 1);
+    } else {
+    alert(`No se encontró ningún elemento con el ID ${id}.`);
+    }
+    //Elimina el producto de la lista de productos en tabla
+    if (indiceT !== -1) {
+      this.listaTabla.splice(indiceT, 1);
+    } else {
+    alert(`No se encontró ningún elemento con el ID ${id}.`);
+    }
+    
+   
+  }
+
 }

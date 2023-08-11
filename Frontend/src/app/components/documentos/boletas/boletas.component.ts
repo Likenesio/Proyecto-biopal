@@ -32,6 +32,10 @@ export class BoletasComponent {
   first = 0;
   rows = 10;
 
+   //Filtros por fecha
+   fechaInicio: Date = new Date();
+   fechaFin: Date = new Date();
+
   constructor(private boletaService: BoletaService) {}
 
   ngOnInit() {
@@ -102,6 +106,18 @@ export class BoletasComponent {
 
   isFirstPage(): boolean {
     return this.listaBoletasAPI ? this.first === 0 : true;
+  }
+
+  buscarPorFecha() {
+    this.listaBoletasAPI =this.listaBoletasAPI.filter((boleta) => new Date(boleta.fecha_emision) >= this.fechaInicio && new Date(boleta.fecha_emision) <= this.fechaFin)
+  }
+  reestablecerFiltro(){
+    this.boletaService.listarBoletas().subscribe((data) => {
+      this.respuesta = data;
+      this.listaBoletasAPI = this.respuesta.boleta;
+    });
+    this.fechaInicio = new Date();
+    this.fechaFin = new Date();
   }
 
   generarBoletaPDF(id: string) {

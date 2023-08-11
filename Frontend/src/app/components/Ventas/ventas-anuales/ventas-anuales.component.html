@@ -1,16 +1,16 @@
 <div class="filtro mt-2">
   <mat-form-field>
-    <mat-label>Month and Year</mat-label>
+    <mat-label>Year</mat-label>
     <input matInput [matDatepicker]="dp" [formControl]="date" (click)="dp.open()">
     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
     <mat-datepicker #dp
-                    (monthSelected)="setMonthAndYear($event, dp)"
+                    (yearSelected)="setMonthAndYear($event, dp)" 
                     startView="multi-year"
                     [startAt]="startData"
-                    panelClass="month-picker">
+                    panelClass="year-picker">
       <mat-multi-year-view>
-        <ng-template matMultiYearViewMonth="{date}" let-month>
-          {{ month | date:'MMM yyyy' }}
+        <ng-template matMultiYearViewYear="{date}" let-year>
+          {{ year | date:'yyyy' }}
         </ng-template>
       </mat-multi-year-view>
     </mat-datepicker>

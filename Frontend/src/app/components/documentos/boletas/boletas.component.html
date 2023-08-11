@@ -1,4 +1,19 @@
-<div class="container card mt-5 m-lg-5">
+<div class="p-d-flex p-ai-center p-mb-3 mt-4 container">
+  <div class="row align-items-center">
+  <div class="col col-4 ">
+    <label for="fechaInicio" style="font-size: 16px; margin-left: 10px; color: black;">Fecha Inicio:</label>
+  <p-calendar class="ms-1" id="fechaInicio" [(ngModel)]="fechaInicio"></p-calendar>
+  </div>
+  <div class="col col-4 ">
+  <label  class="ms-2" for="fechaFin" class="p-ml-3" style="font-size: 16px; margin-left: 10px; color: black;">Fecha Fin:</label>
+  <p-calendar class="ms-1" id="fechaFin" [(ngModel)]="fechaFin"></p-calendar>
+  </div>
+  <div class="col col-4 mb-2 ms-0">
+  <button class="ms-2" pButton type="button" label="Buscar" (click)="buscarPorFecha()"></button>
+  <button class="ms-2 mt-1" pButton type="button" label="Limpiar" (click)="reestablecerFiltro()"></button>
+  <div>
+  </div>
+</div>
     <p-table [value]="listaBoletasAPI" [paginator]="true" [rows]="6" [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Mostrando del {first} al {last} de las {totalRecords} boletas">

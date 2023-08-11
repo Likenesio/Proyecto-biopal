@@ -41,6 +41,9 @@ export class FacturaComponent {
   listaFacturaFiltrada: any[] = [];
   fechaResultado: any;
   fechaInicioFormatted:any;
+  //Filtros por fecha
+  fechaInicio: Date = new Date();
+  fechaFin: Date = new Date();
 
   constructor(
     private facturaService: FacturaService,
@@ -161,6 +164,20 @@ export class FacturaComponent {
   isFirstPage(): boolean {
     return this.listaFacturaAPI ? this.first === 0 : true;
   }
+
+  buscarPorFecha() {
+    this.listaFacturaAPI =this.listaFacturaAPI.filter((factura) => new Date(factura.fecha_emision) >= this.fechaInicio && new Date(factura.fecha_emision) <= this.fechaFin)
+  }
+  reestablecerFiltro(){
+    this.facturaService.listarFacturas().subscribe((data) => {
+      this.respuesta = data;
+      this.listaFacturaAPI = this.respuesta.factura;
+      this.estadoFacturasListar=this.respuesta.factura;
+    });
+    this.fechaInicio = new Date();
+    this.fechaFin = new Date();
+  }
+
   generarFacturaPDF(id: string) {
     this.facturaService.buscarFacturaID(id).subscribe((data) => {
       let facturaData = data.factura;

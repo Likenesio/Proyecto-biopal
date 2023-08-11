@@ -58,7 +58,9 @@ export class VentasAnualesComponent implements OnInit {
   '#20B2AA', 
 ];
 
-  constructor(private pedidoService: PedidoService) {}
+  constructor(private pedidoService: PedidoService) {
+    
+  }
 
   ngOnInit() {
     this.obtenerVentasPorMes();
@@ -126,30 +128,45 @@ export class VentasAnualesComponent implements OnInit {
     ];
     return meses[numeroMes];
   }
-
   setMonthAndYear(event: any, dp: MatDatepicker<Date>) {
-    const selectedDate = event; // No necesitas crear una nueva instancia de Date
-    this.date.setValue(selectedDate); // Actualiza el FormControl con la fecha seleccionada
-    this.startData = selectedDate; // Asignar la fecha seleccionada
-    this.obtenerVentasPorMesYAnio();
-    dp.close(); // Cerrar el calendario después de seleccionar mes y año
-  }
-
-  obtenerVentasPorMesYAnio() {
-    // Obtener el mes y año seleccionados
-    const selectedDate = new Date(this.startData);
-    const selectedYear = selectedDate.getFullYear();
-    const selectedMonth = selectedDate.getMonth();
+    if (event) {
+      const selectedDate = event;
+      this.date.setValue(selectedDate);
+      this.startData = new Date(selectedDate.getFullYear(), 0, 1); // Establecer el inicio del año seleccionado
+      this.obtenerVentasPorAnio(); // Cambio aquí
+    } else {
+      // Restaurar valores por defecto o realizar acciones según lo necesites
+      this.barChartLabels = Object.keys(this.totalVentasPorMes).map(month => this.obtenerNombreMes(Number(month)));
+      this.barChartData = [{
+        type: "line",
+        data: Object.values(this.totalVentasPorMes),
+        label: "Ventas Anuales",
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }];
   
-    // Filtrar ventas en base al mes y año seleccionados
+      // Restablecer startData según lo que necesites
+      this.startData = new Date();
+      
+      this.obtenerVentasPorAnio(); // Cambio aquí
+    }
+  
+    dp.close();
+  }
+  obtenerVentasPorAnio() {
+    const selectedYear = this.startData.getFullYear();
+  
+    // Filtrar ventas en base al año seleccionado
     const ventasFiltradas = this.ventasPorMes.filter((venta: any) => {
       const fechaVenta = new Date(venta.fecha);
-      return fechaVenta.getFullYear() === selectedYear && fechaVenta.getMonth() === selectedMonth;
+      return fechaVenta.getFullYear() === selectedYear;
     });
   
     // Actualizar los datos del gráfico con las ventas filtradas
     this.actualizarGrafico(ventasFiltradas);
   }
+
 
   actualizarGrafico(ventasFiltradas: any[]) {
     this.totalVentasPorMes = {};
