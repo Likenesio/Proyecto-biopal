@@ -1,55 +1,32 @@
-<!--
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Form</title>
-    <script
-      src="https://kit.fontawesome.com/66aa7c98b3.js"
-      crossorigin="anonymous"
-    ></script>
-
-  </head>
-  <body>
-
-    <div class="container">
-      <form class="form-1" (submit)="login()">
-        <h1>Iniciar Sesión</h1>
-        <label for="correo">Email</label>
-        <input  type="Email" placeholder="example@gmail.com" name="correo"  [(ngModel)]="correo" required />
-        <label  for="contrasenia">Contraseña</label>
-        <input  type="password" name="contrasenia" [(ngModel)]="contrasenia" required />
-        <button type="submit">Ingresar</button>
-
-      </form>
-    </div>
-  </body>
-</html>
--->
-
-
-<h1  class="h1-tittle">Biopal</h1>
-<div>
-<form class="example-form" (submit)="login()">
-<mat-card-content class="background">
-  <h1 class="h1-tittle">Biopal</h1>
-  <mat-card  class="card">
-      <h1 style="margin-top: 50px; font-size: 2vw;" >Login</h1>
-      <div style="margin-top: 60px;" >
-        <mat-form-field class="example-full-width">
-          <input type="Email" matInput placeholder="example@gmail.com" name="correo" [(ngModel)]="correo" required/>
-          <mat-label for ="correo">Correo electrónico</mat-label>
-        </mat-form-field>
-      </div>
-      <div style="margin-top: 10px;">
-        <mat-form-field class="example-full-width">
-          <input type="password" matInput placeholder="Contraseña" name="contrasenia" [(ngModel)]="contrasenia" required/>
-          <mat-label for="contrasenia">Contraseña</mat-label>
-        </mat-form-field>
-      </div>
-      <button mat-raised-button color="primary" type="submit">Enviar</button>
-  </mat-card>
-</mat-card-content>
-</form>
+<div class="container">
+  <div class="text-center mt-0 mb-5">
+    <h2 class="h1-title">Biopal</h2>
+  </div>
 </div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+        <form class="example-form" (submit)="login()">
+          <div class="background p-4">
+            <div class="card p-4">
+              <h2 class="mb-4">Login</h2>
+              <div class="mb-4">
+                <mat-form-field class="example-full-width">
+                  <input type="email" matInput placeholder="example@gmail.com" name="correo" [(ngModel)]="correo" required />
+                  <mat-label for="correo">Correo electrónico</mat-label>
+                </mat-form-field>
+              </div>
+              <div class="mb-4">
+                <mat-form-field class="example-full-width">
+                  <input type="password" matInput placeholder="Contraseña" name="contrasenia" [(ngModel)]="contrasenia" required />
+                  <mat-label for="contrasenia">Contraseña</mat-label>
+                </mat-form-field>
+              </div>
+              <button mat-raised-button color="primary" type="submit">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
