@@ -35,15 +35,15 @@ const routes: Routes = [
   {path:'cliente/update', component: UpdateClienteComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'pedidos/crear', component: PedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'pedidos/listar', component: ListarPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
-  {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
-  {path:'pedidos/historialPedidos', component: HistorialPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
-  {path:'pedidos/ventasPorMes', component: VentasAnualesComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
+  {path:'pedidos/detalle/:pedido', component: DetallePedidoComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero', 'Facturador'] }},
+  {path:'pedidos/historialPedidos', component: HistorialPedidoComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
+  {path:'pedidos/ventasPorMes', component: VentasAnualesComponent, canActivate: [RoleGuard], data: { requiredRoles: [ 'Administrador'] }},
   {path:'usuario/listarUsuario', component: ListarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/crear', component: CrearUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/modificarUsuario', component: ActualizarUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
   {path:'usuario/perfilUsuario', component: PerfilUsuarioComponent, canActivate: [RoleGuard], data: { requiredRoles: ['Vendedor', 'Administrador'] }},
-  {path:'documentos/boletas', component: BoletasComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
-  {path:'documentos/facturas', component: FacturaComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Vendedor', 'Administrador','Bodeguero'] }},
+  {path:'documentos/boletas', component: BoletasComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Administrador','Facturador'] }},
+  {path:'documentos/facturas', component: FacturaComponent, canActivate: [RoleGuard], data:{ requiredRoles: ['Administrador','Facturador'] }},
   {path:'denegate', component : DenegateComponent}
 
 
