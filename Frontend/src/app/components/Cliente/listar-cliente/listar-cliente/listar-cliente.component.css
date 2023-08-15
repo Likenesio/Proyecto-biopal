@@ -18,3 +18,7 @@
   margin-right: 50px;
 }
 
+.button-container {
+  display: flex;
+  gap: 1rem; /* Ajusta este valor según tus preferencias de espaciado */
+}

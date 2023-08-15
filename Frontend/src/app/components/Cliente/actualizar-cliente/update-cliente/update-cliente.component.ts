@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ClienteService } from 'src/app/service/cliente-service/cliente.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Params } from '@angular/router';
 interface Comuna {
   comuna: string;
 }
@@ -28,7 +30,8 @@ export class UpdateClienteComponent {
 
   camposCompletos: boolean = false;
 
-  constructor(private clienteService: ClienteService) {}
+
+  constructor(private clienteService: ClienteService, private _location: Location) {}
 
   ngOnInit() {
     this.comunas = [
@@ -151,5 +154,8 @@ export class UpdateClienteComponent {
         text: 'Debe llenar todos los campos antes de actualizar al cliente.',
       });
     }
+  }
+  goBack(){
+    this._location.back();
   }
 }

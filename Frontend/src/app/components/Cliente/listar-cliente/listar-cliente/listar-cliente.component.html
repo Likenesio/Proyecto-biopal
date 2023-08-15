@@ -29,7 +29,10 @@
               <td>{{ cliente.direccion }}</td>
               <td>{{ cliente.comuna }}</td>
               <td>
-                <p-button (click)="eliminar(cliente._id) " label="Eliminar" styleClass="p-button-raised p-button-text p-button-danger"></p-button>
+                <div class="button-container">
+                    <p-button (click)="eliminar(cliente._id)" label="Eliminar" styleClass="p-button-raised p-button-text p-button-danger"></p-button>
+                    <p-button routerLink="/cliente/update" label="Modificar" styleClass="p-button-raised p-button-text p-button-warning"></p-button>
+                  </div>
               </td>
 
 
@@ -45,3 +48,4 @@
       </ng-template>
   </p-table>
 </div>
+

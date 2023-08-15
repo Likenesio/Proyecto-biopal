@@ -26,6 +26,7 @@ export class ListarClienteComponent {
   rows = 10;
   pedidos:any;
   idCliente: any[]=[];
+  private _location: any;
 
 
   constructor(private clienteService: ClienteService, private pedidoService: PedidoService) { }
@@ -137,5 +138,5 @@ eliminar(id: string) {
   isFirstPage(): boolean {
     return this.listarClientes ? this.first === 0 : true;
   }
-
+ 
 }
