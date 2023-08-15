@@ -31,7 +31,8 @@ export class ListarProductosComponent {
   constructor(private productosService: ProductosService,   private cdr: ChangeDetectorRef) {}
   
   ngOnInit() {
-    this.nameProduct = this.productosListar;
+    
+       this.buscarProductosPorNombre();
        this.productosService.listarProductos().subscribe(data =>{
         this.respuesta = data;
         this.productosListar = this.respuesta.product;
@@ -47,6 +48,7 @@ export class ListarProductosComponent {
             precio_unitario:producto.precio_unitario,
             unidad: producto.unidad,
           });
+          this.nameProduct = this.listarProductos; 
        })
 
       })
@@ -110,6 +112,7 @@ buscarProductos() {
     } else {
     this.nameProduct = this.productosListar;
   }
+  this.first = 0;
 }
 
 
