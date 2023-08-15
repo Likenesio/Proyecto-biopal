@@ -75,7 +75,7 @@ export class FacturaComponent {
 
     if (this.selectedDate) {
       
-      this.fechaInicioFormatted = this.pipe.transform(this.selectedDate, 'dd/MM/yyyy');
+      this.fechaInicioFormatted = this.pipe.transform(this.selectedDate, 'DD/MM/yyyy');
       console.log(this.fechaInicioFormatted)
       this.facturaService.filtrarFacturasPorFecha(this.fechaInicioFormatted)
         .subscribe(
