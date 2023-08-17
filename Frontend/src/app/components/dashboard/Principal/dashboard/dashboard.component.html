@@ -49,7 +49,7 @@
       <span> Home </span>
     </button>
 
-    <ng-container *ngIf="authService.obtenerRol() === 'Administrador'">
+    <ng-container *ngIf="authService.obtenerRol() !== 'Facturador' && authService.obtenerRol() !== 'Bodeguero' && authService.obtenerRol() !== 'Vendedor'">
       <mat-accordion>
         <mat-expansion-panel
           style="width: 100%"
@@ -89,7 +89,7 @@
     </ng-container>
 
     <ng-container
-      *ngIf="authService.obtenerRol() === 'Administrador' || 'Vendedor'"
+      *ngIf="authService.obtenerRol() !== 'Facturador'  && authService.obtenerRol() !== 'Bodeguero'"
     >
       <mat-accordion>
         <mat-expansion-panel
@@ -124,10 +124,7 @@
     </ng-container>
     <ng-container
     *ngIf="
-      authService.obtenerRol() === 'Administrador' ||
-      'Vendedor' ||
-      'Bodeguero'
-    "
+      authService.obtenerRol() === 'Administrador'"
   >
     <mat-accordion>
       <mat-expansion-panel
@@ -156,11 +153,7 @@
 
 
     <ng-container
-      *ngIf="
-        authService.obtenerRol() === 'Administrador' ||
-        'Vendedor' ||
-        'Bodeguero'
-      "
+    *ngIf="authService.obtenerRol() !== 'Facturador'  && authService.obtenerRol() !== 'Administrador'"
     >
       <mat-accordion>
         <mat-expansion-panel
@@ -200,11 +193,7 @@
     </ng-container>
 
     <ng-container
-      *ngIf="
-        authService.obtenerRol() === 'Administrador' ||
-        'Vendedor' ||
-        'Bodeguero'
-      "
+    *ngIf="authService.obtenerRol() !== 'Facturador'  && authService.obtenerRol() !== 'Administrador'"
     >
       <mat-accordion>
         <mat-expansion-panel
@@ -245,7 +234,7 @@
     </ng-container>
 
     <ng-container
-      *ngIf="authService.obtenerRol() === 'Administrador' || 'Facturador'"
+      *ngIf="authService.obtenerRol() === 'Facturador'"
     >
       <mat-accordion>
         <mat-expansion-panel
@@ -274,6 +263,12 @@
               [routerLink]="['documentos/facturas']"
               >Facturas</a
             >
+            <a
+            mat-list-item
+            class="menu-button"
+            [routerLink]="['/pedidos/listar']"
+            >Lista Pedidos</a
+          >
           </mat-nav-list>
         </mat-expansion-panel>
       </mat-accordion>
